@@ -1,0 +1,4 @@
+config/resource.php
+ext/*
+*.log
+/nbproject/
