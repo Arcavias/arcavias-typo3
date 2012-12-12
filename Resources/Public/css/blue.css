@@ -1,0 +1,129 @@
+/*
+ * Blue color schema
+ */
+
+
+
+.arcavias button {
+    background-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.arcavias .standardbutton {
+    background: url(../images/buttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+}
+
+.arcavias .standardbutton:hover {
+    border-bottom: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #303639;
+}
+
+
+
+.catalog-filter-tree a {
+	border: 1px solid #FFFFFF;
+}
+
+.catalog-filter-tree a:hover {
+	background-color:  #F2F7FA;
+	border: 1px solid #C3D9E5;
+}
+
+.catalog-filter-tree .tree-level-0 > li a {
+	color: #004266;
+}
+
+.catalog-filter-tree .tree-level-2 > .catWithChild {
+	background: url(../images/listIconClose.png) no-repeat;
+	background-position: 0.1em 0.5em;
+}
+
+.catalog-filter-tree .tree-level-2 > .active {
+	background: url(../images/listIconOpen.png) no-repeat;
+	background-position: 0.1em 0.5em;
+}
+
+.catalog-filter-tree .tree-level-2 > li a {
+	color: #679CB8;
+}
+
+
+
+.catalog-list a {
+	color: #679CB8;
+}
+
+.catalog-list-pagination {
+	background-color: #F2F7FA;
+	border: 1px solid #689DB9;
+	color: #004266;
+}
+
+.catalog-list-pagination .page-sort a {
+	color: #004266;
+}
+
+.catalog-list-pagination .page-browser a {
+	color: #004266;
+}
+
+.catalog-list-items h1 {
+	color: #004266;
+}
+
+.catalog-list-items .media-list > img {
+	background-color: #FFFFFF;
+}
+
+.catalog-list-items .text-list {
+	border-top: 1px solid #C3D9E5;
+	border-bottom: 1px solid #C3D9E5;
+}
+
+.catalog-list-items .price-list {
+	color: #004266;
+}
+
+
+
+.catalog-detail-image {
+	background-color: #ffffff;
+}
+
+.catalog-detail-image .image-single {
+	border: 1px solid #C3D9E6;
+}
+
+.catalog-detail-image .carousel {
+	background-color: #FFFFFF;
+}
+
+.catalog-detail-basic h1.basic-name {
+	color: #88B3CB;
+}
+
+.catalog-detail-basic p.basic-supplier {
+	color: #004266;
+}
+
+.catalog-detail-basket .basket-price span.price-value  {
+	color: #004266;
+}
+
+.catalog-detail-basket .basket-add {
+	background-color: #679CB8;
+}
+
+.catalog-detail-basket .basket-attribute {
+	color: #004266;
+}
+
+.catalog-detail-additional h2.tabheader {
+	color: #ffffff;
+	background-color: #679CB8;
+}

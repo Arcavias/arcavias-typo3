@@ -1,0 +1,671 @@
+/* $Id: main.css 1331 2012-10-21 21:55:22Z nsendetzky $ */
+
+
+
+.arcavias ul, .arcavias li,
+.arcavias h1, .arcavias h2,
+.arcavias p {
+	margin: 0;
+	padding: 0;
+}
+
+.arcavias {
+	line-height: 125%;
+}
+
+
+/*
+ * Catalog filter
+ */
+
+.catalog-filter {
+	margin-bottom: 81px;
+	padding: 17px 0 0 0;
+}
+
+.catalog-filter button {
+	width: 100%;
+	display: none;
+}
+
+
+/*
+ * Catalog filter, tree section
+ */
+
+.catalog-filter-tree {
+	line-height: 125%;
+}
+
+.catalog-filter-tree ul {
+	list-style: none;
+}
+
+.catalog-filter-tree a {
+	display: block;
+	text-decoration: none;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+/*
+ * Hide all list blocks of the sub-levels.
+ * The active ones will be enabled by the interal style sheet
+ */
+.catalog-filter-tree .tree-level-1 ul {
+	display: none;
+}
+
+.catalog-filter-tree .tree-level-0 > li a {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 120%;
+}
+
+.catalog-filter-tree .tree-level-1 {
+	margin: 10px 0;
+}
+
+.catalog-filter-tree .tree-level-1 > li a {
+	text-transform: none;
+}
+
+.catalog-filter-tree .tree-level-2 {
+	margin: 0;
+}
+
+.catalog-filter-tree .tree-level-2 > li {
+	padding-left: 15px;
+}
+
+.catalog-filter-tree .tree-level-3 > li {
+	padding-left: 15px;
+	margin-bottom: 0;
+}
+
+.catalog-filter-tree .tree-level-3 > li a {
+	font-weight: normal;
+	font-size: 100%;
+	margin-top: 1px;
+}
+
+.catalog-filter-tree .tree-level-3 > .active a {
+	font-weight: bold;
+}
+
+
+/*
+ * Catalog filter, additional filters section
+ */
+/*
+.filter fieldset {
+	border: 1px solid #C3D9E5;
+	background-color: #F2F7FA;
+	color: #679CB8;
+	font-weight: bold;
+	padding: 10px;
+	margin: 5px 0px;
+}
+
+.filter fieldset > legend {
+	color: #004266;
+	font-size: 15px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.filter fieldset > select {
+	background-color: #FFFFFF;
+	border: 1px solid #C3D9E5;
+	color: #679CB8;
+	font-weight: bold;
+	width: 100%;
+}
+
+.filter fieldset input {
+	display: inline;
+	background-color: #FFFFFF;
+	border: 1px solid #C3D9E5;
+	color: #679CB8;
+	width: 35%;
+}
+*/
+
+
+
+/*
+ * Product list
+ */
+
+.catalog-list a:focus {
+	outline: none;
+}
+
+
+/*
+ * Product list, pagination section
+ */
+
+.catalog-list-pagination {
+	padding: 0.5em;
+	text-align: right;
+}
+
+.catalog-list-pagination .page-sort {
+	float: left;
+}
+
+.catalog-list-pagination .page-sort > span {
+}
+
+.catalog-list-pagination .page-sort > ul {
+	list-style: none outside none;
+	display: inline-block;
+}
+
+.catalog-list-pagination .page-sort > ul > li {
+	display: inline-block;
+}
+
+.catalog-list-pagination .page-sort a.active {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.catalog-list-pagination .page-browser {
+	display: inline-block;
+}
+
+.catalog-list-pagination .page-browser a {
+	font-weight: bold;
+	padding: 0 0.25em;
+}
+
+
+/*
+ * Product list, items section
+ */
+
+.catalog-list-items {
+	margin: 10px 0px;
+}
+
+.catalog-list-items h1 {
+	font-size: 120%;
+}
+
+.catalog-list-items .single {
+	display: inline-block;
+	margin: 0 1px;
+	width: 180px;
+}
+
+.catalog-list-items .single > a {
+	text-decoration: none;
+	display: inline-block; 
+}
+
+/* media list */
+
+.catalog-list-items .media-list {
+	background-image: url(../images/arcavias.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	text-align: center;
+	overflow: hidden;
+	height: 240px;
+	width: 180px;
+}
+
+.catalog-list-items .media-item {
+	background-image: url(../images/progress.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	height: 240px;
+	width: 180px;
+}
+
+/* text list */
+
+.catalog-list-items .text-list {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	text-align: left;
+	height: 5em;
+	overflow: hidden;
+}
+
+/* price list */
+
+.catalog-list-items .price-list {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.catalog-list-items .price-item {
+	display: none;
+}
+
+.catalog-list-items .price-item:first-child {
+	display: block;
+}
+
+.catalog-list-items .price-item:first-child .price-quantity,
+.catalog-list-items .price-item:first-child .price-rebatepercent,
+.catalog-list-items .price-item:first-child .price-rebate,
+.catalog-list-items .price-item:first-child .price-shipping,
+.catalog-list-items .price-item:first-child .price-taxrate {
+	display: none;
+}
+
+
+
+/*
+ * Product detail, image section
+ */
+
+.catalog-detail-image {
+	float: left;
+	padding-right: 10px;
+	width: 242px;
+}
+
+.catalog-detail-image .image-single {
+	background-image: url(../images/arcavias.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	position: relative;
+	overflow: hidden;
+	width: 240px;
+	height: 320px;
+}
+
+.catalog-detail-image .carousel {
+	position: absolute;
+}
+
+.catalog-detail-image .carousel .item {
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 240px;
+	height: 320px;
+}
+
+.catalog-detail-image .image-thumbs {
+	overflow: hidden;
+	width: 240px;
+	max-height: 80px;
+	margin: 0 1px;
+}
+
+.catalog-detail-image .thumbs {
+	width: 198px;
+	margin: 0 21px;
+}
+
+.catalog-detail-image .thumbs a {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	display: inline-block;
+	width: 60px;
+	height: 80px;
+	margin: 0 3px;
+	opacity: 0.7;
+}
+
+.catalog-detail-image .thumbs .selected,
+.catalog-detail-image .thumbs a:hover {
+	opacity: 1;
+}
+
+.catalog-detail-image #prev-image,
+.catalog-detail-image #next-image {
+	width: 40px;
+	height: 320px;
+	position: absolute;
+	z-index: 2;
+}
+
+.catalog-detail-image #next-image {
+	left: 200px;
+}
+
+.catalog-detail-image #prev-thumbs,
+.catalog-detail-image #next-thumbs {
+	width: 20px;
+	height: 80px;
+	z-index: 2;
+}
+
+.catalog-detail-image #prev-thumbs {
+	float: left;
+}
+
+.catalog-detail-image #next-thumbs {
+	float: right;
+}
+
+.catalog-detail-image #prev-image.disabled,
+.catalog-detail-image #next-image.disabled,
+.catalog-detail-image #prev-thumbs.disabled,
+.catalog-detail-image #next-thumbs.disabled {
+	display: none !important;
+}
+
+
+/*
+ * Product detail, basic section
+ */
+
+.catalog-detail-basic h1.basic-name {
+	font-size: 175%;
+	line-height: 175%;
+}
+
+.catalog-detail-basic p.basic-shortdesc {
+	margin-top: 1em;
+}
+
+
+/*
+ * Product detail, basket section
+ */
+
+/* main price */
+
+.catalog-detail-basket .price-item {
+	margin-top: 1.5em;
+}
+
+.catalog-detail-basket .price-quantity,
+.catalog-detail-basket .price-rebatepercent,
+.catalog-detail-basket .price-rebate,
+.catalog-detail-basket .price-shipping,
+.catalog-detail-basket .price-taxrate
+{
+	display: none;
+}
+
+.catalog-detail-basket span.price-value  {
+	font-weight: bold;
+	font-size: 220%;
+}
+
+/* add to basket */
+
+.catalog-detail-basket .basket-add {
+	padding: 0.5em;
+	margin-top: 1em;
+	text-align: right;
+}
+
+.catalog-detail-basket .basket-group input {
+	margin-right: 1.5em;
+	text-align: center;
+	font-size: 100%;
+	height: 1.75em;
+	width: 3em;
+}
+
+.catalog-detail-basket .basket-attribute {
+	margin-top: 1.5em;
+}
+
+/* product attributes */
+
+.catalog-detail-basket .basket-attribute {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.catalog-detail-basket .basket-attribute select {
+	font-weight: normal;
+	text-transform: none;
+	margin-bottom: 3px;
+}
+
+.catalog-detail-basket .basket-attribute td {
+	padding-right: 5px;
+}
+
+
+
+/*
+ * Product detail, additional section
+ */
+
+.catalog-detail-additional {
+	padding-top: 1em;
+	float: left;
+	width: 100%;
+}
+
+.catalog-detail-additional h2.tabheader {
+	border: 0 none;
+    font-size: 1em;
+    font-weight: bold;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 0.5em;
+}
+
+.catalog-detail-additional .tabcontent {
+    margin: 1em;
+}
+
+
+
+
+
+/*
+ * Form elements
+ */
+
+button {
+    border: 0 none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.standardbutton {
+    border-radius: 4px 4px 4px 4px;
+    font-weight: bold;
+    font-size: 100%;
+    line-height: 100%;
+    padding: 0.5em;
+    margin: 1px 0;
+}
+
+.standardbutton:hover {
+    box-shadow: none;
+}
+
+input[type="text"] {
+	border: 0 none;
+	color: #000000;
+}
+
+select {
+    color: #000000;
+    font-family: Arial,sans-serif;
+}
+
+.formliste {
+	padding:3px 0 3px 0;
+	clear:both;
+}
+.forms {
+	list-style:none;
+	padding:0;
+	margin:0;
+	line-height: 14px;
+}
+
+.input11 {
+    border: 1px solid #689DB9;
+    border-radius: 4px 4px 4px 0;
+    font-size: 11px;
+    margin: 2px 0 0;
+    padding: 3px 3px 2px;
+    width: 140px;
+}
+
+.input12 {
+    border: 1px solid #689DB9;
+    border-radius: 4px 4px 4px 0;
+    font-size: 12px;
+    margin: 2px 0 0;
+    padding: 3px 3px 2px;
+    width: 200px;
+}
+
+.input11b {
+    border: 1px solid #689DB9;
+    border-radius: 4px 0 0 4px;
+    font-size: 11px;
+    margin: 2px 0 0;
+    padding: 3px 3px 2px;
+    width: 140px;
+}
+
+.input12b {
+    border: 1px solid #689DB9;
+    border-radius: 4px 0 0 4px;
+    font-size: 12px;
+    margin: 2px 0 0;
+    padding: 3px 3px 2px;
+    width: 200px;
+}
+
+.formselect {
+    background-color: #F2F7FA;
+    border: 1px solid #689DB9;
+    border-radius: 4px 4px 4px 0;
+    float: left;
+    font-size: 12px;
+    margin: 0;
+    padding: 0 3px;
+    width: 200px;
+}
+
+.formselect select {
+    margin: 2px 0;
+}
+
+.formlabel {
+    border-bottom: 1px solid #689DB9;
+    color: #000000;
+    float: left;
+    font-size: 12px;
+    margin: 2px 0 0;
+    padding: 4px 3px 2px 0;
+    width: 140px;
+}
+
+.inputbutton11 {
+    background: url(../images/minibuttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-radius: 0 4px 4px 0;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+    float: left;
+    font-family: Arial,sans-serif;
+    font-size: 11px;
+    margin: 1px 0 0 -2px;
+    padding: 3px 2px 1px;
+    text-transform: uppercase;
+}
+
+.searchbutton11 {
+    background: url(../images/minibuttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-radius: 0 4px 4px 0;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+    float: left;
+    height: 21px;
+    margin: 1px 0 0 -2px;
+    padding: 0 3px 0 2px;
+    width: 21px;
+}
+
+.inputbutton12 {
+    background: url(../images/minibuttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-radius: 0 4px 4px 0;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+    float: left;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    margin: 1px 0 0 -2px;
+    padding: 3px 2px 1px;
+    text-transform: uppercase;
+}
+
+.searchbutton12 {
+    background: url(../images/minibuttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-radius: 0 4px 4px 0;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+    float: left;
+    height: 22px;
+    margin: 2px 0 0 -2px;
+    padding: 0 3px 0 2px;
+    width: 21px;
+}
+
+.inputbutton11:hover, .searchbutton11:hover, .inputbutton12:hover, .searchbutton12:hover {
+    border-bottom: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #303639;
+    box-shadow: none;
+    margin: 2px 0 0 -1px;
+}
+
+.minibutton {
+    background: url(../images/minibuttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-radius: 4px 4px 4px 4px;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+    font-family: Arial,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    height: 20px;
+    margin: 0 0 1px;
+    padding: 0 7px;
+}
+
+.minibutton:hover {
+    border-bottom: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #303639;
+    box-shadow: none;
+    margin: 1px 0 0 1px;
+}
+
+.diabutton3 {
+    background-image: url(../images/arrowRight.png);
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 22px;
+}
+
+.diabutton3:hover {
+    background-image: url(../images/arrowRightActive.png);
+}

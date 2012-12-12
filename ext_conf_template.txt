@@ -1,0 +1,2 @@
+# cat=tx_arcavias/basic; type=boolean; label=Use APC cache:If Arcavias configuration values should be cached in the APC user cache
+useAPC = 1

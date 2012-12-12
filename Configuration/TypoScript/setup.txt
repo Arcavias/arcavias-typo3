@@ -1,0 +1,20 @@
+page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Public/css/arcavias.css
+page.includeCSS.tx_arcavias_color = EXT:arcavias/Resources/Public/css/blue.css
+
+plugin.tx_arcavias {
+	view {
+		pluginNamespace = arc
+	}
+	settings {
+		sitecode = default
+
+		baseurl-content = uploads/tx_arcavias/
+		baseurl-template = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
+		
+		format {
+			date = Y-m-d
+			seperatorDecimal = .
+			seperator1000 = 
+		}
+	}
+}

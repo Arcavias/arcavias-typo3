@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="MShop TYPO3 extension" default="test">
+
+	<target name="test" description="Executes all tests">
+		<phing target="test" dir="lib/custom" />
+	</target>
+
+	<target name="coverage" description="Generates the code coverage report">
+		<phing target="coverage" dir="lib/custom" />
+	</target>
+
+	<target name="check" description="Executes all checks">
+		<phing target="check" dir="lib/custom" />
+	</target>
+
+	<target name="all" depends="test,check" description="Builds all parts of the package">
+	</target>
+
+</project>

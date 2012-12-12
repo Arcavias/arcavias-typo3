@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>General Database Field labels for extension 'arcavias'.</description>
+		<type>database</type>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="catalog.name">Catalog indexer</label>
+			<label index="catalog.description">Recreates the catalog index for one or more sites</label>
+			<label index="catalog.label.sitecode">Sites</label>
+			<label index="catalog.error.sitecode">One or more sites is invalid or already disabled</label>
+
+			<label index="admin.name">Admin interface</label>
+			<label index="admin.description">Processes the jobs created via the admin interface</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="catalog.name">Indizierung des Katalogs</label>
+			<label index="catalog.description">Erstellt den Katalog-Index für einen oder mehreren Mandanten</label>
+			<label index="catalog.label.sitecode">Mandanten</label>
+			<label index="catalog.error.sitecode">Ein oder mehrere Mandanten sind ungültig oder wurden deaktiviert</label>
+
+			<label index="admin.name">Administrationsoberfläche</label>
+			<label index="admin.description">Verarbeitet die Aufträge, die über die Administrationsoberfläche erzeugt wurden</label>
+		</languageKey>
+	</data>
+</T3locallang>

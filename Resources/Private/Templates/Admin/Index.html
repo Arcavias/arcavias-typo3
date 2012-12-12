@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+	<title>Arcavias Administration Interface</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<f:format.html parseFuncTSPath="empty">{htmlHeader}</f:format.html>
+
+	<script type="text/javascript">
+
+		Ext.ns('MShop.config');
+		MShop.config.activeTab = {activeTab};
+		MShop.config.urlTemplate = <f:format.html parseFuncTSPath="empty">'{urlTemplate}'</f:format.html>;
+
+		MShop.config.site = <f:format.html parseFuncTSPath="empty">{site}</f:format.html>;
+		
+		MShop.config.itemschema = <f:format.html parseFuncTSPath="empty">{itemSchemas}</f:format.html>;
+		
+		MShop.config.searchschema = <f:format.html parseFuncTSPath="empty">{searchSchemas}</f:format.html>;
+
+		MShop.config.smd = <f:format.html parseFuncTSPath="empty">{smd}</f:format.html>;
+
+	</script>
+</head>
+<body>
+	<noscript><p>You need to enable javascript!</p></noscript>
+</body>
+</html>
