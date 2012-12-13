@@ -88,6 +88,10 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$helper = new MW_View_Helper_Date( $view, $this->settings['format']['date'] );
 		$view->addHelper( 'date', $helper );
 
+		/** @todo Parameter prefix should be set based on TypoScript configuration */
+		$helper = new MW_View_Helper_FormParam_Default( $view, array( 'arc' ) );
+		$view->addHelper( 'formparam', $helper );
+
 		return $view;
 	}
 
