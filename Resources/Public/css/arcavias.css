@@ -272,7 +272,6 @@
 
 .catalog-detail-image {
 	float: left;
-	padding-right: 10px;
 	width: 242px;
 }
 
@@ -365,6 +364,10 @@
  * Product detail, basic section
  */
 
+.catalog-detail-basic {
+	margin-left: 252px;
+}
+
 .catalog-detail-basic h1.basic-name {
 	font-size: 175%;
 	line-height: 175%;
@@ -378,6 +381,10 @@
 /*
  * Product detail, basket section
  */
+
+.catalog-detail-basket {
+	margin-left: 252px;
+}
 
 /* main price */
 
@@ -463,6 +470,53 @@
 
 
 
+/*
+ * Basket
+ */
+
+.basket-standard table {
+	border-collapse: collapse;
+	border: 1px solid #000000;
+	width: 100%;
+}
+
+.basket-standard tr.standard-subtotal,
+.basket-standard tr.standard-shipping,
+.basket-standard tr.standard-total,
+.basket-standard td.standard-unitprice,
+.basket-standard td.standard-price {
+	text-align: right;
+}
+
+.basket-standard td.standard-quantity {
+	text-align: center;
+}
+
+.basket-standard td.standard-quantity input {
+	border: solid 1px #000000;
+	text-align: center;
+	display: inline;
+	width: 3em;
+}
+
+.basket-standard tr.standard-subtotal,
+.basket-standard tr.standard-total {
+	border-top: 1px solid #000000;
+}
+
+.basket-standard th.standard-quantity {
+	width: 10%;
+}
+
+.basket-standard th.standard-price {
+	width: 20%;
+}
+
+.basket-standard .standard-buttons {
+	text-align: right;
+}
+
+
 
 
 /*
@@ -482,6 +536,8 @@ button {
     line-height: 100%;
     padding: 0.5em;
     margin: 1px 0;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .standardbutton:hover {
