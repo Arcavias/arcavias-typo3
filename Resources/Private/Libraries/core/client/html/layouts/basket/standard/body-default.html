@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @copyright Copyright (c) Metaways Infosystems GmbH, 2012
+ * @license LGPLv3, http://www.arcavias.com/en/license
+ */
+
+$price = $this->standardBasket->getPrice();
+$priceFormat = $this->translate( 'core/client/html', '%1$s€' );
+
+?>
+<div class="arcavias basket-standard">
+	<form method="POST" action="<?php echo $this->url( $this->config( 'basket-target' ), 'basket' ); ?>">
+		<input type="hidden" name="<?php echo $this->formparam( 'b-action' ); ?>" value="edit" />
+		<table>
+			<tr class="standard-head">
+				<th class="standard-details"></th>
+				<th class="standard-quantity"><?php echo $this->translate( 'core/client/html', 'Quantity' ); ?></th>
+				<th class="standard-unitprice"><?php echo $this->translate( 'core/client/html', 'Unit price' ); ?></th>
+				<th class="standard-price"><?php echo $this->translate( 'core/client/html', 'Price' ); ?></th>
+				<th class="standard-action"></th>
+			</tr>
+<?php echo $this->standardBody; ?>
+			<tr class="standard-subtotal">
+				<td colspan="3"><?php echo $this->translate( 'core/client/html', 'Sub-total' ); ?></td>
+				<td class="standard-price"><?php printf( $priceFormat, $this->number( $price->getValue() ) ); ?></td>
+				<td class="standard-action"></td>
+			</tr>
+			<tr class="standard-shipping">
+				<td colspan="3"><?php echo $this->translate( 'core/client/html', 'Shipping' ); ?></td>
+				<td class="standard-price"><?php printf( $priceFormat, $this->number( $price->getShipping() ) ); ?></td>
+				<td class="standard-action"></td>
+			</tr>
+			<tr class="standard-total">
+				<td colspan="3"><?php echo $this->translate( 'core/client/html', 'Total' ); ?></td>
+				<td class="standard-price"><?php printf( $priceFormat, $this->number( $price->getValue() + $price->getShipping() ) ); ?></td>
+				<td class="standard-action"></td>
+			</tr>
+		</table>
+		<div class="standard-buttons">
+			<button class="standardbutton" type="submit"><?php echo $this->translate( 'core/client/html', 'Update' ); ?></button>
+			<a class="standardbutton" href="<?php echo $this->url( $this->config( 'checkout-target' ), 'basket', 'checkout' ); ?>"><?php echo $this->translate( 'core/client/html', 'Checkout' ); ?></a>
+		</div>
+	</form>
+</div>
