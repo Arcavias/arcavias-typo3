@@ -48,7 +48,11 @@ class MW_View_Helper_UrlZend
 	 */
 	public function transform( $target = null, $controller = null, $action = null, array $params = array(), array $trailing = array() )
 	{
-		$mvc = array( 'controller' => $controller, 'action' => $action, 'trailing' => join( '-', $trailing ) );
+		$mvc = array( 'controller' => $controller, 'action' => $action );
+
+		if( !empty( $trailing ) ) {
+			$mvc['trailing'] = join( '-', $trailing );
+		}
 
 		return $this->_router->assemble( $mvc + $params, $target, true );
 	}
