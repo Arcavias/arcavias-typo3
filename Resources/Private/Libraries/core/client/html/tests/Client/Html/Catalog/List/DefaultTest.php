@@ -58,7 +58,7 @@ class Client_Html_Catalog_List_DefaultTest extends MW_Unittest_Testcase
 	public function testGetHeader()
 	{
 		$view = $this->_object->getView();
-		$helper = new MW_View_Helper_Parameter( $view, array( 'f-catalog-id' => $this->_getCatalogItem()->getId() ) );
+		$helper = new MW_View_Helper_Parameter_Default( $view, array( 'f-catalog-id' => $this->_getCatalogItem()->getId() ) );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getHeader();
@@ -69,7 +69,7 @@ class Client_Html_Catalog_List_DefaultTest extends MW_Unittest_Testcase
 	public function testGetBody()
 	{
 		$view = $this->_object->getView();
-		$helper = new MW_View_Helper_Parameter( $view, array( 'f-catalog-id' => $this->_getCatalogItem()->getId() ) );
+		$helper = new MW_View_Helper_Parameter_Default( $view, array( 'f-catalog-id' => $this->_getCatalogItem()->getId() ) );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();

@@ -15,7 +15,7 @@
  * @package MW
  * @subpackage View
  */
-class MW_View_Helper_UrlT3
+class MW_View_Helper_Url_Typo3
 	extends MW_View_Helper_Abstract
 	implements MW_View_Helper_Interface
 {

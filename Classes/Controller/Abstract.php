@@ -70,22 +70,22 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	{
 		$view = new MW_View_Default();
 
-		$helper = new MW_View_Helper_UrlT3( $view, $this->uriBuilder );
+		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
 		$view->addHelper( 'url', $helper );
 
-		$helper = new MW_View_Helper_Translate( $view, new MW_Translation_None( 'en_GB' ) );
+		$helper = new MW_View_Helper_Translate_Default( $view, new MW_Translation_None( 'en_GB' ) );
 		$view->addHelper( 'translate', $helper );
 
-		$helper = new MW_View_Helper_Parameter( $view, $this->request->getArguments() );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $this->request->getArguments() );
 		$view->addHelper( 'param', $helper );
 
-		$helper = new MW_View_Helper_Config( $view, $this->settings );
+		$helper = new MW_View_Helper_Config_Default( $view, $this->settings );
 		$view->addHelper( 'config', $helper );
 
-		$helper = new MW_View_Helper_Number( $view, $this->settings['format']['seperatorDecimal'], $this->settings['format']['seperator1000'] );
+		$helper = new MW_View_Helper_Number_Default( $view, $this->settings['format']['seperatorDecimal'], $this->settings['format']['seperator1000'] );
 		$view->addHelper( 'number', $helper );
 
-		$helper = new MW_View_Helper_Date( $view, $this->settings['format']['date'] );
+		$helper = new MW_View_Helper_Date_Default( $view, $this->settings['format']['date'] );
 		$view->addHelper( 'date', $helper );
 
 		/** @todo Parameter prefix should be set based on TypoScript configuration */

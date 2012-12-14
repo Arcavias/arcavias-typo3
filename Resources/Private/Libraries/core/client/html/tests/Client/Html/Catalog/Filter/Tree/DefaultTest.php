@@ -66,7 +66,7 @@ class Client_Html_Catalog_Filter_Tree_DefaultTest extends MW_Unittest_Testcase
 		$node = $catalogManager->getTree( null, array(), MW_Tree_Manager_Abstract::LEVEL_ONE );
 
 		$view = $this->_object->getView();
-		$helper = new MW_View_Helper_Parameter( $view, array( 'f-catalog-id' => $node->getId() ) );
+		$helper = new MW_View_Helper_Parameter_Default( $view, array( 'f-catalog-id' => $node->getId() ) );
 		$view->addHelper( 'param', $helper );
 
 		$this->assertContains( '<style type="text/css">', $this->_object->getHeader() );
@@ -79,7 +79,7 @@ class Client_Html_Catalog_Filter_Tree_DefaultTest extends MW_Unittest_Testcase
 		$node = $catalogManager->getTree( null, array(), MW_Tree_Manager_Abstract::LEVEL_LIST );
 
 		$view = $this->_object->getView();
-		$helper = new MW_View_Helper_Parameter( $view, array( 'f-catalog-id' => $node->getChild( 1 )->getId() ) );
+		$helper = new MW_View_Helper_Parameter_Default( $view, array( 'f-catalog-id' => $node->getChild( 1 )->getId() ) );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();

@@ -78,7 +78,7 @@ class Client_Html_Basket_Standard_DefaultTest extends MW_Unittest_Testcase
 			'b-quantity' => 1,
 		);
 
-		$helper = new MW_View_Helper_Parameter( $view, $param );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $param );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();
@@ -107,7 +107,7 @@ class Client_Html_Basket_Standard_DefaultTest extends MW_Unittest_Testcase
 			),
 		);
 
-		$helper = new MW_View_Helper_Parameter( $view, $param );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $param );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();
@@ -129,7 +129,7 @@ class Client_Html_Basket_Standard_DefaultTest extends MW_Unittest_Testcase
 			'b-quantity' => 1,
 		);
 
-		$helper = new MW_View_Helper_Parameter( $view, $param );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $param );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();
@@ -158,7 +158,7 @@ class Client_Html_Basket_Standard_DefaultTest extends MW_Unittest_Testcase
 			),
 		);
 
-		$helper = new MW_View_Helper_Parameter( $view, $param );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $param );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();
@@ -179,7 +179,7 @@ class Client_Html_Basket_Standard_DefaultTest extends MW_Unittest_Testcase
 			'b-position' => 1,
 		);
 
-		$helper = new MW_View_Helper_Parameter( $view, $param );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $param );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();
@@ -199,7 +199,7 @@ class Client_Html_Basket_Standard_DefaultTest extends MW_Unittest_Testcase
 			'b-position' => 0,
 		);
 
-		$helper = new MW_View_Helper_Parameter( $view, $param );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $param );
 		$view->addHelper( 'param', $helper );
 
 		$output = $this->_object->getBody();
