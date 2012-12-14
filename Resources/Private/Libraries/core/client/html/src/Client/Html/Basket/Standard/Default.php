@@ -108,31 +108,65 @@ class Client_Html_Basket_Standard_Default
 		switch( $view->param( 'b-action' ) )
 		{
 			case 'add':
-				foreach( $view->param( 'b-prod', array() ) as $values )
+
+				$products = $view->param( 'b-prod', array() );
+				$reqvariant = $view->config( 'basket/require-variant', true );
+
+				if( ( $prodid = $view->param( 'b-prod-id', null ) ) !== null )
+				{
+					$products[] = array(
+						'prod-id' => $prodid,
+						'quantity' => $view->param( 'b-quantity', 1 ),
+						'attrconf-id' => $view->param( 'b-attrconf-id', array() ),
+						'attrvar-id' => $view->param( 'b-attrvar-id', array() )
+					);
+				}
+
+				foreach( $products as $values )
 				{
 					$controller->addProduct(
-						( isset( $values['prodid'] ) ? $values['prodid'] : '' ),
+						( isset( $values['prod-id'] ) ? $values['prod-id'] : null ),
 						( isset( $values['quantity'] ) ? $values['quantity'] : 1 ),
 						( isset( $values['attrconf-id'] ) ? $values['attrconf-id'] : array() ),
 						( isset( $values['attrvar-id'] ) ? $values['attrvar-id'] : array() ),
-						$view->config( 'basket/require-variant', true )
+						$reqvariant
 					);
 				}
+
 				break;
 
 			case 'edit':
-				foreach( $view->param( 'b-quantity', array() ) as $pos => $qty )
+
+				$products = $view->param( 'b-prod', array() );
+
+				if( ( $positon = $view->param( 'b-position', null ) ) !== null )
+				{
+					$products[] = array(
+						'position' => $positon,
+						'quantity' => $view->param( 'b-quantity', 1 ),
+						'attrconf-code' => $view->param( 'b-attrconf-code', array() )
+					);
+				}
+
+				foreach( $products as $values )
 				{
 					$controller->editProduct(
-						$pos,
-						$qty,
+						( isset( $values['position'] ) ? $values['position'] : null ),
+						( isset( $values['quantity'] ) ? $values['quantity'] : 1 ),
 						( isset( $values['attrconf-code'] ) ? $values['attrconf-code'] : array() )
 					);
 				}
+
 				break;
 
 			case 'delete':
-				$controller->deleteProduct( $view->param( 'b-position' ) );
+
+				$products = (array) $view->param( 'b-position', array() );
+
+				foreach( $products as $position ) {
+					$controller->deleteProduct( $position );
+				}
+
 				break;
 		}
 

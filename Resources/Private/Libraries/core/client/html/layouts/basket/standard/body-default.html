@@ -10,7 +10,7 @@ $priceFormat = $this->translate( 'core/client/html', '%1$s€' );
 
 ?>
 <div class="arcavias basket-standard">
-	<form method="POST" action="<?php echo $this->url( $this->config( 'basket-target' ), 'basket' ); ?>">
+	<form method="POST" action="<?php echo $this->url( $this->config( 'basket-target' ), 'basket', 'index' ); ?>">
 		<input type="hidden" name="<?php echo $this->formparam( 'b-action' ); ?>" value="edit" />
 		<table>
 			<tr class="standard-head">

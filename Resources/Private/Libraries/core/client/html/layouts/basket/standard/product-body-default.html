@@ -20,15 +20,16 @@ $priceFormat = $this->translate( 'core/client/html', '%1$s€' );
 			</td>
 			<td class="standard-quantity">
 <?php	if( $product->getQuantity() > 1 ) : ?>
-				<a href="<?php echo $this->url( $this->config( 'basket-target' ), 'basket', null, array( 'b-action' => 'edit', 'b-quantity' => array( $position => $product->getQuantity() - 1 ) ) ); ?>">-</a>
+				<a href="<?php echo $this->url( $this->config( 'basket-target' ), 'basket', 'index', array( 'b-action' => 'edit', 'b-position' => $position, 'b-quantity' => $product->getQuantity() - 1 ) ); ?>">-</a>
 <?php	endif; ?>
-				<input type="text" name="<?php echo $this->formparam( array( 'b-quantity', $position ) ); ?>" value="<?php echo $product->getQuantity(); ?>" />
-				<a href="<?php echo $this->url( $this->config( 'basket-target' ), 'basket', null, array( 'b-action' => 'edit', 'b-quantity' => array( $position => $product->getQuantity() + 1 ) ) ); ?>">+</a>
+				<input type="text" name="<?php echo $this->formparam( array( 'b-prod', $position, 'quantity' ) ); ?>" value="<?php echo $product->getQuantity(); ?>" />
+				<input type="hidden" name="<?php echo $this->formparam( array( 'b-prod', $position, 'position' ) ); ?>" value="<?php echo $position; ?>" />
+				<a href="<?php echo $this->url( $this->config( 'basket-target' ), 'basket', 'index', array( 'b-action' => 'edit', 'b-position' => $position, 'b-quantity' => $product->getQuantity() + 1 ) ); ?>">+</a>
 			</td>
 			<td class="standard-unitprice"><?php printf( $priceFormat, $this->number( $product->getPrice()->getValue() ) ); ?></td>
 			<td class="standard-price"><?php printf( $priceFormat, $this->number( $product->getPrice()->getValue() * $product->getQuantity() ) ); ?></td>
 			<td class="standard-action">
-				<a class="minibutton" href="<?php echo $this->url( $this->config( 'basket-target' ), 'basket', null, array( 'b-action' => 'delete', 'b-position' => $position ) ); ?>"><?php echo $this->translate( 'core/client/html', 'X' ); ?></a>
+				<a class="minibutton" href="<?php echo $this->url( $this->config( 'basket-target' ), 'basket', 'index', array( 'b-action' => 'delete', 'b-position' => $position ) ); ?>"><?php echo $this->translate( 'core/client/html', 'X' ); ?></a>
 			</td>
 		</tr>
 <?php endforeach; ?>
