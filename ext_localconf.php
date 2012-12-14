@@ -31,6 +31,14 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'basket-standard',
+	array( 'Basket' => 'index' ),
+	array( 'Basket' => 'index' )
+);
+
+
 /*
  * Scheduler tasks
  */
