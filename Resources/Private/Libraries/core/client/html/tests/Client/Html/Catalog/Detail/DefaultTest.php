@@ -6,7 +6,7 @@
  * @version $Id: DefaultTest.php 1352 2012-10-29 16:11:47Z nsendetzky $
  */
 
-class Client_Html_Detail_DefaultTest extends MW_Unittest_Testcase
+class Client_Html_Catalog_Detail_DefaultTest extends MW_Unittest_Testcase
 {
 	protected $_object;
 	protected $_context;
@@ -22,7 +22,7 @@ class Client_Html_Detail_DefaultTest extends MW_Unittest_Testcase
 	{
 		require_once 'PHPUnit/TextUI/TestRunner.php';
 
-		$suite = new PHPUnit_Framework_TestSuite('Client_Html_Detail_DefaultTest');
+		$suite = new PHPUnit_Framework_TestSuite('Client_Html_Catalog_Detail_DefaultTest');
 		$result = PHPUnit_TextUI_TestRunner::run($suite);
 	}
 
