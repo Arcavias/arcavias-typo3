@@ -10,17 +10,17 @@
 
 
 /**
- * Default implementation of basket products HTML client.
+ * Default implementation of standard basket HTML client.
  *
  * @package Client
  * @subpackage HTML
  */
-class Client_Html_Basket_Standard_Product_Default
+class Client_Html_Basket_Standard_Main_Default
 	extends Client_Html_Abstract
 	implements Client_Html_Interface
 {
 	private $_cache;
-	private $_subPartPath = 'client/html/basket/standard/product/default/subparts';
+	private $_subPartPath = 'client/html/basket/standard/main/default/subparts';
 	private $_subPartNames = array();
 
 
@@ -38,10 +38,10 @@ class Client_Html_Basket_Standard_Product_Default
 		foreach( $this->_getSubClients( $this->_subPartPath, $this->_subPartNames ) as $subclient ) {
 			$html .= $subclient->setView( $view )->getBody();
 		}
-		$view->productBody = $html;
+		$view->mainBody = $html;
 
-		$tplconf = 'client/html/basket/standard/product/default/template-body';
-		$default = 'basket/standard/product-body-default.html';
+		$tplconf = 'client/html/basket/standard/main/efault/template-body';
+		$default = 'basket/standard/main-body-default.html';
 
 		return $view->render( $this->_getTemplate( $tplconf, $default ) );
 	}
@@ -61,10 +61,10 @@ class Client_Html_Basket_Standard_Product_Default
 		foreach( $this->_getSubClients( $this->_subPartPath, $this->_subPartNames ) as $subclient ) {
 			$html .= $subclient->setView( $view )->getHeader();
 		}
-		$view->productHeader = $html;
+		$view->mainHeader = $html;
 
-		$tplconf = 'client/html/basket/standard/product/default/template-header';
-		$default = 'basket/standard/product-header-default.html';
+		$tplconf = 'client/html/basket/standard/main/default/template-header';
+		$default = 'basket/standard/main-header-default.html';
 
 		return $view->render( $this->_getTemplate( $tplconf, $default ) );
 	}
@@ -79,7 +79,7 @@ class Client_Html_Basket_Standard_Product_Default
 	 */
 	public function getSubClient( $type, $name = null )
 	{
-		return $this->_createSubClient( 'basket/standard/product/' . $type, $name );
+		return $this->_createSubClient( 'basket/standard/main/' . $type, $name );
 	}
 
 

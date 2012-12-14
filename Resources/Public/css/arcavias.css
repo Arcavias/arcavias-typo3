@@ -474,45 +474,76 @@
  * Basket
  */
 
-.basket-standard table {
+.basket-standard-main table {
 	border-collapse: collapse;
-	border: 1px solid #000000;
 	width: 100%;
 }
 
-.basket-standard tr.standard-subtotal,
-.basket-standard tr.standard-shipping,
-.basket-standard tr.standard-total,
-.basket-standard td.standard-unitprice,
-.basket-standard td.standard-price {
+.basket-standard-main thead {
+	border: 1px solid #689DB9;
+	font-weight: bold;
+}
+
+.basket-standard-main tr.main-head {
+	background-color: #F2F7FA;
+	border: 1px solid #689DB9;
+	color: #004266;
+	height: 2em;
+}
+
+.basket-standard-main th.main-quantity,
+.basket-standard-main th.main-action {
+	width: 10%;
+}
+
+.basket-standard-main th.main-price {
+	width: 20%;
+}
+
+.basket-standard-main tr.main-subtotal,
+.basket-standard-main tr.main-shipping,
+.basket-standard-main tr.main-total,
+.basket-standard-main td.main-unitprice,
+.basket-standard-main td.main-price {
 	text-align: right;
 }
 
-.basket-standard td.standard-quantity {
+.basket-standard-main td.main-quantity,
+.basket-standard-main td.main-action {
 	text-align: center;
 }
 
-.basket-standard td.standard-quantity input {
-	border: solid 1px #000000;
+.basket-standard-main td.main-quantity a,
+.basket-standard-main td.main-action a {
+	text-decoration: none;
+}
+
+.basket-standard-main td.main-quantity a {
+	color: #689DB9;
+}
+
+.basket-standard-main td.main-action a {
+	color: #FFFFFF;
+}
+
+.basket-standard-main td.main-quantity input {
+	border: solid 1px #689DB9;
 	text-align: center;
 	display: inline;
 	width: 3em;
 }
 
-.basket-standard tr.standard-subtotal,
-.basket-standard tr.standard-total {
-	border-top: 1px solid #000000;
+.basket-standard-main tr.main-subtotal,
+.basket-standard-main tr.main-total {
+	border-top: 1px solid #689DB9;
 }
 
-.basket-standard th.standard-quantity {
-	width: 10%;
+.basket-standard-main tfoot {
+	vertical-align: bottom;
+	font-weight: bold;
 }
 
-.basket-standard th.standard-price {
-	width: 20%;
-}
-
-.basket-standard .standard-buttons {
+.basket-standard-main .main-buttons {
 	text-align: right;
 }
 

@@ -21,7 +21,7 @@ class Client_Html_Basket_Standard_Default
 {
 	private $_cache;
 	private $_subPartPath = 'client/html/basket/standard/default/subparts';
-	private $_subPartNames = array( 'product' );
+	private $_subPartNames = array( 'main' );
 
 
 	/**
