@@ -40,7 +40,7 @@ class Client_Html_Basket_Standard_Main_Default
 		}
 		$view->mainBody = $html;
 
-		$tplconf = 'client/html/basket/standard/main/efault/template-body';
+		$tplconf = 'client/html/basket/standard/main/default/template-body';
 		$default = 'basket/standard/main-body-default.html';
 
 		return $view->render( $this->_getTemplate( $tplconf, $default ) );

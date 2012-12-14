@@ -52,18 +52,18 @@ $priceFormat = $this->translate( 'core/client/html', '%1$s€' );
 			<tfoot>
 				<tr class="main-subtotal">
 					<td colspan="3"><?php echo $this->translate( 'core/client/html', 'Sub-total' ); ?></td>
-					<td class="standard-price"><?php printf( $priceFormat, $this->number( $price->getValue() ) ); ?></td>
-					<td class="standard-action"></td>
+					<td class="main-price"><?php printf( $priceFormat, $this->number( $price->getValue() ) ); ?></td>
+					<td class="main-action"></td>
 				</tr>
 				<tr class="main-shipping">
 					<td colspan="3"><?php echo $this->translate( 'core/client/html', 'Shipping' ); ?></td>
-					<td class="standard-price"><?php printf( $priceFormat, $this->number( $price->getShipping() ) ); ?></td>
-					<td class="standard-action"></td>
+					<td class="main-price"><?php printf( $priceFormat, $this->number( $price->getShipping() ) ); ?></td>
+					<td class="main-action"></td>
 				</tr>
 				<tr class="main-total">
 					<td colspan="3"><?php echo $this->translate( 'core/client/html', 'Total' ); ?></td>
-					<td class="standard-price"><?php printf( $priceFormat, $this->number( $price->getValue() + $price->getShipping() ) ); ?></td>
-					<td class="standard-action"></td>
+					<td class="main-price"><?php printf( $priceFormat, $this->number( $price->getValue() + $price->getShipping() ) ); ?></td>
+					<td class="main-action"></td>
 				</tr>
 			</tfoot>
 		</table>
