@@ -160,7 +160,8 @@ class tx_arcavias_scheduler_catalog
 	{
 		try
 		{
-			$manager = MShop_Locale_Manager_Factory::createManager( $this->_getContext() )->getSubManager( 'site' );
+			$context = $this->_getContext();
+			$manager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
 
 			$search = $manager->createSearch( true );
 			$expr = array(
@@ -192,7 +193,8 @@ class tx_arcavias_scheduler_catalog
 	 */
 	protected function _getAvailableSites()
 	{
-		$manager = MShop_Locale_Manager_Factory::createManager( $this->_getContext() )->getSubManager( 'site' );
+		$context = $this->_getContext();
+		$manager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
 
 		$search = $manager->createSearch( true );
 		$expr = array(

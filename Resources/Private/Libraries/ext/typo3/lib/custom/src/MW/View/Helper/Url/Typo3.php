@@ -51,6 +51,6 @@ class MW_View_Helper_Url_Typo3
 		$this->_uriBuilder->setArguments( array() ); // remove parameters from previous call
 		$this->_uriBuilder->setTargetPageUid( $target );
 
-		return $this->_uriBuilder->uriFor( $action, $params, $controller );
+		return $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
 	}
 }
