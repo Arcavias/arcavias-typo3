@@ -36,34 +36,23 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	 */
 	public function indexAction()
 	{
-		$absdir = realpath( $_SERVER['SCRIPT_FILENAME'] );
-		$relpath = $_SERVER['SCRIPT_NAME'];
-
-		while ( basename( $absdir ) === basename( $relpath ) ) {
-			$absdir = dirname( $absdir );
-			$relpath = dirname( $relpath );
-		}
-
-		$relpath = rtrim( $relpath, '/' );
-		$abslen = strlen( $absdir );
-
 		$html = '';
+		$abslen = strlen( PATH_site );
 		$ds = DIRECTORY_SEPARATOR;
 
 		foreach( $this->_getMshop()->getCustomPaths( 'client/extjs' ) as $base => $paths )
 		{
-			$relJsbPath = substr( $base, $abslen );
+			$relJsbPath = '../' . substr( $base, $abslen );
 
 			foreach( $paths as $path )
 			{
-				$jsbPath = $relpath . $relJsbPath . $ds . $path;
 				$jsbAbsPath = $base . $ds . $path;
 
 				if( !is_file( $jsbAbsPath ) ) {
 					throw new Exception( sprintf( 'JSB2 file "%1$s" not found', $jsbAbsPath ) );
 				}
 
-				$jsb2 = new MW_Jsb2_Default( $jsbAbsPath, dirname( $jsbPath ) );
+				$jsb2 = new MW_Jsb2_Default( $jsbAbsPath, dirname( $relJsbPath . $ds . $path ) );
 				$html .= $jsb2->getHTML( 'css' );
 				$html .= $jsb2->getHTML( 'js' );
 			}
@@ -101,6 +90,17 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	{
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $this->_getContext() );
 		$this->_getContext()->setLocale( $localeManager->createItem() );
+	}
+
+
+	/**
+	 * Uses default view.
+	 *
+	 * return Tx_Extbase_MVC_View_ViewInterface View object
+	 */
+	protected function resolveView()
+	{
+		return Tx_Extbase_MVC_Controller_ActionController::resolveView();
 	}
 
 
