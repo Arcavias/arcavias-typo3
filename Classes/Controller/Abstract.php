@@ -52,6 +52,21 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	protected function initializeAction()
 	{
 		$this->uriBuilder->setArgumentPrefix( 'arc' );
+
+
+		$langid = '';
+		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+			$langid = $GLOBALS['TSFE']->config['config']['language'];
+		}
+
+
+		$context = $this->_getContext();
+
+		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+		// @todo Get chosen currency from frontend
+		$localeItem = $localeManager->bootstrap( $this->settings['sitecode'], $langid, '' );
+
+		$context->setLocale( $localeItem );
 	}
 
 
@@ -151,18 +166,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$context->setLogger( $logger );
 
 
-			$langid = '';
-			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-				$langid = $GLOBALS['TSFE']->config['config']['language'];
-			}
-
-			// @todo Get chosen currency from frontend
-			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-			$localeItem = $localeManager->bootstrap( $this->settings['sitecode'], $langid, '' );
-
-			$context->setLocale( $localeItem );
-
-
 			self::$_context = $context;
 		}
 
@@ -206,15 +209,15 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		if( self::$_mshop === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
-			$privatePath = t3lib_extMgm::extPath( 'arcavias' ) . $ds . 'Resources' . $ds . 'Private';
+			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries';
 
-			require_once $privatePath . $ds . 'Libraries' . $ds . 'core' . $ds . 'MShop.php';
+			require_once $libPath . $ds . 'core' . $ds . 'MShop.php';
 
 			if( spl_autoload_register( 'MShop::autoload' ) === false ) {
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
-			self::$_mshop = new MShop( array( $privatePath . $ds . 'Libraries' . $ds . 'ext' ) );
+			self::$_mshop = new MShop( array( $libPath . $ds . 'ext' ), false, $libPath . $ds . 'core' );
 		}
 
 		return self::$_mshop;

@@ -75,18 +75,18 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 		if( self::$_mshop === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
-			$privatePath = t3lib_extMgm::extPath( 'arcavias' ) . $ds . 'Resources' . $ds . 'Private';
+			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries';
 
-			require_once $privatePath . $ds . 'Libraries' . $ds . 'core' . $ds . 'MShop.php';
+			require_once $libPath . $ds . 'core' . $ds . 'MShop.php';
 
 			if( spl_autoload_register( 'MShop::autoload' ) === false ) {
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
-			self::$_mshop = new MShop( array( $privatePath . $ds . 'Libraries' . $ds . 'ext' ) );
+			self::$_mshop = new MShop( array( $libPath . $ds . 'ext' ), false, $libPath . $ds . 'core' );
 
 
-			$includePaths = $this->_getMShop()->getIncludePaths();
+			$includePaths = self::$_mshop->getIncludePaths();
 			$includePaths[] = get_include_path();
 
 			if( ( self::$_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
