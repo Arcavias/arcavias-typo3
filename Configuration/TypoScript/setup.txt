@@ -1,5 +1,4 @@
 page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Public/css/arcavias.css
-page.includeCSS.tx_arcavias_color = EXT:arcavias/Resources/Public/css/blue.css
 
 plugin.tx_arcavias {
 	mvc {
