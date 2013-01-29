@@ -46,4 +46,12 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_basket-s
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_basket-standard', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/BasketStandard.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'basket-standard', 'Arcavias - Basket standard' );
 
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_checkout-standard'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_checkout-standard', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CheckoutStandard.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-standard', 'Arcavias - Checkout standard' );
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_checkout-confirm'] = 'pi_flexform';
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-confirm', 'Arcavias - Checkout confirm' );
+
 ?>

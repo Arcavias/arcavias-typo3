@@ -39,6 +39,22 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'checkout-standard',
+	array( 'Checkout' => 'index' ),
+	array( 'Checkout' => 'index' )
+);
+
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'checkout-confirm',
+	array( 'Checkout' => 'confirm' ),
+	array( 'Checkout' => 'confirm' )
+);
+
+
 /*
  * Scheduler tasks
  */

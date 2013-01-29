@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for extension 'arcavias'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="checkout-standard.basket-target">Basket page</label>
+			<label index="checkout-standard.checkout-confirm-target">Confirmation page</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="checkout-standard.basket-target">Seite des Warenkorbs</label>
+			<label index="checkout-standard.checkout-confirm-target">Bestätigungsseite</label>
+		</languageKey>
+	</data>
+</T3locallang>
