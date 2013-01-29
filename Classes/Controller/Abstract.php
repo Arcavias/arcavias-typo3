@@ -88,7 +88,8 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
 		$view->addHelper( 'url', $helper );
 
-		$helper = new MW_View_Helper_Translate_Default( $view, new MW_Translation_None( 'en_GB' ) );
+		$trans = new MW_Translation_Zend( $this->_getMShop()->getI18nPaths(), 'gettext', 'en', array( 'disableNotices' => true ) );
+		$helper = new MW_View_Helper_Translate_Default( $view, $trans );
 		$view->addHelper( 'translate', $helper );
 
 		$helper = new MW_View_Helper_Parameter_Default( $view, $this->request->getArguments() );
