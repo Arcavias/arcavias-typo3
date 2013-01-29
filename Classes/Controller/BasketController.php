@@ -9,7 +9,7 @@
 
 
 /**
- * Arcavias catalog controller.
+ * Arcavias basket controller.
  *
  * @package TYPO3_Arcavias
  */

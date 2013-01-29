@@ -13,7 +13,7 @@
 		<languageKey index="de" type="array">
 			<label index="catalog-filter.catalog-list-target">Listenseite des Katalogs</label>
 			<label index="catalog-list.catalog-detail-target">Detailseite des Katalogs</label>
-			<label index="catalog-detail.basket-target">Seite des Warenkorb</label>
+			<label index="catalog-detail.basket-target">Seite des Warenkorbs</label>
 		</languageKey>
 	</data>
 </T3locallang>
