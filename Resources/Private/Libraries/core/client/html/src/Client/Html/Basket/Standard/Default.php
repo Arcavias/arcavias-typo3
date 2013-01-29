@@ -4,7 +4,7 @@
  * @copyright Copyright (c) Metaways Infosystems GmbH, 2012
  * @license LGPLv3, http://www.arcavias.com/en/license
  * @package Client
- * @subpackage HTML
+ * @subpackage Html
  * @version $Id: Default.php 1324 2012-10-21 13:17:19Z nsendetzky $
  */
 
@@ -13,13 +13,12 @@
  * Default implementation of standard basket HTML client.
  *
  * @package Client
- * @subpackage HTML
+ * @subpackage Html
  */
 class Client_Html_Basket_Standard_Default
 	extends Client_Html_Abstract
 	implements Client_Html_Interface
 {
-	private $_cache;
 	private $_subPartPath = 'client/html/basket/standard/default/subparts';
 	private $_subPartNames = array( 'main' );
 
@@ -27,12 +26,11 @@ class Client_Html_Basket_Standard_Default
 	/**
 	 * Returns the HTML code for insertion into the body.
 	 *
-	 * @param string|null $name Template name
 	 * @return string HTML code
 	 */
-	public function getBody( $name = null )
+	public function getBody()
 	{
-		$view = $this->_process( $this->getView() );
+		$view = $this->getView();
 
 		$html = '';
 		foreach( $this->_getSubClients( $this->_subPartPath, $this->_subPartNames ) as $subclient ) {
@@ -50,10 +48,9 @@ class Client_Html_Basket_Standard_Default
 	/**
 	 * Returns the HTML string for insertion into the header.
 	 *
-	 * @param string|null $name Template name
 	 * @return string String including HTML tags for the header
 	 */
-	public function getHeader( $name = null )
+	public function getHeader()
 	{
 		$view = $this->getView();
 
@@ -97,12 +94,11 @@ class Client_Html_Basket_Standard_Default
 
 	/**
 	 * Sets the necessary parameter values in the view.
-	 *
-	 * @param MW_View_Interface $view The view object which generates the HTML output
-	 * @return MW_View_Interface Modified view object
 	 */
-	protected function _process( MW_View_Interface $view )
+	public function process()
 	{
+		$view = $this->getView();
+
 		$controller = Controller_Frontend_Basket_Factory::createController( $this->_getContext() );
 
 		switch( $view->param( 'b-action' ) )
@@ -172,6 +168,6 @@ class Client_Html_Basket_Standard_Default
 
 		$view->standardBasket = $controller->get();
 
-		return $view;
+		$this->_process( $this->_subPartPath, $this->_subPartNames );
 	}
 }
