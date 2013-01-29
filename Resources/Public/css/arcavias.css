@@ -904,6 +904,10 @@
 	display: none;
 }
 
+.checkout-standard li {
+	list-style: none;
+}
+
 .checkout-standard li.item-salutation,
 .checkout-standard li.item-address1,
 .checkout-standard li.item-postal {
