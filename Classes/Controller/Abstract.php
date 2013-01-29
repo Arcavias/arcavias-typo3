@@ -233,6 +233,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	protected function _getClientOutput( Client_Html_Interface $client )
 	{
 		$client->setView( $this->_createView() );
+		$client->process();
 
 		$this->response->addAdditionalHeaderData( $client->getHeader() );
 
