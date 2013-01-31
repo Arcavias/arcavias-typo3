@@ -12,7 +12,7 @@ return array(
 			),
 		),
 	),
-	'customer' => array(
+/*	'customer' => array(
 		'manager' => array(
 //			'name' => 'Typo3',
 			'group' => array(
@@ -20,4 +20,5 @@ return array(
 			)
 		)
 	),
+*/
 );

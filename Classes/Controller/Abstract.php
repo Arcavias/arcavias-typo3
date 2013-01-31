@@ -51,6 +51,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function initializeAction()
 	{
+		$context = $this->_getContext();
 		$this->uriBuilder->setArgumentPrefix( 'arc' );
 
 
@@ -58,9 +59,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
 			$langid = $GLOBALS['TSFE']->config['config']['language'];
 		}
-
-
-		$context = $this->_getContext();
 
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
 		// @todo Get chosen currency from frontend
@@ -83,12 +81,17 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 	protected function _createView()
 	{
+		$langid = 'en';
+		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+			$langid = $GLOBALS['TSFE']->config['config']['language'];
+		}
+
 		$view = new MW_View_Default();
 
 		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
 		$view->addHelper( 'url', $helper );
 
-		$trans = new MW_Translation_Zend( $this->_getMShop()->getI18nPaths(), 'gettext', 'en_GB', array( 'disableNotices' => true ) );
+		$trans = new MW_Translation_Zend( $this->_getMShop()->getI18nPaths(), 'gettext', $langid, array( 'disableNotices' => true ) );
 		$helper = new MW_View_Helper_Translate_Default( $view, $trans );
 		$view->addHelper( 'translate', $helper );
 
@@ -134,6 +137,13 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 				$conf = new MW_Config_Decorator_APC( $conf );
 			}
 
+			if( isset( $this->settings['config'] ) )
+			{
+				foreach( $this->settings['config'] as $key => $value ) {
+					$conf->set( str_replace( '_', '/', $key ), $value );
+				}
+			}
+
 			$context->setConfig( $conf );
 
 
@@ -152,7 +162,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			}
 
 
-			$typo3User = 'guest';
+			$typo3User = null;
 
 			if( TYPO3_MODE === 'BE' ) {
 				$typo3User = $GLOBALS['BE_USER']->user['username'];
