@@ -33,8 +33,6 @@ class Tx_Arcavias_Controller_CheckoutController extends Tx_Arcavias_Controller_A
 				'Error',
 				t3lib_Flashmessage::ERROR
 			);
-echo $e->getMessage();
-echo $e->getTraceAsString();
 		}
 	}
 
