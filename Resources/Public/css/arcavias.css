@@ -3,6 +3,9 @@
  */
 
 
+.arcavias {
+	line-height: 125%;
+}
 
 .arcavias ul, .arcavias li,
 .arcavias h1, .arcavias h2,
@@ -11,8 +14,63 @@
 	padding: 0;
 }
 
-.arcavias {
-	line-height: 125%;
+.arcavias button {
+	border: medium none;
+	text-align: center;
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
+}
+
+.arcavias .standardbutton {
+    background: url(../images/buttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+    background-color: #FFFFFF;
+    color: #FFFFFF;
+	border-radius: 4px 4px 4px 4px;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 100%;
+	line-height: 100%;
+	padding: 0.5em;
+	margin: 1px 0;
+}
+
+.arcavias .standardbutton:hover {
+    border-bottom: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #303639;
+	box-shadow: none;
+}
+
+.arcavias .minibutton {
+    background: url(../images/minibuttonfond.gif) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #303639;
+    border-right: 1px solid #303639;
+    border-top: 1px solid #FFFFFF;
+    box-shadow: 2px 2px 4px #5C88A1;
+    background-color: #FFFFFF;
+    color: #FFFFFF;
+	border-radius: 4px 4px 4px 4px;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 80%;
+	height: 20px;
+	margin: 0 0 1px;
+	padding: 0 7px;
+}
+
+.arcavias .minibutton:hover {
+    border-bottom: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #303639;
+	box-shadow: none;
+	margin: 1px 0 0 1px;
 }
 
 .arcavias button {

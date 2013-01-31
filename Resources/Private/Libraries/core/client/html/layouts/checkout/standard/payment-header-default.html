@@ -31,7 +31,9 @@ $serviceOption = $this->param( 'c-payment-option', $orderServiceId );
 $(document).ready( function() {
 	$( '.checkout-standard-payment .form-list' ).css( 'display', 'none' );
 	$( '#c-payment-<?php echo $serviceOption; ?> .form-list' ).slideDown( 0 );
-	$( '.checkout-standard-payment .option' ).bind( 'click',
+	$( '.checkout-standard-payment' ).on(
+		'click',
+		'.option',
 		function( event ) {
 			$( '.checkout-standard-payment .form-list' ).slideUp( 400 );
 			$(this).parents( '.item' ).find( '.form-list' ).slideDown( 400 );
