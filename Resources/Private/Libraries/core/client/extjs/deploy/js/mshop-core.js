@@ -8200,8 +8200,12 @@ MShop.panel.AbstractUsedByListUi = Ext.extend( Ext.Panel, {
 		domainFilter[this.parentDomainPorperty] = 'product';
 
 		var refIdFilter = {};
-		refIdFilter[this.parentRefIdProperty] = this.ParentItemUi.record.data['product.id'];
-
+		
+		refIdFilter[this.parentRefIdProperty] = null;
+		if( this.ParentItemUi.record.data['product.id'] ) {
+			refIdFilter[this.parentRefIdProperty] = this.ParentItemUi.record.data['product.id'];
+		}
+		
 		options.params = options.params || {};
 		options.params.condition = {
 			'&&' : [ {
@@ -8210,6 +8214,9 @@ MShop.panel.AbstractUsedByListUi = Ext.extend( Ext.Panel, {
 					'==' : refIdFilter
 			} ]
 		};
+		
+		options.params.start = 0;
+		options.params.limit = 0x7fffffff;
 	},
 
 	onBeforeWrite: function( store, action, records, options )
