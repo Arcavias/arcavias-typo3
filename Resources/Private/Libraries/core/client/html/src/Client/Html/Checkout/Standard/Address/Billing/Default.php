@@ -99,13 +99,13 @@ class Client_Html_Checkout_Standard_Address_Billing_Default
 	{
 		$view = $this->getView();
 
-		// only start if there's something to do
-		if( $view->param( 'ca-billing-option', null ) === null ) {
-			return;
-		}
-
 		try
 		{
+			// only start if there's something to do
+			if( $view->param( 'ca-billing-option', null ) === null ) {
+				return;
+			}
+
 			$context = $this->_getContext();
 			$basketCtrl = Controller_Frontend_Basket_Factory::createController( $context );
 			$basket = $basketCtrl->get();
@@ -113,7 +113,7 @@ class Client_Html_Checkout_Standard_Address_Billing_Default
 
 			$type = MShop_Order_Item_Base_Address_Abstract::TYPE_BILLING;
 
-			if( ( $option = $view->param( 'ca-billing-option', '' ) ) == '' ) // new address
+			if( ( $option = $view->param( 'ca-billing-option', 'null' ) ) == 'null' ) // new address
 			{
 				$param = $view->param( 'ca-billing', array() );
 
@@ -172,7 +172,6 @@ class Client_Html_Checkout_Standard_Address_Billing_Default
 		}
 		catch( Controller_Frontend_Exception $e )
 		{
-			$view->standardStepActive = 'address';
 			$view->billingError = $e->getErrorList();
 			throw $e;
 		}
