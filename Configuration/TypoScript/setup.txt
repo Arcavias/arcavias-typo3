@@ -8,15 +8,13 @@ plugin.tx_arcavias {
 		pluginNamespace = arc
 	}
 	settings {
-		sitecode = default
-
-		baseurl-content = uploads/tx_arcavias/
-		baseurl-template = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
-		
-		format {
-			date = Y-m-d
-			seperatorDecimal = .
-			seperator1000 = 
+		client {
+			html {
+				common {
+					content.baseurl = uploads/tx_arcavias/
+					template.baseurl = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
+				}
+			}
 		}
 	}
 }

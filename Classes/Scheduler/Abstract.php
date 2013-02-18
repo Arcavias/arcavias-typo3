@@ -39,7 +39,8 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			$configPaths = $mshop->getConfigPaths( 'mysql' );
 			$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
 
-			$conf = new MW_Config_Zend( new Zend_Config( array(), true ), $configPaths );
+			$conf = new MW_Config_Array( ( is_array( $this->settings ) ? $this->settings : array() ), $configPaths );
+			$conf = new MW_Config_Decorator_MemoryCache( $conf );
 			$context->setConfig( $conf );
 
 
