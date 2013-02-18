@@ -89,7 +89,18 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
-			self::$_mshop = new MShop( array( $libPath . $ds . 'ext' ), false, $libPath . $ds . 'core' );
+				// Hook for processing extension directories
+			$extDirs = array();
+			if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
+			{
+				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
+				{
+					$absPath = t3lib_div::getFileAbsFileName( $dir );
+					if( !empty( $absPath ) ) $extDirs[] = $absPath;
+				}
+			}
+
+			self::$_mshop = new MShop( $extDirs, false, $libPath . $ds . 'core' );
 
 
 			$includePaths = self::$_mshop->getIncludePaths();

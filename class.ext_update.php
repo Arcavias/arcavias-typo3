@@ -80,8 +80,10 @@ class ext_update
 
 			// Hook for processing extension directories
 		$extDirs = array();
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'])) {
-			foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir ) {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
+		{
+			foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
+			{
 				$absPath = t3lib_div::getFileAbsFileName( $dir );
 				if( !empty( $absPath ) ) $extDirs[] = $absPath;
 			}
