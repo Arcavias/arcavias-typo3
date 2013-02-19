@@ -4,6 +4,8 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
 	die ( 'Access denied.' );
 }
 
+// Extension directory hook
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['extDirs'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Resources/Private/Libraries/ext/';
 
 /*
  * Plugins
