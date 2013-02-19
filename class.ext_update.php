@@ -78,7 +78,20 @@ class ext_update
 			throw new Exception( 'Unable to register MShop::autoload' );
 		}
 
-		$mshop = new MShop( array( $basepath . $ds . 'Libraries' . $ds . 'ext' ) );
+			// Hook for processing extension directories
+		$extDirs = array();
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
+		{
+			foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
+			{
+				$absPath = t3lib_div::getFileAbsFileName( $dir );
+				if( !empty( $absPath ) ) {
+					$extDirs[] = $absPath;
+				}
+			}
+		}
+
+		$mshop = new MShop( $extDirs );
 
 
 		$taskPaths = $mshop->getSetupPaths( 'default' );
