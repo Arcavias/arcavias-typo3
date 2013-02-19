@@ -94,4 +94,18 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_sch
 	'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:admin.description',
 );
 
+
+/**
+ * Add RealURL Configuration
+ */
+$config = @unserialize( $_EXTCONF );
+if ( is_array( $config ) ) {
+	if( $config['useRealUrlAutoConfig'] ) {
+		$filepath = 'EXT:' . $_EXTKEY . '/realurl_autoconf.php';
+		$filepath = t3lib_div::getFileAbsFileName( $filepath );
+		require_once( $filepath );
+	}
+}
+unset( $config );
+
 ?>
