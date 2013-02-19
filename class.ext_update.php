@@ -85,7 +85,9 @@ class ext_update
 			foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
 			{
 				$absPath = t3lib_div::getFileAbsFileName( $dir );
-				if( !empty( $absPath ) ) $extDirs[] = $absPath;
+				if( !empty( $absPath ) ) {
+					$extDirs[] = $absPath;
+				}
 			}
 		}
 
