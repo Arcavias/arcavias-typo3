@@ -28,12 +28,37 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 
 
 	/**
+	 * Renders the catalog search filter section.
+	 */
+	public function filtersearchAction()
+	{
+		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
+		$client = $client->getSubClient( 'search' );
+
+		return $this->_getClientOutput( $client );
+	}
+
+
+	/**
 	 * Renders the catalog list section.
 	 */
 	public function listAction()
 	{
 		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths );
+
+		return $this->_getClientOutput( $client );
+	}
+
+
+	/**
+	 * Renders a list of product names in JSON format.
+	 */
+	public function listsimpleAction()
+	{
+		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths, 'Simple' );
 
 		return $this->_getClientOutput( $client );
 	}
