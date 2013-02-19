@@ -1,2 +1,4 @@
 # cat=tx_arcavias/basic; type=boolean; label=Use APC cache:If Arcavias configuration values should be cached in the APC user cache
 useAPC = 1
+# cat=tx_arcavias/basic; type=boolean; label=Use Auto-Configuration for RealUrl:Set if you want to use internal RealUrl-Auto-Configuration for Arcavias
+useRealUrlAutoConfig = 0
