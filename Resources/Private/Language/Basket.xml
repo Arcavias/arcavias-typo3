@@ -7,9 +7,11 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="basket-standard.checkout-target">Checkout page</label>
+			<label index="basket-small.basket-target">Basket page</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="basket-standard.checkout-target">Seite "zur Kasse"</label>
+			<label index="basket-small.basket-target">Seite des Warenkorbs</label>
 		</languageKey>
 	</data>
 </T3locallang>

@@ -5,7 +5,7 @@
 	<ROOT>
 		<type>array</type>
 		<el>
-			<settings.catalog-detail-target>
+			<settings.client.html.catalog.detail.url.target>
 				<TCEforms>
 					<label>LLL:EXT:arcavias/Resources/Private/Language/Catalog.xml:catalog-list.catalog-detail-target</label>
 					<config>
@@ -18,7 +18,7 @@
 						<show_thumbs>1</show_thumbs>
 					</config>
 				</TCEforms>
-			</settings.catalog-detail-target>
+			</settings.client.html.catalog.detail.url.target>
 		</el>
 	</ROOT>
 </T3DataStructure>
