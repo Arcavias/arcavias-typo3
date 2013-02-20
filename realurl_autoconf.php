@@ -41,10 +41,10 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['postVarSets']['_DEFAULT']['c
 	array(
 		'GETvar' => 'arc[f-catalog-id]',
 		'lookUpTable' => array(
-			'table' => 'mshop_catalog_list cl, mshop_text mt, mshop_text_type mtt',
+			'table' => 'mshop_text mt INNER JOIN mshop_text_type mtt ON mtt.id = mt.typeid INNER JOIN mshop_catalog_list cl ON cl.refid=mt.id',
 			'id_field' => 'parentid',
 			'alias_field' => 'content',
-			'addWhereClause' => ' AND mtt.code="name" AND mtt.domain="catalog" AND mtt.id=mt.typeid AND (mt.langid="'.$lang.'" or mt.langid is null) AND cl.refid=mt.id AND cl.domain="text" AND mt.status=1 AND mt.domain="catalog"',
+			'addWhereClause' => ' AND cl.domain="text" AND (mt.langid="'.$lang.'" or mt.langid is null) AND mt.status > 0 AND mt.domain="catalog" AND mtt.code="name" AND mtt.domain="catalog"',
 			'useUniqueCache' => 1,
 			'useUniqueCache_conf' => array(
 				'strtolower' => 1,
@@ -55,10 +55,10 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['postVarSets']['_DEFAULT']['c
 	array(
 		'GETvar' => 'arc[l-product-id]',
 		'lookUpTable' => array(
-			'table' => 'mshop_catalog_index_text ct',
-			'id_field' => 'prodid',
-			'alias_field' => 'value',
-			'addWhereClause' => ' AND listtype=\'default\' AND type=\'name\' AND (ct.langid="'.$lang.'" or ct.langid is null)',
+			'table' => 'mshop_text mt INNER JOIN mshop_text_type mtt ON mtt.id = mt.typeid INNER JOIN mshop_product_list pl ON pl.refid=mt.id',
+			'id_field' => 'parentid',
+			'alias_field' => 'content',
+			'addWhereClause' => ' AND pl.domain="text" AND (mt.langid="'.$lang.'" or mt.langid is null) AND mt.status > 0 AND mt.domain="product" AND mtt.code="name" AND mtt.domain="product"',
 			'useUniqueCache' => 1,
 			'useUniqueCache_conf' => array(
 				'strtolower' => 1,
