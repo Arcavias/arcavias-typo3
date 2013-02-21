@@ -6,11 +6,17 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="catalog-filter.catalog-start">Display categories beginning from the following node</label>
+			<label index="catalog-filter.catalog-levels-always">Always display these category levels</label>
+			<label index="catalog-filter.catalog-levels-only">Only display up to these category levels</label>
 			<label index="catalog-filter.catalog-list-target">Catalog list page</label>
 			<label index="catalog-list.catalog-detail-target">Catalog detail page</label>
 			<label index="catalog-detail.basket-target">Basket page</label>
 		</languageKey>
 		<languageKey index="de" type="array">
+			<label index="catalog-filter.catalog-start">Zeige Kategorien erst ab folgendem Knoten an</label>
+			<label index="catalog-filter.catalog-levels-always">Zeige immer alle Kategorien bis zu dieser Tiefe</label>
+			<label index="catalog-filter.catalog-levels-only">Zeige nur die Kategorien bis zu dieser Tiefe</label>
 			<label index="catalog-filter.catalog-list-target">Listenseite des Katalogs</label>
 			<label index="catalog-list.catalog-detail-target">Detailseite des Katalogs</label>
 			<label index="catalog-detail.basket-target">Seite des Warenkorbs</label>
