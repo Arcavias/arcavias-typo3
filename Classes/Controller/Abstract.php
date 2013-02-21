@@ -65,7 +65,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		}
 
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-		$sitecode = $context->getConfig()->get( 'typo3/sitecode', 'default' );
+		$sitecode = $context->getConfig()->get( 'sitecode', 'default' );
 		// @todo Get chosen currency from frontend
 		$localeItem = $localeManager->bootstrap( $sitecode, $langid, '' );
 
