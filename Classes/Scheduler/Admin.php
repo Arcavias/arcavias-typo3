@@ -15,7 +15,12 @@
  */
 class tx_arcavias_scheduler_admin
 	extends tx_arcavias_scheduler_abstract
+	implements tx_scheduler_AdditionalFieldProvider
 {
+	private $_fieldEmail = 'arcavias_admin_email';
+	private $_fieldName = 'arcavias_admin_name';
+
+
 	/**
 	 * Function executed by the scheduler.
 	 *
@@ -57,16 +62,108 @@ class tx_arcavias_scheduler_admin
 				$locale->setCurrencyId( null );
 				$context->setLocale( $locale );
 
+				$this->_updateStock( $context );
+				$this->_sendEmails( $context );
 				$this->_executeJobs( $context );
 			}
 		}
 		catch( Exception $e )
 		{
-			$context->getLogger()->log( 'Error executing admin scheduler: ' . $e->getMessage() );
+			$context->getLogger()->log( 'Error executing admin scheduler: ' . $e->getMessage() . PHP_EOL . $e->getTraceAsString() );
 			return false;
 		}
 
 		return true;
+	}
+
+
+	/**
+	 * Fields generation.
+	 * This method is used to define new fields for adding or editing a task
+	 * In this case, it adds a page ID field
+	 *
+	 * @param array $taskInfo Reference to the array containing the info used in the add/edit form
+	 * @param object $task When editing, reference to the current task object. Null when adding.
+	 * @param tx_scheduler_Module $parentObject Reference to the calling object (Scheduler's BE module)
+	 * @return array Array containg all the information pertaining to the additional fields
+	 *		The array is multidimensional, keyed to the task class name and each field's id
+	 *		For each field it provides an associative sub-array with the following:
+	 *			['code']		=> The HTML code for the field
+	 *			['label']		=> The label of the field (possibly localized)
+	 *			['cshKey']		=> The CSH key for the field
+	 *			['cshLabel']	=> The code of the CSH label
+	 */
+	public function getAdditionalFields( array &$taskInfo, $task, tx_scheduler_Module $parentObject )
+	{
+		$additionalFields = array();
+
+		// In case of editing a task, set to the internal value if data wasn't already submitted
+		if( empty( $taskInfo[$this->_fieldEmail] ) && $parentObject->CMD === 'edit' ) {
+			$taskInfo[$this->_fieldEmail] = $task->{$this->_fieldEmail};
+		}
+
+		$fieldCode = sprintf( '<input name="tx_scheduler[%1$s]" id="%1$s" value="%2$s" />', $this->_fieldEmail, $taskInfo[$this->_fieldEmail] );
+
+		$additionalFields[$this->_fieldEmail] = array(
+			'code'     => $fieldCode,
+			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:admin.label.email',
+			'cshKey'   => 'xMOD_tx_arcavias',
+			'cshLabel' => $this->_fieldEmail
+		);
+
+
+		// In case of editing a task, set to the internal value if data wasn't already submitted
+		if( empty( $taskInfo[$this->_fieldName] ) && $parentObject->CMD === 'edit' ) {
+			$taskInfo[$this->_fieldName] = $task->{$this->_fieldName};
+		}
+
+		$fieldCode = sprintf( '<input name="tx_scheduler[%1$s]" id="%1$s" value="%2$s" />', $this->_fieldName, $taskInfo[$this->_fieldName] );
+
+		$additionalFields[$this->_fieldName] = array(
+			'code'     => $fieldCode,
+			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:admin.label.name',
+			'cshKey'   => 'xMOD_tx_arcavias',
+			'cshLabel' => $this->_fieldName
+		);
+
+		return $additionalFields;
+	}
+
+
+	/**
+	 * Store fields.
+	 * This method is used to save any additional input into the current task object
+	 * if the task class matches
+	 *
+	 * @param array $submittedData Array containing the data submitted by the user
+	 * @param tx_scheduler_Task	$task Reference to the current task object
+	 */
+	public function saveAdditionalFields( array $submittedData, tx_scheduler_Task $task )
+	{
+		$task->{$this->_fieldEmail} = $submittedData[$this->_fieldEmail];
+		$task->{$this->_fieldName} = $submittedData[$this->_fieldName];
+	}
+
+
+	/**
+	 * Fields validation.
+	 * This method checks if page id given in the 'Hide content' specific task is int+
+	 * If the task class is not relevant, the method is expected to return true
+	 *
+	 * @param array $submittedData Reference to the array containing the data submitted by the user
+	 * @param tx_scheduler_Module $parentObject Reference to the calling object (Scheduler's BE module)
+	 * @return boolean True if validation was ok (or selected class is not relevant), false otherwise
+	 */
+	public function validateAdditionalFields( array &$submittedData, tx_scheduler_Module $parentObject )
+	{
+		if( strpos( $submittedData[$this->_fieldEmail], '@' ) > 0 ) {
+			return true;
+		}
+
+		$message = $GLOBALS['LANG']->sL('LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:admin.error.email');
+		$parentObject->addMessage( $message, t3lib_FlashMessage::ERROR );
+
+		return false;
 	}
 
 
@@ -138,6 +235,143 @@ class tx_arcavias_scheduler_admin
 			$count = count( $items );
 			$start += $count;
 			$criteria->setSlice( $start );
+		}
+		while( $count > 0 );
+	}
+
+
+	/**
+	 * Sends the confirmation e-mail for all new orders.
+	 *
+	 * @param MShop_Context_Item_Interface $context Context object with locale item set
+	 * @throws Exception If there are problems getting the orders
+	 */
+	protected function _sendEmails( MShop_Context_Item_Interface $context )
+	{
+		$orderManager = MShop_Order_Manager_Factory::createManager( $context );
+		$orderBaseManager = $orderManager->getSubManager( 'base' );
+
+		$orderSearch = $orderManager->createSearch();
+		$expr = array(
+			$orderSearch->compare( '>', 'order.statuspayment', MShop_Order_Item_Abstract::PAY_PENDING ),
+			$orderSearch->combine( '!', array( $orderSearch->compare( '&', 'order.emailflag', MShop_Order_Item_Abstract::EMAIL_ACCEPTED ) ) ),
+		);
+		$orderSearch->setConditions( $orderSearch->combine( '&&', $expr ) );
+
+		$i18nPaths = $this->_getMShop()->getI18nPaths();
+		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$client = Client_Html_Email_Confirm_Factory::createClient( $context, $templatePaths );
+		$view = $this->_createView();
+
+		$start = 0;
+		$mail = t3lib_div::makeInstance( 't3lib_mail_Message' );
+
+		do
+		{
+			$items = $orderManager->searchItems( $orderSearch );
+
+			foreach( $items as $item )
+			{
+				try
+				{
+					$orderBaseItem = $orderBaseManager->load( $item->getBaseId() );
+					$view->confirmOrderBaseItem = $orderBaseItem;
+					$view->confirmOrderItem = $item;
+
+					$addr = $orderBaseItem->getAddress( MShop_Order_Item_Base_Address_Abstract::TYPE_BILLING );
+
+					$trans = new MW_Translation_Zend( $i18nPaths, 'gettext', $addr->getLanguageId(), array( 'disableNotices' => true ) );
+					$helper = new MW_View_Helper_Translate_Default( $view, $trans );
+					$view->addHelper( 'translate', $helper );
+
+					$client->setView( $view );
+
+					$name = sprintf( $view->translate( 'client/html', '%1$s %2$s' ), $addr->getFirstname(), $addr->getLastname() );
+
+					$mail->setFrom( array( $this->{$this->_fieldEmail} => $this->{$this->_fieldName} ) );
+					$mail->setTo( array( $addr->getEmail() => $name ) );
+					$mail->setSubject( sprintf( $view->translate( 'client/html', 'Confirmation for order %1$s' ), $item->getId() ) );
+					$mail->setBody( $client->getBody() );
+					$mail->send();
+
+					$item->setFlag( $item->getEMailFlag() | MShop_Order_Item_Abstract::EMAIL_ACCEPTED );
+					$orderManager->saveItem( $item );
+				}
+				catch( Exception $e )
+				{
+					$str = 'Error while trying to send confirmation e-mail for order ID "%1$s": %2$s';
+					$context->getLogger()->log( sprintf( $str, $item->getId(), $e->getMessage() ) );
+				}
+			}
+
+			$count = count( $items );
+			$start += $count;
+			$orderSearch->setSlice( $start );
+		}
+		while( $count > 0 );
+	}
+
+
+	/**
+	 * Updates the stock level for all ordered products.
+	 *
+	 * @param MShop_Context_Item_Interface $context Context object with locale item set
+	 * @throws Exception If there are problems getting the orders
+	 */
+	protected function _updateStock( MShop_Context_Item_Interface $context )
+	{
+		$orderManager = MShop_Order_Manager_Factory::createManager( $context );
+		$orderBaseProductManager = $orderManager->getSubManager( 'base' )->getSubManager( 'product' );
+		$stockManager = MShop_Product_Manager_Factory::createManager( $context )->getSubManager( 'stock' );
+
+		$orderProductSearch = $orderBaseProductManager->createSearch();
+		$orderProductSearch->setSlice( 0, 0x7fffffff );
+
+		$orderSearch = $orderManager->createSearch();
+		$expr = array(
+			$orderSearch->compare( '>=', 'order.statuspayment', MShop_Order_Item_Abstract::PAY_AUTHORIZED ),
+			$orderSearch->combine( '!', array( $orderSearch->compare( '&', 'order.flag', MShop_Order_Item_Abstract::FLAG_STOCK ) ) ),
+		);
+		$orderSearch->setConditions( $orderSearch->combine( '&&', $expr ) );
+
+		$start = 0;
+		$siteConfig = $context->getLocale()->getSite()->getConfig();
+		/** @todo Repository configuration in sub-sites? */
+		$repository = ( isset( $siteConfig['repository'] ) ? $siteConfig['repository'] : 'default' );
+
+		do
+		{
+			$items = $orderManager->searchItems( $orderSearch );
+
+			foreach( $items as $item )
+			{
+				$this->_beginTx();
+
+				try
+				{
+					$orderProductSearch->setConditions( $orderProductSearch->compare( '==', 'order.base.product.baseid',  $item->getBaseId() ) );
+
+					foreach( $orderBaseProductManager->searchItems( $orderProductSearch ) as $orderProductItem ) {
+						$stockManager->decrease( $orderProductItem->getProductCode(), $repository, $orderProductItem->getQuantity() );
+					}
+
+					$item->setFlag( $item->getFlag() | MShop_Order_Item_Abstract::FLAG_STOCK );
+					$orderManager->saveItem( $item );
+
+					$this->_commitTx();
+				}
+				catch( Exception $e )
+				{
+					$this->_rollbackTx();
+					$str = 'Error while updating stock for order ID "%1$s": %2$s';
+					$context->getLogger()->log( sprintf( $str, $item->getId(), $e->getMessage() ) );
+				}
+
+			}
+
+			$count = count( $items );
+			$start += $count;
+			$orderSearch->setSlice( $start );
 		}
 		while( $count > 0 );
 	}

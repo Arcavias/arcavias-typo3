@@ -18,12 +18,29 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	static private $_mshop;
 	static private $_context;
 	static private $_includePaths = false;
+	private $_domainManagers = array();
+
 
 	/**
-	 * Collection of instantiated managers
-	 * @var array
+	 * Creates the view object for the HTML client.
+	 *
+	 * @return MW_View_Interface View object
 	 */
-	private $_domainManagers = array();
+	protected function _createView()
+	{
+		$config = $this->_getContext()->getConfig();
+		$view = new MW_View_Default();
+
+		$helper = new MW_View_Helper_Config_Default( $view, $config );
+		$view->addHelper( 'config', $helper );
+
+		$sepDec = $config->get( 'client/html/common/format/seperatorDecimal', '.' );
+		$sep1000 = $config->get( 'client/html/common/format/seperator1000', ' ' );
+		$helper = new MW_View_Helper_Number_Default( $view, $sepDec, $sep1000 );
+		$view->addHelper( 'number', $helper );
+
+		return $view;
+	}
 
 
 	/**
@@ -175,5 +192,44 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 		}
 
 		return $this->_domainManagers[$domain];
+	}
+
+
+	/**
+	 * Starts a new transaction for the current connection.
+	 */
+	protected function _beginTx()
+	{
+		$dbm = $this->_getContext()->getDatabaseManager();
+
+		$conn = $dbm->acquire();
+		$conn->begin();
+		$dbm->release( $conn );
+	}
+
+
+	/**
+	 * Commits an existing transaction for the current connection.
+	 */
+	protected function _commitTx()
+	{
+		$dbm = $this->_getContext()->getDatabaseManager();
+
+		$conn = $dbm->acquire();
+		$conn->commit();
+		$dbm->release( $conn );
+	}
+
+
+	/**
+	 * Rolls back an existing transaction for the current connection.
+	 */
+	protected function _rollbackTx()
+	{
+		$dbm = $this->_getContext()->getDatabaseManager();
+
+		$conn = $dbm->acquire();
+		$conn->rollback();
+		$dbm->release( $conn );
 	}
 }
