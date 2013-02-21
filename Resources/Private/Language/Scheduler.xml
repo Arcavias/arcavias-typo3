@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallang>
 	<meta type="array">
-		<description>General Database Field labels for extension 'arcavias'.</description>
+		<description>General database field labels for extension 'arcavias'.</description>
 		<type>database</type>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="catalog.name">Catalog indexer</label>
+			<label index="catalog.name">Arcavias catalog indexer</label>
 			<label index="catalog.description">Recreates the catalog index for one or more sites</label>
 			<label index="catalog.label.sitecode">Sites</label>
 			<label index="catalog.error.sitecode">One or more sites is invalid or already disabled</label>
 
-			<label index="admin.name">Admin interface</label>
-			<label index="admin.description">Processes the jobs created via the admin interface</label>
-			<label index="admin.label.name">Name in e-mail "From" header</label>
-			<label index="admin.label.email">Sender e-mail address in "From" header</label>
-			<label index="admin.error.email">Invalid e-mail address</label>
+			<label index="maintenance.name">Arcavias maintenance tasks</label>
+			<label index="maintenance.description">Runs the periodic tasks of the shop</label>
+			<label index="maintenance.label.name">Name in e-mail "From" header</label>
+			<label index="maintenance.label.email">Sender e-mail address in "From" header</label>
+			<label index="maintenance.error.email">Invalid e-mail address</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="catalog.name">Indizierung des Katalogs</label>
+			<label index="catalog.name">Indizierung des Arcavias Produktkatalogs</label>
 			<label index="catalog.description">Erstellt den Katalog-Index für einen oder mehreren Mandanten</label>
 			<label index="catalog.label.sitecode">Mandanten</label>
 			<label index="catalog.error.sitecode">Ein oder mehrere Mandanten sind ungültig oder wurden deaktiviert</label>
 
-			<label index="admin.name">Administrationsoberfläche</label>
-			<label index="admin.description">Verarbeitet die Aufträge, die über die Administrationsoberfläche erzeugt wurden</label>
-			<label index="admin.label.name">Name des E-Mail Absenders</label>
-			<label index="admin.label.email">Absender E-Mail Adresse</label>
-			<label index="admin.error.email">Ungültige E-Mail Adresse</label>
+			<label index="maintenance.name">Wartungsaufgaben des Arcavias Shops</label>
+			<label index="maintenance.description">Führt die wiederkehrenden Aufgaben des Shops aus</label>
+			<label index="maintenance.label.name">Name des E-Mail Absenders</label>
+			<label index="maintenance.label.email">Absender E-Mail Adresse</label>
+			<label index="maintenance.error.email">Ungültige E-Mail Adresse</label>
 		</languageKey>
 	</data>
 </T3locallang>

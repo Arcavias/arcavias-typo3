@@ -88,11 +88,11 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_sch
 	'additionalFields' => 'tx_arcavias_scheduler_catalog',
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_scheduler_admin'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_scheduler_maintenance'] = array(
 	'extension'        => $_EXTKEY,
-	'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:admin.name',
-	'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:admin.description',
-	'additionalFields' => 'tx_arcavias_scheduler_admin',
+	'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:maintenance.name',
+	'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:maintenance.description',
+	'additionalFields' => 'tx_arcavias_scheduler_maintenance',
 );
 
 ?>

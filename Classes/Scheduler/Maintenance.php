@@ -4,21 +4,20 @@
  * @copyright Copyright (c) Metaways Infosystems GmbH, 2012
  * @license GPLv3, http://www.gnu.org/copyleft/gpl.html
  * @package TYPO3_Arcavias
- * @version $Id$
  */
 
 
 /**
- * Arcavias scheduler for jobs created by the admin interface.
+ * Arcavias scheduler for periodic tasks of the shop.
  *
  * @package TYPO3_Arcavias
  */
-class tx_arcavias_scheduler_admin
+class tx_arcavias_scheduler_maintenance
 	extends tx_arcavias_scheduler_abstract
 	implements tx_scheduler_AdditionalFieldProvider
 {
-	private $_fieldEmail = 'arcavias_admin_email';
-	private $_fieldName = 'arcavias_admin_name';
+	private $_fieldEmail = 'arcavias_maintenance_email';
+	private $_fieldName = 'arcavias_maintenance_name';
 
 
 	/**
@@ -69,7 +68,7 @@ class tx_arcavias_scheduler_admin
 		}
 		catch( Exception $e )
 		{
-			$context->getLogger()->log( 'Error executing admin scheduler: ' . $e->getMessage() . PHP_EOL . $e->getTraceAsString() );
+			$context->getLogger()->log( 'Error executing maintenance scheduler: ' . $e->getMessage() . PHP_EOL . $e->getTraceAsString() );
 			return false;
 		}
 
@@ -106,7 +105,7 @@ class tx_arcavias_scheduler_admin
 
 		$additionalFields[$this->_fieldEmail] = array(
 			'code'     => $fieldCode,
-			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:admin.label.email',
+			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:maintenance.label.email',
 			'cshKey'   => 'xMOD_tx_arcavias',
 			'cshLabel' => $this->_fieldEmail
 		);
@@ -121,7 +120,7 @@ class tx_arcavias_scheduler_admin
 
 		$additionalFields[$this->_fieldName] = array(
 			'code'     => $fieldCode,
-			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:admin.label.name',
+			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:maintenance.label.name',
 			'cshKey'   => 'xMOD_tx_arcavias',
 			'cshLabel' => $this->_fieldName
 		);
@@ -160,7 +159,7 @@ class tx_arcavias_scheduler_admin
 			return true;
 		}
 
-		$message = $GLOBALS['LANG']->sL('LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:admin.error.email');
+		$message = $GLOBALS['LANG']->sL('LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:maintenance.error.email');
 		$parentObject->addMessage( $message, t3lib_FlashMessage::ERROR );
 
 		return false;
