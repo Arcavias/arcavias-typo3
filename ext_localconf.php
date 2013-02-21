@@ -4,6 +4,8 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
 	die ( 'Access denied.' );
 }
 
+// Extension directory hook
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['extDirs'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Resources/Private/Libraries/ext/';
 
 /*
  * Plugins
@@ -18,9 +20,23 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
+	'catalog-filtersearch',
+	array( 'Catalog' => 'filtersearch' ),
+	array()
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
 	'catalog-list',
 	array( 'Catalog' => 'list' ),
 	array( 'Catalog' => 'list' )
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'catalog-listsimple',
+	array( 'Catalog' => 'listsimple' ),
+	array( 'Catalog' => 'listsimple' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
@@ -30,6 +46,13 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array( 'Catalog' => 'detail' )
 );
 
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'basket-small',
+	array( 'Basket' => 'small' ),
+	array( 'Basket' => 'small' )
+);
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,

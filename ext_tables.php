@@ -33,14 +33,26 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-filter', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogFilter.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-filter', 'Arcavias - Catalog filter' );
 
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-filtersearch'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-filtersearch', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogFilter.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-filtersearch', 'Arcavias - Catalog search filter' );
+
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-list'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-list', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogList.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-list', 'Arcavias - Catalog list' );
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-listsimple'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-listsimple', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogList.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-listsimple', 'Arcavias - Catalog simple search list' );
 
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-detail'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-detail', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogDetail.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-detail', 'Arcavias - Catalog detail' );
 
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_basket-small'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_basket-small', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/BasketSmall.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'basket-small', 'Arcavias - Basket small' );
 
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_basket-standard'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_basket-standard', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/BasketStandard.xml' );

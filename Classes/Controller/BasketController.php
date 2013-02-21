@@ -36,4 +36,27 @@ class Tx_Arcavias_Controller_BasketController extends Tx_Arcavias_Controller_Abs
 			);
 		}
 	}
+
+
+	/**
+	 * Renders a small basket.
+	 */
+	public function smallAction()
+	{
+		try
+		{
+			$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Basket_Mini_Factory::createClient( $this->_getContext(), $templatePaths );
+
+			return $this->_getClientOutput( $client );
+		}
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
+	}
 }

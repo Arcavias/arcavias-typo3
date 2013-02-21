@@ -19,6 +19,12 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	static private $_context;
 	static private $_includePaths = false;
 
+	/**
+	 * Collection of instantiated managers
+	 * @var array
+	 */
+	private $_domainManagers = array();
+
 
 	/**
 	 * Returns the current context.
@@ -39,7 +45,8 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			$configPaths = $mshop->getConfigPaths( 'mysql' );
 			$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
 
-			$conf = new MW_Config_Zend( new Zend_Config( array(), true ), $configPaths );
+			$conf = new MW_Config_Array( ( is_array( $this->settings ) ? $this->settings : array() ), $configPaths );
+			$conf = new MW_Config_Decorator_MemoryCache( $conf );
 			$context->setConfig( $conf );
 
 
@@ -83,7 +90,20 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
-			self::$_mshop = new MShop( array( $libPath . $ds . 'ext' ), false, $libPath . $ds . 'core' );
+				// Hook for processing extension directories
+			$extDirs = array();
+			if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
+			{
+				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
+				{
+					$absPath = t3lib_div::getFileAbsFileName( $dir );
+					if( !empty( $absPath ) ) {
+						$extDirs[] = $absPath;
+					}
+				}
+			}
+
+			self::$_mshop = new MShop( $extDirs, false, $libPath . $ds . 'core' );
 
 
 			$includePaths = self::$_mshop->getIncludePaths();
@@ -95,5 +115,65 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 		}
 
 		return self::$_mshop;
+	}
+
+
+	/**
+	 * Returns the manager for the given domain and sub-domains.
+	 *
+	 * @param string $domain String of domain and sub-domains, e.g. "product" or "order/base/service"
+	 * @throws MShop_Exception If domain string is invalid or no manager can be instantiated
+	 */
+	protected function _getDomainManager( $domain )
+	{
+		$domain = strtolower( trim( $domain, "/ \n\t\r\0\x0B" ) );
+
+		if( strlen( $domain ) === 0 ) {
+			throw new MShop_Exception( 'An empty domain is invalid' );
+		}
+
+		if( !isset( $this->_domainManagers[$domain] ) )
+		{
+			$parts = explode( '/', $domain );
+
+			foreach( $parts as $part )
+			{
+				if( ctype_alnum( $part ) === false ) {
+					throw new MShop_Exception( sprintf( 'Invalid domain "%1$s"', $domain ) );
+				}
+			}
+
+			if( ( $domainname = array_shift( $parts ) ) === null ) {
+				throw new MShop_Exception( 'An empty domain is invalid' );
+			}
+
+
+			if( !isset( $this->_domainManagers[$domainname] ) )
+			{
+				$iface = 'MShop_Common_Manager_Interface';
+				$factory = 'MShop_' . ucwords( $domainname ) . '_Manager_Factory';
+				$manager = call_user_func_array( $factory . '::createManager', array( $this->_getContext() ) );
+
+				if( !( $manager instanceof $iface ) ) {
+					throw new MShop_Exception( sprintf( 'No factory "%1$s" found', $factory ) );
+				}
+
+				$this->_domainManagers[$domainname] = $manager;
+			}
+
+
+			foreach( $parts as $part )
+			{
+				$tmpname = $domainname .  '/' . $part;
+
+				if( !isset( $this->_domainManagers[$tmpname] ) ) {
+					$this->_domainManagers[$tmpname] = $this->_domainManagers[$domainname]->getSubManager( $part );
+				}
+
+				$domainname = $tmpname;
+			}
+		}
+
+		return $this->_domainManagers[$domain];
 	}
 }

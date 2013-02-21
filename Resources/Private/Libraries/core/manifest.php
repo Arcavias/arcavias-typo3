@@ -12,7 +12,7 @@ return array(
 	'description' => 'Arcavias core system with admin interface',
 	'author' => 'Metaways Infosystems GmbH',
 	'email' => 'application@metaways.de',
-	'version' => '2012-11',
+	'version' => '2013-03-pre3',
 	'depends' => array(
 	),
 	'conflicts' => array(
@@ -36,11 +36,13 @@ return array(
 		'lib/phpexcel',
 	),
 	'i18n' => array(
-		'core/client/html' => 'client/html/i18n',
-		'core/client/html/code' => 'client/html/i18n/code',
-		'core/client/html/country' => 'client/html/i18n/country',
-		'core/client/html/currency' => 'client/html/i18n/currency',
-		'core/client/html/language' => 'client/html/i18n/language',
+		'client/html' => 'client/html/i18n',
+		'client/html/code' => 'client/html/i18n/code',
+		'client/html/country' => 'client/html/i18n/country',
+		'client/html/currency' => 'client/html/i18n/currency',
+		'client/html/language' => 'client/html/i18n/language',
+		'controller/frontend' => 'controller/frontend/i18n',
+		'mshop' => 'lib/mshoplib/i18n',
 	),
 	'setup' => array(
 		'lib/mshoplib/setup',

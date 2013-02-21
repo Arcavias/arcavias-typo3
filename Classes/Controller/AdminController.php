@@ -88,8 +88,13 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	 */
 	protected function initializeAction()
 	{
-		$localeManager = MShop_Locale_Manager_Factory::createManager( $this->_getContext() );
-		$this->_getContext()->setLocale( $localeManager->createItem() );
+		$context = $this->_getContext();
+
+		$conf = $this->_createConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
+		$context->setConfig( $conf );
+
+		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+		$context->setLocale( $localeManager->createItem() );
 	}
 
 
