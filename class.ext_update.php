@@ -91,7 +91,7 @@ class ext_update
 			}
 		}
 
-		$mshop = new MShop( $extDirs );
+		$mshop = new MShop( $extDirs, false );
 
 
 		$taskPaths = $mshop->getSetupPaths( 'default' );
