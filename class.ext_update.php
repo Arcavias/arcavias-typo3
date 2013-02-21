@@ -78,7 +78,7 @@ class ext_update
 			throw new Exception( 'Unable to register MShop::autoload' );
 		}
 
-			// Hook for processing extension directories
+		// Hook for processing extension directories
 		$extDirs = array();
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
 		{

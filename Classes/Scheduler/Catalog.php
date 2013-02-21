@@ -174,7 +174,7 @@ class tx_arcavias_scheduler_catalog
 				return true;
 			}
 
-			$message = $GLOBALS['LANG']->sL('LLL:EXT:mshop/Resources/Private/Language/Scheduler.xml:catalog.error.sitecode');
+			$message = $GLOBALS['LANG']->sL('LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:catalog.error.sitecode');
 		}
 		catch( Exception $e )
 		{
