@@ -27,7 +27,7 @@ arcavias_search {
 	typeNum = {$plugin.tx_arcavias.jsonTypeNum}
 	config {
 		disableAllHeaderCode = 1
-		additionalHeaders = Content-type:text/plain
+		additionalHeaders = Content-type:application/json
 		disablePrefixComment = 1
 	}
 	10 = CONTENT
