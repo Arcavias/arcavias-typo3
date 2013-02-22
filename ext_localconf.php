@@ -4,6 +4,7 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
 	die ( 'Access denied.' );
 }
 
+$TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/realurl/class.tx_realurl.php'] = t3lib_extMgm::extPath($_EXTKEY) . 'class.ux_tx_realurl.php';
 
 /*
  * Plugins

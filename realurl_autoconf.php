@@ -5,18 +5,6 @@
 *
 */
 
-/*
- * @todo: get language from TS?
- */
-switch ( $_REQUEST['L'] )
-{
-	case 2:
-		$lang = 'en';
-		break;
-	default:
-		$lang = 'de';
-}
-
 $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['postVarSets']['_DEFAULT']['arcavias'] = array(
 	array(
 		'GETvar' => 'arc[controller]'
@@ -44,12 +32,13 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['postVarSets']['_DEFAULT']['c
 			'table' => 'mshop_text mt INNER JOIN mshop_text_type mtt ON mtt.id = mt.typeid INNER JOIN mshop_catalog_list cl ON cl.refid=mt.id',
 			'id_field' => 'parentid',
 			'alias_field' => 'content',
-			'addWhereClause' => ' AND cl.domain="text" AND (mt.langid="'.$lang.'" or mt.langid is null) AND mt.status > 0 AND mt.domain="catalog" AND mtt.code="name" AND mtt.domain="catalog"',
+			'addWhereClause' => ' AND cl.domain="text" AND (mt.langid="{TSFE:config|config|language}" or mt.langid is null) AND mt.status > 0 AND mt.domain="catalog" AND mtt.code="name" AND mtt.domain="catalog"',
 			'useUniqueCache' => 1,
 			'useUniqueCache_conf' => array(
 				'strtolower' => 1,
 				'spaceCharacter' => '-',
 			),
+			'insertData' => 1,
 		),
 	),
 	array(
@@ -58,12 +47,13 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['postVarSets']['_DEFAULT']['c
 			'table' => 'mshop_text mt INNER JOIN mshop_text_type mtt ON mtt.id = mt.typeid INNER JOIN mshop_product_list pl ON pl.refid=mt.id',
 			'id_field' => 'parentid',
 			'alias_field' => 'content',
-			'addWhereClause' => ' AND pl.domain="text" AND (mt.langid="'.$lang.'" or mt.langid is null) AND mt.status > 0 AND mt.domain="product" AND mtt.code="name" AND mtt.domain="product"',
+			'addWhereClause' => ' AND pl.domain="text" AND (mt.langid="{TSFE:config|config|language}" or mt.langid is null) AND mt.status > 0 AND mt.domain="product" AND mtt.code="name" AND mtt.domain="product"',
 			'useUniqueCache' => 1,
 			'useUniqueCache_conf' => array(
 				'strtolower' => 1,
 				'spaceCharacter' => '-',
 			),
+			'insertData' => 1,
 		),
 	),
 );
