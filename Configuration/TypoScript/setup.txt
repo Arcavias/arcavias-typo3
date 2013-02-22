@@ -8,15 +8,42 @@ plugin.tx_arcavias {
 		pluginNamespace = arc
 	}
 	settings {
-		sitecode = default
-
-		baseurl-content = uploads/tx_arcavias/
-		baseurl-template = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
-		
-		format {
-			date = Y-m-d
-			seperatorDecimal = .
-			seperator1000 = 
+		client {
+			html {
+				common {
+					content.baseurl = uploads/tx_arcavias/
+					template.baseurl = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
+				}
+			}
 		}
 	}
 }
+
+
+arcavias_search = PAGE
+arcavias_search {
+	typeNum = {$plugin.tx_arcavias.jsonTypeNum}
+	config {
+		disableAllHeaderCode = 1
+		additionalHeaders = Content-type:application/json
+		disablePrefixComment = 1
+	}
+	10 = CONTENT
+	10 {
+		table = tt_content
+		select.orderBy = sorting
+		select.where = colPos=0 AND CType='list' AND list_type='arcavias_catalog-listsimple'
+		select.languageField = sys_language_uid
+	}
+}
+
+[globalVar = TSFE:type={$plugin.tx_arcavias.jsonTypeNum}]
+lib.stdheader =
+tt_content {
+	stdWrap {
+		dataWrap = 
+		innerWrap > 
+	}
+	noANameTagForFirstRecord = 1
+}
+[global]

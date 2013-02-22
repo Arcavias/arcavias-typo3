@@ -18,7 +18,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	static private $_mshop;
 	static private $_context;
 	static private $_extConfig;
-	private $_includePaths = false;
+	private $_includePaths;
 
 
 	/**
@@ -27,7 +27,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
 
 		$includePaths = $this->_getMShop()->getIncludePaths();
 		$includePaths[] = get_include_path();
@@ -51,8 +50,13 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function initializeAction()
 	{
-		$context = $this->_getContext();
 		$this->uriBuilder->setArgumentPrefix( 'arc' );
+		$context = $this->_getContext();
+
+
+		// Re-initialize the config object because the settings are different due to flexforms
+		$conf = $this->_createConfig( $this->settings );
+		$context->setConfig( $conf );
 
 
 		$langid = '';
@@ -61,8 +65,9 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		}
 
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+		$sitecode = $context->getConfig()->get( 'sitecode', 'default' );
 		// @todo Get chosen currency from frontend
-		$localeItem = $localeManager->bootstrap( $this->settings['sitecode'], $langid, '' );
+		$localeItem = $localeManager->bootstrap( $sitecode, $langid, '' );
 
 		$context->setLocale( $localeItem );
 	}
@@ -79,6 +84,34 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	}
 
 
+	/**
+	 * Creates a new configuration object.
+	 *
+	 * @param array $settings Multi-dimensional list of initial configuration settings
+	 * @return MW_Config_Interface Configuration object
+	 */
+	protected function _createConfig( array $settings )
+	{
+		$ds = DIRECTORY_SEPARATOR;
+
+		$configPaths = $this->_getMShop()->getConfigPaths( 'mysql' );
+		$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
+
+		$conf = new MW_Config_Array( $settings, $configPaths );
+		if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true ) {
+			$conf = new MW_Config_Decorator_APC( $conf, $conf->get( 'typo3/apc/prefix' ) );
+		}
+		$conf = new MW_Config_Decorator_MemoryCache( $conf );
+
+		return $conf;
+	}
+
+
+	/**
+	 * Creates the view object for the HTML client.
+	 *
+	 * @return MW_View_Interface View object
+	 */
 	protected function _createView()
 	{
 		$langid = 'en';
@@ -86,6 +119,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$langid = $GLOBALS['TSFE']->config['config']['language'];
 		}
 
+		$config = $this->_getContext()->getConfig();
 		$view = new MW_View_Default();
 
 		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
@@ -98,17 +132,15 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$helper = new MW_View_Helper_Parameter_Default( $view, $this->request->getArguments() );
 		$view->addHelper( 'param', $helper );
 
-		$helper = new MW_View_Helper_Config_Default( $view, $this->settings );
+		$helper = new MW_View_Helper_Config_Default( $view, $config );
 		$view->addHelper( 'config', $helper );
 
-		$helper = new MW_View_Helper_Number_Default( $view, $this->settings['format']['seperatorDecimal'], $this->settings['format']['seperator1000'] );
+		$sepDec = $config->get( 'client/html/common/format/seperatorDecimal', '.' );
+		$sep1000 = $config->get( 'client/html/common/format/seperator1000', ' ' );
+		$helper = new MW_View_Helper_Number_Default( $view, $sepDec, $sep1000 );
 		$view->addHelper( 'number', $helper );
 
-		$helper = new MW_View_Helper_Date_Default( $view, $this->settings['format']['date'] );
-		$view->addHelper( 'date', $helper );
-
-		/** @todo Parameter prefix should be set based on TypoScript configuration */
-		$helper = new MW_View_Helper_FormParam_Default( $view, array( 'arc' ) );
+		$helper = new MW_View_Helper_FormParam_Default( $view, array( $this->uriBuilder->getArgumentPrefix() ) );
 		$view->addHelper( 'formparam', $helper );
 
 		return $view;
@@ -124,26 +156,10 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	{
 		if( self::$_context === null )
 		{
-			$ds = DIRECTORY_SEPARATOR;
 			$context = new MShop_Context_Item_Default();
 
 
-			$configPaths = $this->_getMShop()->getConfigPaths( 'mysql' );
-			$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
-
-			$conf = new MW_Config_Zend( new Zend_Config( array(), true ), $configPaths );
-
-			if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', true ) == true ) {
-				$conf = new MW_Config_Decorator_APC( $conf );
-			}
-
-			if( isset( $this->settings['config'] ) )
-			{
-				foreach( $this->settings['config'] as $key => $value ) {
-					$conf->set( str_replace( '_', '/', $key ), $value );
-				}
-			}
-
+			$conf = $this->_createConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
 			$context->setConfig( $conf );
 
 
@@ -153,6 +169,11 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 			$cache = new MW_Cache_None();
 			$context->setCache( $cache );
+
+
+			$i18nPaths = $this->_getMShop()->getI18nPaths();
+			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', 'en', array( 'disableNotices' => true ) );
+			$context->setI18n( $i18n );
 
 
 			if( isset( $GLOBALS['TSFE']->fe_user ) )
@@ -228,7 +249,20 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
-			self::$_mshop = new MShop( array( $libPath . $ds . 'ext' ), false, $libPath . $ds . 'core' );
+				// Hook for processing extension directories
+			$extDirs = array();
+			if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
+			{
+				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
+				{
+					$absPath = t3lib_div::getFileAbsFileName( $dir );
+					if( !empty( $absPath ) ) {
+						$extDirs[] = $absPath;
+					}
+				}
+			}
+
+			self::$_mshop = new MShop( $extDirs, false, $libPath . $ds . 'core' );
 		}
 
 		return self::$_mshop;

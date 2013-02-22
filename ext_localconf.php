@@ -6,6 +6,8 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
 
 $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/realurl/class.tx_realurl.php'] = t3lib_extMgm::extPath($_EXTKEY) . 'class.ux_tx_realurl.php';
 
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['extDirs'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Resources/Private/Libraries/ext/';
+
 /*
  * Plugins
  */
@@ -19,9 +21,23 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
+	'catalog-filtersearch',
+	array( 'Catalog' => 'filtersearch' ),
+	array()
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
 	'catalog-list',
 	array( 'Catalog' => 'list' ),
 	array( 'Catalog' => 'list' )
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'catalog-listsimple',
+	array( 'Catalog' => 'listsimple' ),
+	array( 'Catalog' => 'listsimple' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
@@ -31,6 +47,13 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array( 'Catalog' => 'detail' )
 );
 
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'basket-small',
+	array( 'Basket' => 'small' ),
+	array( 'Basket' => 'small' )
+);
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
@@ -66,19 +89,22 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_sch
 	'additionalFields' => 'tx_arcavias_scheduler_catalog',
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_scheduler_admin'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_scheduler_maintenance'] = array(
 	'extension'        => $_EXTKEY,
-	'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:admin.name',
-	'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:admin.description',
+	'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:maintenance.name',
+	'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:maintenance.description',
+	'additionalFields' => 'tx_arcavias_scheduler_maintenance',
 );
 
 
 /**
- * Add RealURL Configuration
- */
+* Add RealURL Configuration
+*/
 $config = @unserialize( $_EXTCONF );
-if ( is_array( $config ) ) {
-	if( $config['useRealUrlAutoConfig'] ) {
+if ( is_array( $config ) )
+{
+	if( $config['useRealUrlAutoConfig'] )
+	{
 		$filepath = 'EXT:' . $_EXTKEY . '/realurl_autoconf.php';
 		$filepath = t3lib_div::getFileAbsFileName( $filepath );
 		require_once( $filepath );

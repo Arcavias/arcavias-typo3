@@ -5,7 +5,7 @@
 	<ROOT>
 		<type>array</type>
 		<el>
-			<settings.basket-target>
+			<settings.client.html.basket.standard.url.target>
 				<TCEforms>
 					<label>LLL:EXT:arcavias/Resources/Private/Language/Checkout.xml:checkout-standard.basket-target</label>
 					<config>
@@ -18,8 +18,8 @@
 						<show_thumbs>1</show_thumbs>
 					</config>
 				</TCEforms>
-			</settings.basket-target>
-			<settings.checkout-confirm-target>
+			</settings.client.html.basket.standard.url.target>
+			<settings.client.html.checkout.confirm.url.target>
 				<TCEforms>
 					<label>LLL:EXT:arcavias/Resources/Private/Language/Checkout.xml:checkout-standard.checkout-confirm-target</label>
 					<config>
@@ -32,7 +32,7 @@
 						<show_thumbs>1</show_thumbs>
 					</config>
 				</TCEforms>
-			</settings.checkout-confirm-target>
+			</settings.client.html.checkout.confirm.url.target>
 		</el>
 	</ROOT>
 </T3DataStructure>
