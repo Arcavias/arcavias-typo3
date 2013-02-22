@@ -4,7 +4,8 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
 	die ( 'Access denied.' );
 }
 
-// Extension directory hook
+$TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/realurl/class.tx_realurl.php'] = t3lib_extMgm::extPath($_EXTKEY) . 'class.ux_tx_realurl.php';
+
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['extDirs'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Resources/Private/Libraries/ext/';
 
 /*
@@ -94,5 +95,21 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_sch
 	'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:maintenance.description',
 	'additionalFields' => 'tx_arcavias_scheduler_maintenance',
 );
+
+
+/**
+* Add RealURL Configuration
+*/
+$config = @unserialize( $_EXTCONF );
+if ( is_array( $config ) )
+{
+	if( $config['useRealUrlAutoConfig'] )
+	{
+		$filepath = 'EXT:' . $_EXTKEY . '/realurl_autoconf.php';
+		$filepath = t3lib_div::getFileAbsFileName( $filepath );
+		require_once( $filepath );
+	}
+}
+unset( $config );
 
 ?>
