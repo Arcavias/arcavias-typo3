@@ -5,9 +5,9 @@
 	<ROOT>
 		<type>array</type>
 		<el>
-			<settings.client.html.basket.standard.url.target>
+			<settings.client.html.catalog.list.url.target>
 				<TCEforms>
-					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:basket-standard.target</label>
+					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:catalog-list.target</label>
 					<config>
 						<type>group</type>
 						<internal_type>db</internal_type>
@@ -18,10 +18,10 @@
 						<show_thumbs>1</show_thumbs>
 					</config>
 				</TCEforms>
-			</settings.client.html.basket.standard.url.target>
-			<settings.client.html.checkout.confirm.url.target>
+			</settings.client.html.catalog.list.url.target>
+			<settings.client.html.catalog.listsimple.url.target>
 				<TCEforms>
-					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:checkout-confirm.target</label>
+					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:catalog-list.simple-target</label>
 					<config>
 						<type>group</type>
 						<internal_type>db</internal_type>
@@ -32,7 +32,7 @@
 						<show_thumbs>1</show_thumbs>
 					</config>
 				</TCEforms>
-			</settings.client.html.checkout.confirm.url.target>
+			</settings.client.html.catalog.listsimple.url.target>
 		</el>
 	</ROOT>
 </T3DataStructure>

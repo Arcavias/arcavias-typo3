@@ -14,6 +14,15 @@ plugin.tx_arcavias {
 					content.baseurl = uploads/tx_arcavias/
 					template.baseurl = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
 				}
+				catalog {
+					listsimple {
+						url {
+							config {
+								type = {$plugin.tx_arcavias.jsonTypeNum}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -32,7 +41,7 @@ arcavias_search {
 	10 {
 		table = tt_content
 		select.orderBy = sorting
-		select.where = colPos=0 AND CType='list' AND list_type='arcavias_catalog-listsimple'
+		select.where = CType='list' AND list_type='arcavias_catalog-listsimple'
 		select.languageField = sys_language_uid
 	}
 }
