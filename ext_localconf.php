@@ -101,14 +101,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_sch
 * Add RealURL Configuration
 */
 $config = @unserialize( $_EXTCONF );
-if ( is_array( $config ) )
-{
-	if( $config['useRealUrlAutoConfig'] )
-	{
-		$filepath = 'EXT:' . $_EXTKEY . '/realurl_autoconf.php';
-		$filepath = t3lib_div::getFileAbsFileName( $filepath );
-		require_once( $filepath );
-	}
+if ( is_array( $config ) && isset( $config['useRealUrlAutoConfig'] ) ) {
+	require_once( t3lib_div::getFileAbsFileName( 'EXT:' . $_EXTKEY . '/realurl_autoconf.php' ) );
 }
 unset( $config );
 
