@@ -18,3 +18,32 @@ plugin.tx_arcavias {
 		}
 	}
 }
+
+
+arcavias_search = PAGE
+arcavias_search {
+	typeNum = {$plugin.tx_arcavias.jsonTypeNum}
+	config {
+		disableAllHeaderCode = 1
+		additionalHeaders = Content-type:application/json
+		disablePrefixComment = 1
+	}
+	10 = CONTENT
+	10 {
+		table = tt_content
+		select.orderBy = sorting
+		select.where = colPos=0 AND CType='list' AND list_type='arcavias_catalog-listsimple'
+		select.languageField = sys_language_uid
+	}
+}
+
+[globalVar = TSFE:type={$plugin.tx_arcavias.jsonTypeNum}]
+lib.stdheader =
+tt_content {
+	stdWrap {
+		dataWrap = 
+		innerWrap > 
+	}
+	noANameTagForFirstRecord = 1
+}
+[global]
