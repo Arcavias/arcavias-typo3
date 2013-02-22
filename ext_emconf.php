@@ -33,7 +33,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'php' => '5.2.0-5.99.99',
 			'typo3' => '4.5.0-6.99.99',
 			'extbase' => '1.3.2-6.99.99',
-			'scheduler' => '1.1.0-1.99.99',
+			'scheduler' => '1.1.0-6.99.99',
 		),
 		'conflicts' => array(
 		),
