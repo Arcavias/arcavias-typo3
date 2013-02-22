@@ -9,6 +9,9 @@ return array(
 		'manager' => array(
 			'index' => array(
 				'name' => 'MySQL',
+				'text' => array(
+					'name' => 'MySQL',
+				),
 			),
 		),
 	),

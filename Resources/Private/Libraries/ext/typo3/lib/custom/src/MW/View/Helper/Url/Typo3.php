@@ -44,13 +44,35 @@ class MW_View_Helper_Url_Typo3
 	 * @param string|null $action Name of the action which should be part of the link (if any)
 	 * @param array $params Associative list of parameters that should be part of the URL
 	 * @param array $trailing Trailing URL parts that are not relevant to identify the resource (for pretty URLs)
+	 * @param array $config Additional configuration parameter per URL
 	 * @return string Complete URL that can be used in the template
 	 */
-	public function transform( $target = null, $controller = null, $action = null, array $params = array(), array $trailing = array() )
+	public function transform( $target = null, $controller = null, $action = null, array $params = array(), array $trailing = array(), array $config = array() )
 	{
 		$this->_uriBuilder->setArguments( array() ); // remove parameters from previous call
 		$this->_uriBuilder->setTargetPageUid( $target );
 
-		return $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
+		$uri = $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
+
+		$additional = array();
+
+		if( isset( $config['eID'] ) ) {
+			$additional[] = 'eID=' . $config['eID'];
+		}
+
+		if( isset( $config['type'] ) ) {
+			$additional[] = 'type=' . $config['type'];
+		}
+
+		if( count( $additional ) > 0 )
+		{
+			if( strpos( $uri, '?' ) === false ) {
+				return $uri . '?' . join( '&', $additional );
+			}
+
+			return $uri . '&' . join( '&', $additional );
+		}
+
+		return $uri;
 	}
 }
