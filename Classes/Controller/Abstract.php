@@ -99,7 +99,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 		$conf = new MW_Config_Array( $settings, $configPaths );
 		if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true ) {
-			$conf = new MW_Config_Decorator_APC( $conf, $conf->get( 'typo3/apc/prefix' ) );
+			$conf = new MW_Config_Decorator_APC( $conf, $conf->get( 'apc/prefix' ) );
 		}
 		$conf = new MW_Config_Decorator_MemoryCache( $conf );
 
