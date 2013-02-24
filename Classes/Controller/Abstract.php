@@ -98,8 +98,10 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
 
 		$conf = new MW_Config_Array( array(), $configPaths );
-		if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true ) {
-			$conf = new MW_Config_Decorator_APC( $conf, $conf->get( 'apc/prefix' ) );
+		if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
+		{
+			$prefix = ( isset( $settings['apc']['prefix'] ) ? $settings['apc']['prefix'] : '' );
+			$conf = new MW_Config_Decorator_APC( $conf, $prefix );
 		}
 		$conf = new MW_Config_Decorator_MemoryCache( $conf, $settings );
 
@@ -245,7 +247,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 			require_once $libPath . $ds . 'core' . $ds . 'MShop.php';
 
-			if( spl_autoload_register( 'MShop::autoload' ) === false ) {
+			if( spl_autoload_register( 'MShop::autoload', true, true ) === false ) {
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
