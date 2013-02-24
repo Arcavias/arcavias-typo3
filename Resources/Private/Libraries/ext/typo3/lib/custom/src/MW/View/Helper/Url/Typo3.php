@@ -49,8 +49,11 @@ class MW_View_Helper_Url_Typo3
 	 */
 	public function transform( $target = null, $controller = null, $action = null, array $params = array(), array $trailing = array(), array $config = array() )
 	{
-		$this->_uriBuilder->setArguments( array() ); // remove parameters from previous call
+		$absoluteUri = ( isset( $config['absoluteUri'] ) && $config['absoluteUri'] == 1 ? true : false );
+
+		$this->_uriBuilder->setCreateAbsoluteUri( $absoluteUri );
 		$this->_uriBuilder->setTargetPageUid( $target );
+		$this->_uriBuilder->setArguments( array() ); // remove parameters from previous call
 
 		$uri = $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
 
