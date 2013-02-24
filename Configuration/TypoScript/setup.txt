@@ -23,6 +23,15 @@ plugin.tx_arcavias {
 						}
 					}
 				}
+				checkout {
+					confirm {
+						url {
+							config {
+								absoluteUri = 1
+							}
+						}
+					}
+				}
 			}
 		}
 	}
