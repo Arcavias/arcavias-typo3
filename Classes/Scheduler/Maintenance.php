@@ -298,7 +298,7 @@ class tx_arcavias_scheduler_maintenance
 					$mail->addPart( $htmlClient->getBody(), 'text/html' );
 					$mail->send();
 
-					$item->getEMailFlag( $item->getEMailFlag() | MShop_Order_Item_Abstract::EMAIL_ACCEPTED );
+					$item->setEMailFlag( $item->getEMailFlag() | MShop_Order_Item_Abstract::EMAIL_ACCEPTED );
 					$orderManager->saveItem( $item );
 				}
 				catch( Exception $e )
