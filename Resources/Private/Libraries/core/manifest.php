@@ -12,7 +12,7 @@ return array(
 	'description' => 'Arcavias core system with admin interface',
 	'author' => 'Metaways Infosystems GmbH',
 	'email' => 'application@metaways.de',
-	'version' => '2013-03-pre5',
+	'version' => '2013-03-pre6',
 	'depends' => array(
 	),
 	'conflicts' => array(
