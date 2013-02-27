@@ -1,4 +1,4 @@
-page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Public/css/arcavias.css
+page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Private/Libraries/core/client/html/lib/css/arcavias.css
 
 plugin.tx_arcavias {
 	mvc {
