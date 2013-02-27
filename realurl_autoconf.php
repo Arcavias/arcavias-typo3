@@ -5,12 +5,46 @@
 *
 */
 
+$TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['fixedPostVars']['_DEFAULT'][] = array(
+		'GETvar' => 'arc[f-catalog-id]',
+		'lookUpTable' => array(
+			'table' => 'mshop_text mt JOIN mshop_catalog_list cl ON cl.refid=mt.id JOIN mshop_text_type mtt ON mtt.id = mt.typeid',
+			'id_field' => 'parentid',
+			'alias_field' => 'content',
+			'addWhereClause' => " AND cl.domain='text' AND mt.status > 0 AND (mt.langid='{TSFE:config|config|language}' or mt.langid is null) AND mt.domain='catalog' AND mtt.domain='catalog' AND mtt.code='name'",
+			'useUniqueCache' => 1,
+			'useUniqueCache_conf' => array(
+				'strtolower' => 1,
+				'spaceCharacter' => '-',
+			),
+			'insertData' => 1,
+		),
+);
+
+$TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['fixedPostVars']['_DEFAULT'][] = array(
+	'GETvar' => 'arc[l-product-id]',
+	'lookUpTable' => array(
+		'table' => 'mshop_text mt JOIN mshop_product_list pl ON pl.refid=mt.id JOIN mshop_text_type mtt ON mtt.id = mt.typeid',
+		'id_field' => 'parentid',
+		'alias_field' => 'content',
+		'addWhereClause' => " AND pl.domain='text' AND mt.status > 0 AND (mt.langid='{TSFE:config|config|language}' or mt.langid is null) AND mt.domain='product' AND mtt.domain='product' AND mtt.code='name'",
+		'useUniqueCache' => 1,
+		'useUniqueCache_conf' => array(
+			'strtolower' => 1,
+			'spaceCharacter' => '-',
+		),
+		'insertData' => 1,
+	),
+);
+
 $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['postVarSets']['_DEFAULT']['arcavias'] = array(
 	array(
-		'GETvar' => 'arc[controller]'
+		'GETvar' => 'arc[controller]',
+		'noMatch' => 'bypass',
 	),
 	array(
-		'GETvar' => 'arc[action]'
+		'GETvar' => 'arc[action]',
+		'noMatch' => 'bypass',
 	),
 );
 
@@ -25,36 +59,6 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT']['postVarSets']['_DEFAULT']['c
 	),
 	array(
 		'GETvar' => 'arc[l-page]',
-	),
-	array(
-		'GETvar' => 'arc[f-catalog-id]',
-		'lookUpTable' => array(
-			'table' => 'mshop_text mt JOIN mshop_catalog_list cl ON cl.refid=mt.id JOIN mshop_text_type mtt ON mtt.id = mt.typeid',
-			'id_field' => 'parentid',
-			'alias_field' => 'content',
-			'addWhereClause' => " AND cl.domain='text' AND mt.status > 0 AND (mt.langid='{TSFE:config|config|language}' or mt.langid is null) AND mt.domain='catalog' AND mtt.domain='catalog' AND mtt.code='name'",
-			'useUniqueCache' => 1,
-			'useUniqueCache_conf' => array(
-				'strtolower' => 1,
-				'spaceCharacter' => '-',
-			),
-			'insertData' => 1,
-		),
-	),
-	array(
-		'GETvar' => 'arc[l-product-id]',
-		'lookUpTable' => array(
-			'table' => 'mshop_text mt JOIN mshop_product_list pl ON pl.refid=mt.id JOIN mshop_text_type mtt ON mtt.id = mt.typeid',
-			'id_field' => 'parentid',
-			'alias_field' => 'content',
-			'addWhereClause' => " AND pl.domain='text' AND mt.status > 0 AND (mt.langid='{TSFE:config|config|language}' or mt.langid is null) AND mt.domain='product' AND mtt.domain='product' AND mtt.code='name'",
-			'useUniqueCache' => 1,
-			'useUniqueCache_conf' => array(
-				'strtolower' => 1,
-				'spaceCharacter' => '-',
-			),
-			'insertData' => 1,
-		),
 	),
 );
 
