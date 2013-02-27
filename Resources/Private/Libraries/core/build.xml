@@ -83,6 +83,7 @@
 		<echo msg="Generating API documentation" />
 		<delete dir="dev/apidoc" quiet="true" failonerror="false" />
 		<phpdocext title="Arcavias API documentation"
+programpath="../PhpDocumentor-1.4.4/phpdoc"
 			destdir="dev/apidoc"
 			output="HTML:frames/Extjs:default,HTML:Smarty:PHP"
 			sourcecode="true"
