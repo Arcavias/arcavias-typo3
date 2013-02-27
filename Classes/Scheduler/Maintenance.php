@@ -260,6 +260,9 @@ class tx_arcavias_scheduler_maintenance
 		$i18nPaths = $this->_getMShop()->getI18nPaths();
 		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Email_Confirm_Factory::createClient( $context, $templatePaths );
+		$mainClient = $client->getSubClient( 'main' );
+		$htmlClient = $mainClient->getSubClient( 'html' );
+		$textClient = $mainClient->getSubClient( 'text' );
 		$view = $this->_createView();
 
 		$start = 0;
@@ -283,17 +286,19 @@ class tx_arcavias_scheduler_maintenance
 					$helper = new MW_View_Helper_Translate_Default( $view, $trans );
 					$view->addHelper( 'translate', $helper );
 
-					$client->setView( $view );
+					$htmlClient->setView( $view );
+					$textClient->setView( $view );
 
 					$name = sprintf( $view->translate( 'client/html', '%1$s %2$s' ), $addr->getFirstname(), $addr->getLastname() );
 
 					$mail->setFrom( array( $this->{$this->_fieldEmail} => $this->{$this->_fieldName} ) );
 					$mail->setTo( array( $addr->getEmail() => $name ) );
 					$mail->setSubject( sprintf( $view->translate( 'client/html', 'Confirmation for order %1$s' ), $item->getId() ) );
-					$mail->setBody( $client->getBody() );
+					$mail->setBody( $textClient->getBody() );
+					$mail->addPart( $htmlClient->getBody(), 'text/html' );
 					$mail->send();
 
-					$item->setFlag( $item->getEMailFlag() | MShop_Order_Item_Abstract::EMAIL_ACCEPTED );
+					$item->setEMailFlag( $item->getEMailFlag() | MShop_Order_Item_Abstract::EMAIL_ACCEPTED );
 					$orderManager->saveItem( $item );
 				}
 				catch( Exception $e )

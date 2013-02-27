@@ -28,8 +28,11 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	 */
 	protected function _createView()
 	{
-		$config = $this->_getContext()->getConfig();
 		$view = new MW_View_Default();
+
+		$config = $this->_getContext()->getConfig();
+		$config->set( 'client/html/email/confirm/main/html/encoded', false );
+		$config->set( 'client/html/email/confirm/main/text/encoded', false );
 
 		$helper = new MW_View_Helper_Config_Default( $view, $config );
 		$view->addHelper( 'config', $helper );
