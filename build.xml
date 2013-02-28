@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Arcavias TYPO3" default="deploy">
+
+	<target name="deploy" description="Executes all deployments">
+		<propertyprompt propertyName="version" promptText="Enter release version" promptCharacter=":" useExistingValue="true"/>
+		<reflexive>
+		  <fileset dir="." includes="ext_emconf.php" />
+		  <filterchain>
+		    <replaceregexp>
+		      <regexp pattern="'version' => '[^']*'" replace="'version' => '${version}'"/>
+		    </replaceregexp>
+		  </filterchain>
+		</reflexive>
+		<symlink target="${application.startdir}" link="../arcavias" />
+		<exec command="tar -c -h --bzip2 --exclude-vcs -C ../ -f ../arcavias-typo3_${version}.tar.bz2 arcavias"
+			checkreturn="true" logoutput="true"/>
+		<delete file="../arcavias" />
+		<filehash file="../arcavias-typo3_${version}.tar.bz2" hashtype="1" />
+		<echo msg="SHA1 hash value: ${filehashvalue}" />
+	</target>
+
+</project>
