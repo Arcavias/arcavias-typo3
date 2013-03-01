@@ -30,7 +30,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'catalog-list',
 	array( 'Catalog' => 'list' ),
-	array()
+	array( 'Catalog' => 'list' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
