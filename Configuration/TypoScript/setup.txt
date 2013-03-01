@@ -22,6 +22,15 @@ plugin.tx_arcavias {
 							}
 						}
 					}
+					list {
+						search {
+							url {
+								config {
+									chash = 1
+								}
+							}
+						}
+					}
 				}
 				checkout {
 					confirm {
