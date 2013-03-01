@@ -50,9 +50,11 @@ class MW_View_Helper_Url_Typo3
 	public function transform( $target = null, $controller = null, $action = null, array $params = array(), array $trailing = array(), array $config = array() )
 	{
 		$absoluteUri = ( isset( $config['absoluteUri'] ) && $config['absoluteUri'] == 1 ? true : false );
+		$chash = ( isset( $config['chash'] ) && $config['chash'] == 0 ? false : true );
 
 		$this->_uriBuilder->setCreateAbsoluteUri( $absoluteUri );
 		$this->_uriBuilder->setTargetPageUid( $target );
+		$this->_uriBuilder->setUseCacheHash( $chash );
 		$this->_uriBuilder->setArguments( array() ); // remove parameters from previous call
 
 		$uri = $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
