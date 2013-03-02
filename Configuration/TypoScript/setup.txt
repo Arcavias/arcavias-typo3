@@ -15,32 +15,13 @@ plugin.tx_arcavias {
 					template.baseurl = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
 				}
 				catalog {
-					listsimple {
-						url {
-							config {
-								type = {$plugin.tx_arcavias.jsonTypeNum}
-							}
-						}
-					}
-					list {
-						search {
-							url {
-								config {
-									chash = 1
-								}
-							}
-						}
+					listsimple.url.config.type = {$plugin.tx_arcavias.jsonTypeNum}
+					list.search.url.config {
+						chash = 0
+						nocache = 1
 					}
 				}
-				checkout {
-					confirm {
-						url {
-							config {
-								absoluteUri = 1
-							}
-						}
-					}
-				}
+				checkout.confirm.url.config.absoluteUri = 1
 			}
 		}
 	}
