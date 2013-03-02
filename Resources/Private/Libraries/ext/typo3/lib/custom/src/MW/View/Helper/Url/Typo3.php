@@ -50,34 +50,27 @@ class MW_View_Helper_Url_Typo3
 	public function transform( $target = null, $controller = null, $action = null, array $params = array(), array $trailing = array(), array $config = array() )
 	{
 		$absoluteUri = ( isset( $config['absoluteUri'] ) && $config['absoluteUri'] == 1 ? true : false );
+		$nocache = ( isset( $config['nocache'] ) && $config['nocache'] == 1 ? true : false );
 		$chash = ( isset( $config['chash'] ) && $config['chash'] == 0 ? false : true );
-
-		$this->_uriBuilder->setCreateAbsoluteUri( $absoluteUri );
-		$this->_uriBuilder->setTargetPageUid( $target );
-		$this->_uriBuilder->setUseCacheHash( $chash );
-		$this->_uriBuilder->setArguments( array() ); // remove parameters from previous call
-
-		$uri = $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
+		$pageType = ( isset( $config['type'] ) ? (int) $config['type'] : 0 );
+		$format = ( isset( $config['format'] ) ? $config['format'] : '' );
 
 		$additional = array();
-
 		if( isset( $config['eID'] ) ) {
-			$additional[] = 'eID=' . $config['eID'];
+			$additional['eID'] = $config['eID'];
 		}
 
-		if( isset( $config['type'] ) ) {
-			$additional[] = 'type=' . $config['type'];
-		}
+		$this->_uriBuilder
+			->reset()
+			->setTargetPageUid( $target )
+			->setTargetPageType( $pageType )
+			->setCreateAbsoluteUri( $absoluteUri )
+			->setArguments( $additional )
+			->setUseCacheHash( $chash )
+			->setNoCache( $nocache )
+			->setFormat( $format )
+			->setSection( str_replace( ' ', '-', join( '/', $trailing ) ) );
 
-		if( count( $additional ) > 0 )
-		{
-			if( strpos( $uri, '?' ) === false ) {
-				return $uri . '?' . join( '&', $additional );
-			}
-
-			return $uri . '&' . join( '&', $additional );
-		}
-
-		return $uri;
+		return $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
 	}
 }
