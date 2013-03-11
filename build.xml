@@ -2,6 +2,16 @@
 
 <project name="Arcavias TYPO3" default="deploy">
 
+	<target name="update" description="Updates the Arcavias core">
+		<delete dir="./Resources/Private/Libraries/core.new" />
+		<exec command="git clone https://github.com/Arcavias/arcavias-core.git ./Resources/Private/Libraries/core.new" checkreturn="true" logoutput="true" />
+		<phing target="clean" dir="./Resources/Private/Libraries/core.new" />
+		<phing target="build" dir="./Resources/Private/Libraries/core.new" />
+		<exec command="rsync --delete --recursive --exclude-from=./Resources/Private/Libraries/core.new/.exclude ./Resources/Private/Libraries/core.new/ ./Resources/Private/Libraries/core/"
+			checkreturn="true" logoutput="true" />
+		<delete dir="./Resources/Private/Libraries/core.new" />
+	</target>
+
 	<target name="deploy" description="Executes all deployments">
 		<propertyprompt propertyName="version" promptText="Enter release version" promptCharacter=":" useExistingValue="true"/>
 		<reflexive>
