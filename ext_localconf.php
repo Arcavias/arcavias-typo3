@@ -4,12 +4,15 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
 	die ( 'Access denied.' );
 }
 
-$TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/realurl/class.tx_realurl.php'] = t3lib_extMgm::extPath($_EXTKEY) . 'class.ux_tx_realurl.php';
+/**
+ * Include Arcavias extension directory
+ */
 
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['extDirs'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Resources/Private/Libraries/ext/';
 
-/*
- * Plugins
+
+/**
+ * Arcavias plugins
  */
 
 Tx_Extbase_Utility_Extension::configurePlugin(
@@ -79,9 +82,10 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
-/*
- * Scheduler tasks
+/**
+ * Arcavias scheduler tasks
  */
+
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_scheduler_catalog'] = array(
 	'extension'        => $_EXTKEY,
 	'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:catalog.name',
@@ -98,12 +102,14 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_arcavias_sch
 
 
 /**
-* Add RealURL Configuration
-*/
-$config = @unserialize( $_EXTCONF );
-if( is_array( $config ) && isset( $config['useRealUrlAutoConfig'] ) && $config['useRealUrlAutoConfig'] != 0 ) {
-	require_once( t3lib_div::getFileAbsFileName( 'EXT:' . $_EXTKEY . '/realurl_autoconf.php' ) );
+ * Add RealURL Configuration
+ */
+
+$arcCfg = @unserialize( $_EXTCONF );
+if( is_array( $arcCfg ) && isset( $arcCfg['useRealUrlAutoConfig'] ) && $arcCfg['useRealUrlAutoConfig'] != 0 ) {
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['arcavias'] =
+		'EXT:arcavias/Classes/Custom/Realurl.php:tx_arcavias_custom_realurl->addAutoConfig';
 }
-unset( $config );
+unset( $arcCfg );
 
 ?>
