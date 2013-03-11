@@ -39,7 +39,7 @@ $EM_CONF[$_EXTKEY] = array(
 		),
 		'suggests' => array(
 			'realurl' => '1.10.0-1.99.99',
-			't3jquery' => '2.4.1-0.0.0',
+			't3jquery' => '2.4.1-2.99.99',
 		),
 	),
 );
