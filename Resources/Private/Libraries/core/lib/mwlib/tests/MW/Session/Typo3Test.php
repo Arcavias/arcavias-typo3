@@ -78,8 +78,4 @@ class Tslib_FeUserAuth
 	{
 		$this->_session[$key] = $data;
 	}
-
-	public function storeSessionData()
-	{
-	}
 }
