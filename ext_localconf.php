@@ -31,6 +31,13 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
+	'catalog-stage',
+	array( 'Catalog' => 'stage' ),
+	array()
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
 	'catalog-list',
 	array( 'Catalog' => 'list' ),
 	array()
