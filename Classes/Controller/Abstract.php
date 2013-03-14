@@ -128,6 +128,9 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$view->addHelper( 'url', $helper );
 
 		$trans = new MW_Translation_Zend( $this->_getMShop()->getI18nPaths(), 'gettext', $langid, array( 'disableNotices' => true ) );
+		if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true ) {
+			$trans = new MW_Translation_Decorator_APC( $trans, $config );
+		}
 		$helper = new MW_View_Helper_Translate_Default( $view, $trans );
 		$view->addHelper( 'translate', $helper );
 
