@@ -12,7 +12,7 @@ plugin.tx_arcavias {
 			html {
 				common {
 					content.baseurl = uploads/tx_arcavias/
-					template.baseurl = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
+					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/
 				}
 				catalog {
 					listsimple.url.config.type = {$plugin.tx_arcavias.jsonTypeNum}
