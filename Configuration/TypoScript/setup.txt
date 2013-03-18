@@ -1,4 +1,4 @@
-page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Private/Libraries/core/client/html/lib/css/arcavias.css
+page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Public/html/css/arcavias.css
 
 plugin.tx_arcavias {
 	mvc {
@@ -11,8 +11,8 @@ plugin.tx_arcavias {
 		client {
 			html {
 				common {
-					content.baseurl = uploads/tx_arcavias/
-					template.baseurl = typo3conf/ext/arcavias/Resources/Private/Libraries/core/client/html/lib/
+					content.baseurl = {$config.baseURL}uploads/tx_arcavias/
+					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/
 				}
 				catalog {
 					listsimple.url.config.type = {$plugin.tx_arcavias.jsonTypeNum}

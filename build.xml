@@ -10,6 +10,9 @@
 		<exec command="rsync --delete --recursive --exclude-from=./Resources/Private/Libraries/core.new/.exclude ./Resources/Private/Libraries/core.new/ ./Resources/Private/Libraries/core/"
 			checkreturn="true" logoutput="true" />
 		<delete dir="./Resources/Private/Libraries/core.new" />
+		<exec command="rsync --delete --recursive ./Resources/Private/Libraries/core/client/html/lib/ ./Resources/Public/html/"
+			checkreturn="true" logoutput="true" />
+		<delete dir="./Resources/Private/Libraries/core/client/html/lib" />
 	</target>
 
 	<target name="deploy" description="Executes all deployments">
