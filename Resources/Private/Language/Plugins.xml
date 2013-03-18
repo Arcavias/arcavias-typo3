@@ -11,6 +11,7 @@
 			<label index="catalog-filter.tree-levels-only">Only display up to these category levels</label>
 			<label index="catalog-list.target">Catalog list page</label>
 			<label index="catalog-list.simple-target">Simple list page (for search filter)</label>
+			<label index="catalog-list.catid-default">Default category if no parameter is available</label>
 			<label index="catalog-detail.target">Catalog detail page</label>
 			<label index="basket-standard.target">Basket page</label>
 			<label index="checkout-standard.target">Checkout page</label>
@@ -22,6 +23,7 @@
 			<label index="catalog-filter.tree-levels-only">Zeige nur die Kategorien bis zu dieser Tiefe</label>
 			<label index="catalog-list.target">Listenseite des Katalogs</label>
 			<label index="catalog-list.simple-target">Seite der einfachen Liste (für den Suchfilter)</label>
+			<label index="catalog-list.catid-default">Standardkategorie, falls keine per Parameter übergeben wurde</label>
 			<label index="catalog-detail.target">Detailseite des Katalogs</label>
 			<label index="basket-standard.target">Seite des Warenkorbs</label>
 			<label index="checkout-standard.target">Seite "zur Kasse"</label>
