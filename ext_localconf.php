@@ -9,6 +9,7 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
  */
 
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['extDirs'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Resources/Private/Libraries/ext/';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['confDirs'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Resources/Private/Config/';
 
 
 /**
