@@ -63,7 +63,18 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 
 
 			$configPaths = $mshop->getConfigPaths( 'mysql' );
-			$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
+
+			// Hook for processing extension directories
+			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
+			{
+				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
+				{
+					$absPath = t3lib_div::getFileAbsFileName( $dir );
+					if( !empty( $absPath ) ) {
+						$configPaths[] = $absPath;
+					}
+				}
+			}
 
 			$conf = new MW_Config_Array( ( is_array( $this->settings ) ? $this->settings : array() ), $configPaths );
 			$conf = new MW_Config_Decorator_MemoryCache( $conf );
@@ -110,9 +121,9 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
-				// Hook for processing extension directories
+			// Hook for processing extension directories
 			$extDirs = array();
-			if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
+			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] ) )
 			{
 				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
 				{

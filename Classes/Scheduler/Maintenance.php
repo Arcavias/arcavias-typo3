@@ -63,6 +63,7 @@ class tx_arcavias_scheduler_maintenance
 
 				$this->_updateStock( $context );
 				$this->_sendEmails( $context );
+				$this->_processDelivery( $context );
 				$this->_executeJobs( $context );
 			}
 		}
@@ -234,6 +235,84 @@ class tx_arcavias_scheduler_maintenance
 			$count = count( $items );
 			$start += $count;
 			$criteria->setSlice( $start );
+		}
+		while( $count > 0 );
+	}
+
+
+	/**
+	 * Calls the delivery service providers to process the new orders.
+	 *
+	 * @param MShop_Context_Item_Interface $context Context object with locale item set
+	 * @throws Exception If there are problems getting the orders
+	 */
+	protected function _processDelivery( MShop_Context_Item_Interface $context )
+	{
+		$serviceManager = MShop_Service_Manager_Factory::createManager( $context );
+		$serviceSearch = $serviceManager->createSearch();
+
+		$orderManager = MShop_Order_Manager_Factory::createManager( $context );
+		$orderSearch = $orderManager->createSearch();
+
+		$start = 0;
+
+		do
+		{
+			$serviceItems = $serviceManager->searchItems( $serviceSearch );
+
+			foreach( $serviceItems as $serviceItem )
+			{
+				try
+				{
+					$serviceProvider = $serviceManager->getProvider( $serviceItem );
+
+					$expr = array(
+						$orderSearch->compare( '==', 'order.siteid', $serviceItem->getSiteId() ),
+						// @todo: make this value configurable
+						$orderSearch->compare( '>', 'order.datepayment', date( 'Y-m-d 00:00:00', time() - 86400 * 90 ) ),
+						$orderSearch->compare( '>', 'order.statuspayment', MShop_Order_Item_Abstract::PAY_PENDING ),
+						$orderSearch->compare( '==', 'order.statusdelivery', MShop_Order_Item_Abstract::STAT_UNFINISHED ),
+						$orderSearch->compare( '==', 'order.base.service.code', $serviceItem->getCode() ),
+						$orderSearch->compare( '==', 'order.base.service.type', 'delivery' ),
+					);
+					$orderSearch->setConditions( $orderSearch->combine( '&&', $expr ) );
+
+					$orderStart = 0;
+
+					do
+					{
+						$orderItems = $orderManager->searchItems( $orderSearch );
+
+						foreach( $orderItems as $orderItem )
+						{
+							try
+							{
+								$serviceProvider->process( $orderItem );
+								$orderManager->saveItem( $orderItem );
+							}
+							catch( Exception $e )
+							{
+								$str = 'Error while processing order with ID "%1$s": %2$s';
+								$context->getLogger()->log( sprintf( $str, $orderItem->getId(), $e->getMessage() ) );
+							}
+						}
+
+						$orderCount = count( $orderItems );
+						$orderStart += $orderCount;
+						$orderSearch->setSlice( $orderStart );
+					}
+					while( $orderCount > 0 );
+				}
+				catch( Exception $e )
+				{
+					$str = 'Error while processing service with ID "%1$s": %2$s';
+					$context->getLogger()->log( sprintf( $str, $serviceItem->getId(), $e->getMessage() ) );
+				}
+			}
+
+			$count = count( $serviceItems );
+			$start += $count;
+			$serviceSearch->setSlice( $start );
 		}
 		while( $count > 0 );
 	}
