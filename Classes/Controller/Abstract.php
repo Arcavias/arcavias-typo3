@@ -19,6 +19,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	static private $_context;
 	static private $_extConfig;
 	private $_includePaths;
+	private $_configPaths;
 
 
 	/**
@@ -28,12 +29,33 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	{
 		parent::__construct();
 
-		$includePaths = $this->_getMShop()->getIncludePaths();
+		$ds = DIRECTORY_SEPARATOR;
+		$mshop = $this->_getMShop();
+
+
+		$includePaths = $mshop->getIncludePaths();
 		$includePaths[] = get_include_path();
 
 		if( ( $this->_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
 			throw new Exception( 'Unable to set include paths' );
 		}
+
+
+		$configPaths = $mshop->getConfigPaths( 'mysql' );
+
+		// Hook for processing extension config directories
+		if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
+		{
+			foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
+			{
+				$absPath = t3lib_div::getFileAbsFileName( $dir );
+				if( !empty( $absPath ) ) {
+					$configPaths[] = $absPath;
+				}
+			}
+		}
+
+		$this->_configPaths = $configPaths;
 	}
 
 
@@ -92,20 +114,15 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function _createConfig( array $settings )
 	{
-		$ds = DIRECTORY_SEPARATOR;
+		$conf = new MW_Config_Array( array(), $this->_configPaths );
 
-		$configPaths = $this->_getMShop()->getConfigPaths( 'mysql' );
-		$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
-
-		$conf = new MW_Config_Array( array(), $configPaths );
 		if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
 		{
 			$prefix = ( isset( $settings['apc']['prefix'] ) ? $settings['apc']['prefix'] : '' );
 			$conf = new MW_Config_Decorator_APC( $conf, $prefix );
 		}
-		$conf = new MW_Config_Decorator_MemoryCache( $conf, $settings );
 
-		return $conf;
+		return new MW_Config_Decorator_MemoryCache( $conf, $settings );
 	}
 
 
@@ -254,9 +271,9 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 				throw new Exception( 'Unable to register Arcavias autoload method' );
 			}
 
-				// Hook for processing extension directories
+			// Hook for processing extension directories
 			$extDirs = array();
-			if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
+			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] ) )
 			{
 				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
 				{
