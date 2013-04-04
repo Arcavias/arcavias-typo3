@@ -193,8 +193,13 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$context->setCache( $cache );
 
 
+			$langid = 'en';
+			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+				$langid = $GLOBALS['TSFE']->config['config']['language'];
+			}
+
 			$i18nPaths = $this->_getMShop()->getI18nPaths();
-			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', 'en', array( 'disableNotices' => true ) );
+			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $langid, array( 'disableNotices' => true ) );
 			$context->setI18n( $i18n );
 
 
