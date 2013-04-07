@@ -140,7 +140,7 @@ class ext_update
 	{
 		$ctx = new MShop_Context_Item_Default();
 
-		$conf = new MW_Config_Zend( new Zend_Config( array(), true ), $configPaths );
+		$conf = new MW_Config_Array( array(), $configPaths );
 		$ctx->setConfig( $conf );
 
 		$dbm = new MW_DB_Manager_PDO( $conf );
