@@ -1,99 +1,108 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
-# Norbert Sendetzky <n.sendetzky@metaways.de>, 2013.
-#  <n.sendetzky@metaways.de>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Arcavias\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-09 09:14+0200\n"
-"PO-Revision-Date: 2013-04-09 09:37+0000\n"
-"Last-Translator: nsendetzky <n.sendetzky@metaways.de>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
 
 # Attribute
+
 msgid "size"
-msgstr "Grösse"
+msgstr "Size"
 
 msgid "length"
-msgstr "Länge"
+msgstr "Length"
 
 msgid "width"
-msgstr "Weite"
+msgstr "Width"
 
 msgid "color"
-msgstr "Farbe"
+msgstr "Color"
+
 
 # Payment status values
+
 msgid "pay:-1"
-msgstr "Offen"
+msgstr "unfinished"
 
 msgid "pay:0"
-msgstr "Gelöscht"
+msgstr "deleted"
 
 msgid "pay:1"
-msgstr "Abgebrochen"
+msgstr "canceled"
 
 msgid "pay:2"
-msgstr "Abgelehnt"
+msgstr "refused"
 
 msgid "pay:3"
-msgstr "Erstattet"
+msgstr "refunded"
 
 msgid "pay:4"
-msgstr "Wartend"
+msgstr "pending"
 
 msgid "pay:5"
-msgstr "Authorisiert"
+msgstr "authorized"
 
 msgid "pay:6"
-msgstr "Erhalten"
+msgstr "received"
+
+
 
 # Delivery status values
+
 msgid "stat:-1"
-msgstr "Offen"
+msgstr "unfinished"
 
 msgid "stat:0"
-msgstr "Gelöscht"
+msgstr "deleted"
 
 msgid "stat:1"
-msgstr "Wartend"
+msgstr "pending"
 
 msgid "stat:2"
-msgstr "In Bearbeitung"
+msgstr "in progress"
 
 msgid "stat:3"
-msgstr "Versandt"
+msgstr "dispatched"
 
 msgid "stat:4"
-msgstr "Ausgeliefert"
+msgstr "delivered"
 
 msgid "stat:5"
-msgstr "Verloren"
+msgstr "lost"
 
 msgid "stat:6"
-msgstr "Annahme verweigert"
+msgstr "refused"
 
 msgid "stat:7"
-msgstr "Zurück gesendet"
+msgstr "returned"
+
+
 
 # Direct debit service provider
+
 msgid "payment.directdebit.accountowner"
-msgstr "Kontoinhaber"
+msgstr "Account owner"
 
 msgid "payment.directdebit.accountno"
-msgstr "Kontonummer"
+msgstr "Account number"
 
 msgid "payment.directdebit.bankcode"
-msgstr "Bankleitzahl"
+msgstr "Bank code"
 
 msgid "payment.directdebit.bankname"
-msgstr "Name der Bank"
+msgstr "Bank name"
