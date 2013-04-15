@@ -210,15 +210,17 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			}
 
 
-			$typo3User = null;
+			$username = $userid = null;
 
 			if( TYPO3_MODE === 'BE' ) {
-				$typo3User = $GLOBALS['BE_USER']->user['username'];
+				$username = $GLOBALS['BE_USER']->user['username'];
 			} elseif( TYPO3_MODE === 'FE' && $GLOBALS['TSFE']->loginUser === 'login' ) {
-				$typo3User = $GLOBALS['TSFE']->fe_user->user['username'];
+				$username = $GLOBALS['TSFE']->fe_user->user['username'];
+				$userid = $GLOBALS['TSFE']->fe_user->user[$GLOBALS['TSFE']->fe_user->userid_column];
 			}
 
-			$context->setEditor( $typo3User );
+			$context->setEditor( $username );
+			$context->setUserId( $userid );
 
 
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
