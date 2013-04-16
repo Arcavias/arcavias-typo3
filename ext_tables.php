@@ -68,4 +68,8 @@ Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-standard', 'Ar
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_checkout-confirm'] = 'pi_flexform';
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-confirm', 'Arcavias - Checkout confirm' );
 
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_account-history'] = 'pi_flexform';
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'account-history', 'Arcavias - Account history' );
+
 ?>

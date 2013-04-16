@@ -90,6 +90,14 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'account-history',
+	array( 'Account' => 'history' ),
+	array( 'Account' => 'history' )
+);
+
+
 /**
  * Arcavias scheduler tasks
  */
