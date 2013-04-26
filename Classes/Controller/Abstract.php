@@ -214,7 +214,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 			if( TYPO3_MODE === 'BE' ) {
 				$username = $GLOBALS['BE_USER']->user['username'];
-			} elseif( TYPO3_MODE === 'FE' && $GLOBALS['TSFE']->loginUser === 'login' ) {
+			} elseif( TYPO3_MODE === 'FE' && $GLOBALS['TSFE']->loginUser == 1 ) {
 				$username = $GLOBALS['TSFE']->fe_user->user['username'];
 				$userid = $GLOBALS['TSFE']->fe_user->user[$GLOBALS['TSFE']->fe_user->userid_column];
 			}
