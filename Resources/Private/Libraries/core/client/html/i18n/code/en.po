@@ -19,9 +19,25 @@ msgstr ""
 msgid "color"
 msgstr "Color"
 
+#. Address salutation
+msgid "company"
+msgstr "Company"
+
 #. Product attribute
 msgid "length"
 msgstr "Length"
+
+#. Address salutation
+msgid "miss"
+msgstr "Miss"
+
+#. Address salutation
+msgid "mr"
+msgstr "Mr"
+
+#. Address salutation
+msgid "mrs"
+msgstr "Mrs"
 
 #. Order type value
 msgid "order:phone"

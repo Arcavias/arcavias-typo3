@@ -2,9 +2,9 @@
 
 /**
  * @copyright Copyright (c) Metaways Infosystems GmbH, 2011
+ * @license LGPLv3, http://www.arcavias.com/en/license
  * @package MShop
  * @subpackage Customer
- * @version $Id: Typo3.php 15921 2012-07-02 15:08:25Z nsendetzky $
  */
 
 
@@ -22,149 +22,242 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 			'code' => 'customer.id',
 			'internalcode' => 'tfeu."uid"',
 			'type' => 'integer',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_INT ),
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_INT
+		),
 		'customer.label' => array(
 			'label' => 'Customer name',
 			'code' => 'customer.label',
 			'internalcode' => 'tfeu."name"',
 			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR
+		),
 		'customer.code' => array(
 			'label' => 'Customer username',
 			'code' => 'customer.code',
 			'internalcode' => 'tfeu."username"',
 			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR
+		),
+		'customer.salutation' => array(
+			'label' => 'Customer salutation',
+			'code' => 'customer.salutation',
+			'internalcode' => 'tfeu."gender"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.company'=> array(
+			'label' => 'Customer company',
+			'code' => 'customer.company',
+			'internalcode' => 'tfeu."company"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.title' => array(
+			'label' => 'Customer title',
+			'code' => 'customer.title',
+			'internalcode' => 'tfeu."title"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.firstname' => array(
+			'label' => 'Customer firstname',
+			'code' => 'customer.firstname',
+			'internalcode' => 'tfeu."first_name"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.lastname' => array(
+			'label' => 'Customer lastname',
+			'code' => 'customer.lastname',
+			'internalcode' => 'tfeu."last_name"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.address1' => array(
+			'label' => 'Customer address part one',
+			'code' => 'customer.address1',
+			'internalcode' => 'tfeu."address"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.address2' => array(
+			'label' => 'Customer address part two',
+			'code' => 'customer.address2',
+			'internalcode' => 'tfeu."address"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.address3' => array(
+			'label' => 'Customer address part three',
+			'code' => 'customer.address3',
+			'internalcode' => 'tfeu."address"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.postal' => array(
+			'label' => 'Customer postal',
+			'code' => 'customer.postal',
+			'internalcode' => 'tfeu."zip"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.city' => array(
+			'label' => 'Customer city',
+			'code' => 'customer.city',
+			'internalcode' => 'tfeu."city"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.state' => array(
+			'label' => 'Customer state',
+			'code' => 'customer.state',
+			'internalcode' => 'tfeu."zone"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.languageid' => array(
+			'label' => 'Customer language',
+			'code' => 'customer.languageid',
+			'internalcode' => 'tfeu."language"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		// only available as three letter ISO code
+		'customer.countryid' => array(
+			'label' => 'Customer country',
+			'code' => 'customer.countryid',
+			'internalcode' => '1',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.telephone' => array(
+			'label' => 'Customer telephone',
+			'code' => 'customer.telephone',
+			'internalcode' => 'tfeu."telephone"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.email' => array(
+			'label' => 'Customer email',
+			'code' => 'customer.email',
+			'internalcode' => 'tfeu."email"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.telefax' => array(
+			'label' => 'Customer telefax',
+			'code' => 'customer.telefax',
+			'internalcode' => 'tfeu."fax"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.website' => array(
+			'label' => 'Customer website',
+			'code' => 'customer.website',
+			'internalcode' => 'tfeu."www"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.birthday' => array(
+			'label' => 'Customer birthday',
+			'code' => 'customer.birthday',
+			'internalcode' => 'tfeu."date_of_birth"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.password'=> array(
+			'label' => 'Customer password',
+			'code' => 'customer.password',
+			'internalcode' => 'tfeu."password"',
+			'type' => 'string',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
 		'customer.status'=> array(
 			'label' => 'Customer status',
 			'code' => 'customer.status',
-			'internalcode' => 'NOT tfeu."disable"',
+			'internalcode' => 'tfeu."disable"',
 			'type' => 'integer',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_INT ),
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_INT
+		),
+		'customer.ctime'=> array(
+			'label' => 'Customer creation time',
+			'code' => 'customer.ctime',
+			'internalcode' => 'tfeu."crdate"',
+			'type' => 'datetime',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		'customer.mtime'=> array(
+			'label' => 'Customer modification time',
+			'code' => 'customer.mtime',
+			'internalcode' => 'tfeu."tstamp"',
+			'type' => 'datetime',
+			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
+		),
+		// not available
+		'customer.editor'=> array(
+			'label'=>'Customer editor',
+			'code'=>'customer.editor',
+			'internalcode'=>'1',
+			'type'=> 'string',
+			'internaltype'=> MW_DB_Statement_Abstract::PARAM_STR,
+		),
 	);
 
 	private $_addressSearchConfig = array(
-		'customer.address.id' => array(
-			'label' => 'Customer address ID',
-			'code' => 'customer.address.id',
-			'internalcode' => 'tt_address."uid"',
-			'type' => 'integer',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_INT ),
-		'customer.address.siteid' => array(
-			'label' => 'Customer address site ID',
-			'code' => 'customer.address.siteid',
-			'internalcode' => 'tt_address."tx_mshop_siteid"',
-			'type' => 'integer',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_INT ),
-		'customer.address.refid' => array(
-			'label' => 'Customer address reference ID',
-			'code' => 'customer.address.refid',
-			'internalcode' => 'tt_address."tx_mshop_fe_user_uid"',
-			'type' => 'integer',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.company'=> array(
-			'label' => 'Customer address company',
-			'code' => 'customer.address.company',
-			'internalcode' => 'tt_address."company"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.salutation' => array(
-			'label' => 'Customer address salutation',
-			'code' => 'customer.address.salutation',
-			'internalcode' => 'tt_address."gender"',
-			'type' => 'integer',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.title' => array(
-			'label' => 'Customer address title',
-			'code' => 'customer.address.title',
-			'internalcode' => 'tt_address."title"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.firstname' => array(
-			'label' => 'Customer address firstname',
-			'code' => 'customer.address.firstname',
-			'internalcode' => 'tt_address."first_name"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.lastname' => array(
-			'label' => 'Customer address lastname',
-			'code' => 'customer.address.lastname',
-			'internalcode' => 'tt_address."last_name"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.address1' => array(
-			'label' => 'Customer address address part one',
-			'code' => 'customer.address.address1',
-			'internalcode' => 'tt_address."address"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.address2' => array(
-			'label' => 'Customer address address part two',
-			'code' => 'customer.address.address2',
-			'internalcode' => 'tt_address."tx_mshop_address2"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.address3' => array(
-			'label' => 'Customer address address part three',
-			'code' => 'customer.address.address3',
-			'internalcode' => 'tt_address."tx_mshop_address3"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.postal' => array(
-			'label' => 'Customer address postal',
-			'code' => 'customer.address.postal',
-			'internalcode' => 'tt_address."zip"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.city' => array(
-			'label' => 'Customer address city',
-			'code' => 'customer.address.city',
-			'internalcode' => 'tt_address."city"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.state' => array(
-			'label' => 'Customer address state',
-			'code' => 'customer.address.state',
-			'internalcode' => 'tt_address."region"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.countryid' => array(
-			'label' => 'Customer address country',
-			'code' => 'customer.address.countryid',
-			'internalcode' => 'tt_address."country"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.telephone' => array(
-			'label' => 'Customer address telephone',
-			'code' => 'customer.address.telephone',
-			'internalcode' => 'tt_address."phone"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.email' => array(
-			'label' => 'Customer address email',
-			'code' => 'customer.address.email',
-			'internalcode' => 'tt_address."email"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.telefax' => array(
-			'label' => 'Customer address telefax',
-			'code' => 'customer.address.telefax',
-			'internalcode' => 'tt_address."fax"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.website' => array(
-			'label' => 'Customer address website',
-			'code' => 'customer.address.website',
-			'internalcode' => 'tt_address."www"',
-			'type' => 'string',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR ),
-		'customer.address.flag' => array(
-			'label' => 'Customer address flag',
-			'code' => 'customer.address.flag',
-			'internalcode' => 'tfeuad."flag"',
-			'type' => 'integer',
-			'internaltype' => MW_DB_Statement_Abstract::PARAM_INT ),
 	);
+
+	private $_plugins = array();
+	private $_reverse = array();
+
+
+
+	/**
+	 * Initializes a new customer manager object using the given context object.
+	 *
+	 * @param MShop_Context_Interface $_context Context object with required objects
+	 */
+	public function __construct( MShop_Context_Item_Interface $context )
+	{
+		parent::__construct( $context );
+
+		$plugin = new MW_Common_Criteria_Plugin_T3Salutation();
+		$this->_plugins['customer.salutation'] = $this->_reverse['gender'] = $plugin;
+
+		$plugin = new MW_Common_Criteria_Plugin_T3Status();
+		$this->_plugins['customer.status'] = $this->_reverse['disable'] = $plugin;
+
+		$plugin = new MW_Common_Criteria_Plugin_T3Date();
+		$this->_plugins['customer.birthday'] = $this->_reverse['date_of_birth'] = $plugin;
+
+		$plugin = new MW_Common_Criteria_Plugin_T3Datetime();
+		$this->_plugins['customer.ctime'] = $this->_reverse['crdate'] = $plugin;
+		$this->_plugins['customer.mtime'] = $this->_reverse['tstamp'] = $plugin;
+	}
+
+
+	/**
+	 * Creates a criteria object for searching.
+	 *
+	 * @param boolean $default Include default criteria like the status
+	 * @return MW_Common_Criteria_Interface Search criteria object
+	 */
+	public function createSearch( $default = false )
+	{
+		if( $default === true )
+		{
+			$dbm = $this->_getContext()->getDatabaseManager();
+			$conn = $dbm->acquire();
+
+			$object = new MW_Common_Criteria_SQL( $conn );
+			$object->setConditions( $object->compare( '==', 'customer.status', 1 ) );
+
+			$dbm->release( $conn );
+
+			return $object;
+		}
+
+		return parent::createSearch();
+	}
 
 
 	/**
@@ -185,12 +278,8 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 		{
 			$config = $this->_getContext()->getConfig();
 
-			foreach( $config->get( 'classes/customer/manager/submanagers', array( 'address' ) ) as $domain ) {
+			foreach( $config->get( 'classes/customer/manager/submanagers', array() ) as $domain ) {
 				$list = array_merge( $list, $this->getSubManager( $domain )->getSearchAttributes() );
-			}
-
-			foreach( $config->get( 'classes/customer/manager/refmanagers', array() ) as $domain ) {
-				$list = array_merge( $list, $this->_createDomainManager( $domain )->getSearchAttributes() );
 			}
 		}
 
@@ -205,23 +294,33 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 	 */
 	public function createItem()
 	{
-		$values = array('siteid'=> $this->_getContext()->getLocale()->getSiteId());
-		$addressManager = $this->getSubManager( 'address' );
-		$address = $addressManager->createItem();
-		return $this->_createItem( $address, $values );
+		return $this->_createItem( new MShop_Common_Item_Address_Default( 'customer' ) );
 	}
 
 
 	/**
 	 * Deletes a customer item object from the permanent storage.
-	 * This method is not available for this manager and
-	 * will throw an exception if called because the objects are read-only
 	 *
 	 * @param integer $id Unique customer ID referencing an existing customer
 	 */
 	public function deleteItem($id)
 	{
-		throw new MShop_Customer_Exception( 'Item is read only.' );
+		$dbm = $this->_getContext()->getDatabaseManager();
+		$conn = $dbm->acquire();
+
+		try
+		{
+			$stmt = $this->_getCachedStatement($conn, 'mshop/customer/manager/typo3/item/delete');
+			$stmt->bind( 1, $id, MW_DB_Statement_Abstract::PARAM_INT );
+			$result = $stmt->execute()->finish();
+
+			$dbm->release( $conn );
+		}
+		catch( Exception $e )
+		{
+			$dbm->release( $conn );
+			throw $e;
+		}
 	}
 
 
@@ -233,7 +332,80 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 	 */
 	public function saveItem( MShop_Common_Item_Interface $item, $fetch = true )
 	{
-		throw new MShop_Customer_Exception( "Item is read only." );
+		$iface = 'MShop_Customer_Item_Interface';
+		if( !( $item instanceof $iface ) ) {
+			throw new MShop_Customer_Exception( sprintf( 'Object is not of required type "%1$s"', $iface ) );
+		}
+
+		if( !$item->isModified() ) { return; }
+
+		$context = $this->_getContext();
+		$config = $context->getConfig();
+		$dbm = $context->getDatabaseManager();
+		$conn = $dbm->acquire();
+
+		try
+		{
+			$id = $item->getId();
+
+			$path = 'mshop/customer/manager/typo3/item/';
+			$path .= ( $id === null ) ? 'insert' : 'update';
+
+			$sql = $config->get( $path, $path );
+
+			$stmt = $conn->create( $sql );
+			$billingAddress = $item->getBillingAddress();
+
+			$addressParts = ( ( $part = $billingAddress->getAddress2() ) != '' ? ' ' . $part : '' );
+			$addressParts .= ( ( $part = $billingAddress->getAddress3() ) != '' ? ' ' . $part : '' );
+
+			// TYPO3 fe_users.static_info_country is a three letter ISO code instead a two letter one
+			$stmt->bind( 1, $item->getLabel() );
+			$stmt->bind( 2, $item->getCode() );
+			$stmt->bind( 3, $this->_plugins['customer.salutation']->translate( $billingAddress->getSalutation() ), MW_DB_Statement_Abstract::PARAM_INT );
+			$stmt->bind( 4, $billingAddress->getCompany() );
+			$stmt->bind( 5, $billingAddress->getTitle() );
+			$stmt->bind( 6, $billingAddress->getFirstname() );
+			$stmt->bind( 7, $billingAddress->getLastname() );
+			$stmt->bind( 8, $billingAddress->getAddress1() . $addressParts );
+			$stmt->bind( 9, $billingAddress->getPostal() );
+			$stmt->bind( 10, $billingAddress->getCity() );
+			$stmt->bind( 11, $billingAddress->getState() );
+			$stmt->bind( 12, $billingAddress->getLanguageId() );
+			$stmt->bind( 13, $billingAddress->getTelephone() );
+			$stmt->bind( 14, $billingAddress->getEmail() );
+			$stmt->bind( 15, $billingAddress->getTelefax() );
+			$stmt->bind( 16, $billingAddress->getWebsite() );
+			$stmt->bind( 17, $this->_plugins['customer.birthday']->translate( $item->getBirthday() ), MW_DB_Statement_Abstract::PARAM_INT );
+			$stmt->bind( 18, $this->_plugins['customer.status']->translate( $item->getStatus() ), MW_DB_Statement_Abstract::PARAM_INT );
+			$stmt->bind( 19, $item->getPassword() );
+			$stmt->bind( 20, time(), MW_DB_Statement_Abstract::PARAM_INT ); // Modification time
+
+			if( $id !== null ) {
+				$stmt->bind( 21, $id, MW_DB_Statement_Abstract::PARAM_INT );
+			} else {
+				$stmt->bind( 21, time() ); // Creation time
+			}
+
+			$result = $stmt->execute()->finish();
+
+			if( $fetch === true )
+			{
+				if( $id === null ) {
+					$path = 'mshop/customer/manager/typo3/item/newid';
+					$item->setId( $this->_newId( $conn, $config->get($path, $path) ) );
+				} else {
+					$item->setId( $id );
+				}
+			}
+
+			$dbm->release( $conn );
+		}
+		catch( Exception $e )
+		{
+			$dbm->release( $conn );
+			throw $e;
+		}
 	}
 
 
@@ -247,58 +419,20 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 	 */
 	public function searchItems( MW_Common_Criteria_Interface $search, array $ref = array(), &$total = null )
 	{
-		$context = $this->_getContext();
-		$dbm = $context->getDatabaseManager();
+		$dbm = $this->_getContext()->getDatabaseManager();
 		$conn = $dbm->acquire();
-
-		$items = array();
+		$map = array();
 
 		try
 		{
-			$attributes = $this->getSearchAttributes();
-			$types = $this->_getSearchTypes( $attributes );
-			$translations = $this->_getSearchTranslations( $attributes );
+			$level = MShop_Locale_Manager_Abstract::SITE_ALL;
+			$cfgPathSearch = 'mshop/customer/manager/typo3/item/search';
+			$cfgPathCount = 'mshop/customer/manager/typo3/item/count';
+			$required = array( 'customer' );
 
-			$plugins = array(
-				'customer.address.salutation' => new MShop_Common_Manager_Address_Plugin_Typo3(),
-			);
-
-			$find = array( ':cond', ':order', ':start', ':size' );
-			$replace = array(
-				$search->getConditionString( $types, $translations, $plugins ),
-				$search->getSortationString( $types, $translations ),
-				$search->getSliceStart(),
-				$search->getSliceSize(),
-			);
-
-
-			if( $total !== null )
-			{
-				$sql = $context->getConfig()->get( 'mshop/customer/manager/typo3/item/count',
-					'mshop/customer/manager/typo3/item/count' );
-				$results = $this->_getSearchResults( $conn, str_replace( $find, $replace, $sql ) );
-
-				$row = $results->fetch();
-				$results->finish();
-
-				if ( $row === false ) {
-					throw new MShop_Customer_Exception( 'No total results value found' );
-				}
-
-				$total = $row['count'];
-			}
-
-
-			$path = 'mshop/customer/manager/typo3/item/search';
-			$sql = $context->getConfig()->get( $path, $path );
-			$results = $this->_getSearchResults( $conn, str_replace( $find, $replace, $sql ) );
-
-			$addressManager = $this->getSubManager( 'address' );
-			$addressItem = $addressManager->createItem();
-
-			while( ( $row = $results->fetch() ) !== false )
-			{
-				$items[ $row['id'] ] = $this->_createItem( $addressItem, $row );
+			$results = $this->_searchItems( $conn, $search, $cfgPathSearch, $cfgPathCount, $required, $total, $level, $this->_plugins );
+			while( ( $row = $results->fetch() ) !== false ) {
+				$map[ $row['id'] ] = $row;
 			}
 
 			$dbm->release( $conn );
@@ -309,7 +443,7 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 			throw $e;
 		}
 
-		return $items;
+		return $this->_buildItems( $map, $ref, 'customer' );
 	}
 
 
@@ -322,32 +456,39 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 	 */
 	public function getSubManager( $manager, $name = null )
 	{
-		if( $manager === 'address' )
-		{
-				$path = 'mshop/customer/manager/address/typo3/item';
-				return $this->_createAddressManager( 'customer', $name, $path, $this->_addressSearchConfig );
-		}
-
 		return parent::getSubManager( $manager, $name );
 	}
 
 
 	/**
-	 * Returns the search results for the given SQL statement.
+	 * Creates the items with address item, list items and referenced items.
 	 *
-	 * @param MW_DB_Connection_Interface $conn Database connection
-	 * @param $sql SQL statement
-	 * @return MW_DB_Result_Interface Search result object
+	 * @param array $map Associative list of IDs as keys and the associative array of values
+	 * @param array $domains List of domain names whose referenced items should be attached
+	 * @param string $prefix Domain prefix
+	 * @return array List of items implementing MShop_Common_Item_Interface
 	 */
-	protected function _getSearchResults( MW_DB_Connection_Interface $conn, $sql )
+	protected function _buildItems( array $map, array $domains, $prefix )
 	{
-		$statement = $conn->create($sql);
+		$items = $listItemMap = $refItemMap = $refIdMap = array();
 
-		$this->_getContext()->getLogger()->log( __METHOD__ . ': SQL statement: ' . $statement, MW_Logger_Abstract::DEBUG );
+		foreach ( $map as $id => $values )
+		{
+			$listItems = array();
+			if ( isset( $listItemMap[$id] ) ) {
+				$listItems = $listItemMap[$id];
+			}
 
-		$results = $statement->execute();
+			$refItems = array();
+			if ( isset( $refItemMap[$id] ) ) {
+				$refItems = $refItemMap[$id];
+			}
 
-		return $results;
+			// Hand over empty address item, which will be filled in the customer item constructor
+			$items[ $id ] = $this->_createItem( new MShop_Common_Item_Address_Default( $prefix ), $values, $listItems, $refItems );
+		}
+
+		return $items;
 	}
 
 
@@ -360,11 +501,28 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 	protected function _createItem( MShop_Common_Item_Address_Interface $address, array $values = array(),
 		array $listItems = array(), array $refItems = array() )
 	{
-		if( array_key_exists( 'disable', $values ) ) {
-			$values['status'] = ( $values['disable'] ? 0 : 1 );
+		$values['siteid'] = $this->_getContext()->getLocale()->getSiteId();
+
+		if( array_key_exists( 'date_of_birth', $values ) ) {
+			$values['birthday'] = $this->_reverse['date_of_birth']->reverse( $values['date_of_birth'] );
 		}
 
-		$values['siteid'] = $this->_getContext()->getLocale()->getSiteId();
+		if( array_key_exists( 'gender', $values ) ) {
+			$values['salutation'] = $this->_reverse['gender']->reverse( $values['gender'] );
+		}
+
+		if( array_key_exists( 'disable', $values ) ) {
+			$values['status'] = $this->_reverse['disable']->reverse( $values['disable'] );
+		}
+
+		if( array_key_exists( 'tstamp', $values ) ) {
+			$values['mtime'] = $this->_reverse['tstamp']->reverse( $values['tstamp'] );
+		}
+
+		if( array_key_exists( 'crdate', $values ) ) {
+			$values['ctime'] = $this->_reverse['crdate']->reverse( $values['crdate'] );
+		}
+
 		return new MShop_Customer_Item_Default( $address, $values, $listItems, $refItems );
 	}
 

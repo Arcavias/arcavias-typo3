@@ -7,7 +7,6 @@
 
 /**
  * Test class for MShop_Customer_Manager_Typo3
- * @subpackage Customer
  */
 class MShop_Customer_Manager_Typo3Test extends MW_Unittest_Testcase
 {
@@ -46,6 +45,7 @@ class MShop_Customer_Manager_Typo3Test extends MW_Unittest_Testcase
 		unset($this->_object, $this->_item);
 	}
 
+
 	public function testGetSearchAttributes()
 	{
 		foreach( $this->_object->getSearchAttributes() as $attribute )
@@ -54,26 +54,56 @@ class MShop_Customer_Manager_Typo3Test extends MW_Unittest_Testcase
 		}
 	}
 
+
 	public function testCreateItem()
 	{
 		$item = $this->_object->createItem();
 		$this->assertInstanceOf( 'MShop_Customer_Item_Interface', $item );
 	}
 
+
 	public function testGetItem()
 	{
 		$search = $this->_object->createSearch();
-		$search->setConditions( $search->compare( '~=', 'customer.code', 'unitCustomer' ) );
+		$search->setConditions( $search->compare( '==', 'customer.code', 'unitCustomer1@metaways.de' ) );
 		$items = $this->_object->searchItems( $search );
 
-		if( ( $item = reset( $items ) ) === false ) {
-			throw new Exception( 'No customer item with code "unitCustomer" found' );
+		if( ( $expected = reset( $items ) ) === false ) {
+			throw new Exception( 'No customer found.' );
 		}
 
-		$this->assertEquals( $item, $this->_object->getItem( $item->getId() ) );
+		$actual = $this->_object->getItem( $expected->getId() );
+		$billing = $actual->getBillingAddress();
+
+		$this->assertEquals( $expected, $actual );
+
+		$this->assertEquals( 'Max Mustermann', $actual->getLabel() );
+		$this->assertEquals( 'unitCustomer1@metaways.de', $actual->getCode() );
+		$this->assertEquals( 'mr', $billing->getSalutation() );
+		$this->assertEquals( 'Metaways GmbH', $billing->getCompany() );
+		$this->assertEquals( 'Dr.', $billing->getTitle() );
+		$this->assertEquals( 'Max', $billing->getFirstname() );
+		$this->assertEquals( 'Mustermann', $billing->getLastname() );
+		$this->assertEquals( 'Musterstraße 1a', $billing->getAddress1() );
+		$this->assertEquals( '', $billing->getAddress2() );
+		$this->assertEquals( '', $billing->getAddress3() );
+		$this->assertEquals( '20001', $billing->getPostal() );
+		$this->assertEquals( 'Musterstadt', $billing->getCity() );
+		$this->assertEquals( 'Hamburg', $billing->getState() );
+		$this->assertEquals( 'de', $billing->getLanguageId() );
+		$this->assertEquals( '01234567890', $billing->getTelephone() );
+		$this->assertEquals( 'unitCustomer1@metaways.de', $billing->getEMail() );
+		$this->assertEquals( '01234567890', $billing->getTelefax() );
+		$this->assertEquals( 'www.metaways.de', $billing->getWebsite() );
+		$this->assertEquals( 1, $actual->getStatus() );
+		$this->assertEquals( '5f4dcc3b5aa765d61d8327deb882cf99', $actual->getPassword() );
+		$this->assertEquals( '2011-01-13 11:03:36', $actual->getTimeCreated() );
+		$this->assertEquals( '2011-01-13 11:03:46', $actual->getTimeModified() );
+		$this->assertEquals( '', $actual->getEditor() );
 	}
 
-	public function testDeleteItem()
+
+	public function testSaveUpdateDeleteItem()
 	{
 		$search = $this->_object->createSearch();
 		$search->setConditions( $search->compare( '==', 'customer.code', 'unitCustomer1@metaways.de' ) );
@@ -83,23 +113,52 @@ class MShop_Customer_Manager_Typo3Test extends MW_Unittest_Testcase
 			throw new Exception( 'No customer found.' );
 		}
 
-		$this->setExpectedException('MShop_Customer_Exception');
-		$this->_object->deleteItem( $item->getId() );
-	}
-
-	public function testSaveItem()
-	{
-		$search = $this->_object->createSearch();
-		$search->setConditions( $search->compare( '==', 'customer.code', 'unitCustomer1@metaways.de' ) );
-		$results = $this->_object->searchItems( $search );
-
-		if( ( $item = reset( $results ) ) === false ) {
-			throw new Exception( 'No customer found.' );
-		}
-
-		$this->setExpectedException('MShop_Customer_Exception');
+		$item->setId( null );
+		$item->setCode( 'unitTest' );
+		$item->setLabel( 'unitTest' );
 		$this->_object->saveItem( $item );
+		$itemSaved = $this->_object->getItem( $item->getId() );
+
+		$itemExp = clone $itemSaved;
+		$itemExp->setCode( 'unitTest2' );
+		$itemExp->setLabel( 'unitTest2' );
+		$this->_object->saveItem( $itemExp );
+		$itemUpd = $this->_object->getItem( $itemExp->getId() );
+
+		$this->_object->deleteItem( $item->getId() );
+
+
+		$this->assertTrue( $item->getId() !== null );
+		$this->assertEquals( $item->getId(), $itemSaved->getId() );
+		$this->assertEquals( $item->getSiteId(), $itemSaved->getSiteId() );
+		$this->assertEquals( $item->getStatus(), $itemSaved->getStatus() );
+		$this->assertEquals( $item->getCode(), $itemSaved->getCode() );
+		$this->assertEquals( $item->getLabel(), $itemSaved->getLabel() );
+		$this->assertEquals( $item->getBillingAddress(), $itemSaved->getBillingAddress() );
+		$this->assertEquals( $item->getBirthday(), $itemSaved->getBirthday() );
+		$this->assertEquals( $item->getPassword(), $itemSaved->getPassword() );
+
+		$this->assertEquals( '', $itemSaved->getEditor() );
+		$this->assertRegExp( '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/', $itemSaved->getTimeCreated() );
+		$this->assertRegExp( '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/', $itemSaved->getTimeModified() );
+
+		$this->assertEquals( $itemExp->getId(), $itemUpd->getId() );
+		$this->assertEquals( $itemExp->getSiteId(), $itemUpd->getSiteId() );
+		$this->assertEquals( $itemExp->getStatus(), $itemUpd->getStatus() );
+		$this->assertEquals( $itemExp->getCode(), $itemUpd->getCode() );
+		$this->assertEquals( $itemExp->getLabel(), $itemUpd->getLabel() );
+		$this->assertEquals( $itemExp->getBillingAddress(), $itemUpd->getBillingAddress() );
+		$this->assertEquals( $itemExp->getBirthday(), $itemUpd->getBirthday() );
+		$this->assertEquals( $itemExp->getPassword(), $itemUpd->getPassword() );
+
+		$this->assertEquals( '', $itemUpd->getEditor() );
+		$this->assertEquals( $itemExp->getTimeCreated(), $itemUpd->getTimeCreated() );
+		$this->assertRegExp( '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/', $itemUpd->getTimeModified() );
+
+		$this->setExpectedException( 'MShop_Exception' );
+		$this->_object->getItem( $item->getId() );
 	}
+
 
 	public function testCreateSearch()
 	{
@@ -109,90 +168,64 @@ class MShop_Customer_Manager_Typo3Test extends MW_Unittest_Testcase
 
 	public function testSearchItems()
 	{
-		$siteid = $this->_context->getLocale()->getSiteId();
-
 		$total = 0;
 		$search = $this->_object->createSearch();
 
 		$expr[] = $search->compare( '!=', 'customer.id', null );
-		$expr[] = $search->compare( '==', 'customer.label', '' );
-		$expr[] = $search->compare( '==', 'customer.code', 'unitCustomer2@metaways.de' );
+		$expr[] = $search->compare( '==', 'customer.label', 'Franz-Xaver Gabler' );
+		$expr[] = $search->compare( '==', 'customer.code', 'unitCustomer3@metaways.de' );
+		$expr[] = $search->compare( '==', 'customer.salutation', 'mr' );
+		$expr[] = $search->compare( '==', 'customer.company', 'Metaways GmbH' );
+		$expr[] = $search->compare( '==', 'customer.title', '' );
+		$expr[] = $search->compare( '==', 'customer.firstname', 'Franz-Xaver' );
+		$expr[] = $search->compare( '==', 'customer.lastname', 'Gabler' );
+		$expr[] = $search->compare( '==', 'customer.address1', 'Phantasiestraße 2' );
+		$expr[] = $search->compare( '==', 'customer.postal', '23643' );
+		$expr[] = $search->compare( '==', 'customer.city', 'Berlin' );
+		$expr[] = $search->compare( '==', 'customer.state', 'Berlin' );
+		$expr[] = $search->compare( '==', 'customer.telephone', '01234509876' );
+		$expr[] = $search->compare( '==', 'customer.email', 'unitCustomer3@metaways.de' );
+		$expr[] = $search->compare( '==', 'customer.telefax', '055544333212' );
+		$expr[] = $search->compare( '==', 'customer.website', 'www.metaways.de' );
 		$expr[] = $search->compare( '==', 'customer.status', 1 );
-
-		$expr[] = $search->compare( '!=', 'customer.address.id', null );
-		$expr[] = $search->compare( '==', 'customer.address.siteid', $siteid );
-		$expr[] = $search->compare( '!=', 'customer.address.refid', null );
-		$expr[] = $search->compare( '==', 'customer.address.company', 'Metaways GmbH' );
-		$expr[] = $search->compare( '==', 'customer.address.salutation', 'mr' );
-		$expr[] = $search->compare( '==', 'customer.address.title', '' );
-		$expr[] = $search->compare( '==', 'customer.address.firstname', 'Franz-Xaver' );
-		$expr[] = $search->compare( '==', 'customer.address.lastname', 'Gabler' );
-		$expr[] = $search->compare( '==', 'customer.address.address1', 'Phantasiestraße' );
-		$expr[] = $search->compare( '==', 'customer.address.address2', '2' );
-		$expr[] = $search->compare( '==', 'customer.address.address3', null );
-		$expr[] = $search->compare( '==', 'customer.address.postal', '23643' );
-		$expr[] = $search->compare( '==', 'customer.address.city', 'Berlin' );
-		$expr[] = $search->compare( '==', 'customer.address.state', 'Berlin' );
-		$expr[] = $search->compare( '==', 'customer.address.countryid', 'de' );
-		$expr[] = $search->compare( '==', 'customer.address.telephone', '01234509876' );
-		$expr[] = $search->compare( '==', 'customer.address.email', 'arcavias@metaways.de' );
-		$expr[] = $search->compare( '==', 'customer.address.telefax', '055544333212' );
-		$expr[] = $search->compare( '==', 'customer.address.website', 'www.metaways.de' );
+		$expr[] = $search->compare( '!=', 'customer.password', '' );
+		$expr[] = $search->compare( '>', 'customer.mtime', '1970-01-01 00:00:00' );
+		$expr[] = $search->compare( '>', 'customer.ctime', '1970-01-01 00:00:00' );
 
 		$search->setConditions( $search->combine( '&&', $expr ) );
 		$result = $this->_object->searchItems( $search, array(), $total );
+
 		$this->assertEquals( 1, count( $result ) );
 		$this->assertEquals( 1, $total );
 
 
-		//search without base criteria
+		// search without base criteria
 		$search = $this->_object->createSearch();
-		$this->assertGreaterThanOrEqual( 3, count( $this->_object->searchItems( $search ) ) );
+		$results = $this->_object->searchItems( $search );
+		$this->assertEquals( 3, count( $results ) );
 
-		//search with base criteria
+
+		// search with base criteria
 		$search = $this->_object->createSearch(true);
-		$results = $this->_object->searchItems( $search, array(), $total );
-		$this->assertGreaterThanOrEqual( 2, count( $results ) );
-		$this->assertEquals( $total, count( $results ) );
+		$results = $this->_object->searchItems( $search );
+		$this->assertEquals( 2, count( $results ) );
 
-		foreach($results as $itemId => $item) {
+		foreach( $results as $itemId => $item ) {
 			$this->assertEquals( $itemId, $item->getId() );
 		}
 	}
 
 
-	public function testSearchConfig()
-	{
-		$search = $this->_object->createSearch();
-
-		$conditions = array();
-		$conditions[] = $search->compare( '>', 'customer.id', 0 );
-		$conditions[] = $search->compare( '==', 'customer.label', '' );
-		$conditions[] = $search->compare( '==', 'customer.code', 'unitCustomer1@metaways.de');
-		$conditions[] = $search->compare( '==', 'customer.status', 1 );
-
-		$search->setConditions( $search->combine( '&&', $conditions ) );
-
-		$total = 0;
-		$this->_object->searchItems( $search, array(), $total );
-
-		$this->assertEquals( 1, $total );
-	}
-
-
 	public function testGetSubManager()
 	{
-		$this->assertInstanceOf( 'MShop_Common_Manager_Interface', $this->_object->getSubManager('address') );
-		$this->assertInstanceOf( 'MShop_Common_Manager_Interface', $this->_object->getSubManager('address') );
-
-		$this->setExpectedException('MShop_Exception');
-		$this->_object->getSubManager('unknown');
+		$this->setExpectedException( 'MShop_Exception' );
+		$this->_object->getSubManager( 'unknown' );
 	}
 
 
 	public function testGetSubManagerInvalidName()
 	{
-		$this->setExpectedException('MShop_Exception');
-		$this->_object->getSubManager('address', 'unknown');
+		$this->setExpectedException( 'MShop_Exception' );
+		$this->_object->getSubManager( 'address', 'unknown' );
 	}
 }
