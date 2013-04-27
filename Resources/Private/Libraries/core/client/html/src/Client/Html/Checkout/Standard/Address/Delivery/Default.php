@@ -170,13 +170,13 @@ class Client_Html_Checkout_Standard_Address_Delivery_Default
 				$search = $customerManager->createSearch( true );
 				$expr = array(
 					$search->compare( '==', 'customer.id', $address->getRefId() ),
-					$search->compare( '==', 'customer.code', $context->getEditor() ),
 					$search->getConditions(),
 				);
 				$search->setConditions( $search->combine( '&&', $expr ) );
 
 				$items = $customerManager->searchItems( $search );
-				if( ( $item = reset( $items ) ) === false ) {
+
+				if( ( $item = reset( $items ) ) === false || $address->getRefId() != $context->getUserId() ) {
 					throw new Client_Html_Exception( sprintf( 'No address found for ID "%1$s"', $option ) );
 				}
 
@@ -215,6 +215,9 @@ class Client_Html_Checkout_Standard_Address_Delivery_Default
 			} catch( Exception $e ) {
 				$view->deliveryLanguage = $context->getLocale()->getLanguageId();
 			}
+
+			$salutations = array( 'company', 'mr', 'mrs' );
+			$view->deliverySalutations = $view->config( 'client/html/common/address/delivery/salutations', $salutations );
 
 			$view->deliveryMandatory = $view->config( 'client/html/checkout/standard/address/delivery/mandatory', $this->_mandatory );
 			$view->deliveryOptional = $view->config( 'client/html/checkout/standard/address/delivery/optional', $this->_optional );
