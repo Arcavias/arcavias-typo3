@@ -57,14 +57,14 @@ class MW_Common_Criteria_Plugin_T3SalutationTest extends MW_Unittest_Testcase
 
 	public function testTranslateMale()
 	{
-		$this->assertEquals( 1, $this->_object->translate( MShop_Common_Item_Address_Abstract::SALUTATION_MR ) );
+		$this->assertEquals( 0, $this->_object->translate( MShop_Common_Item_Address_Abstract::SALUTATION_MR ) );
 	}
 
 
 	public function testTranslateFemale()
 	{
-		$this->assertEquals( 0, $this->_object->translate( MShop_Common_Item_Address_Abstract::SALUTATION_MRS ) );
-		$this->assertEquals( 0, $this->_object->translate( MShop_Common_Item_Address_Abstract::SALUTATION_MISS ) );
+		$this->assertEquals( 1, $this->_object->translate( MShop_Common_Item_Address_Abstract::SALUTATION_MRS ) );
+		$this->assertEquals( 1, $this->_object->translate( MShop_Common_Item_Address_Abstract::SALUTATION_MISS ) );
 	}
 
 
@@ -76,12 +76,12 @@ class MW_Common_Criteria_Plugin_T3SalutationTest extends MW_Unittest_Testcase
 
 	public function testReverseMale()
 	{
-		$this->assertEquals( MShop_Common_Item_Address_Abstract::SALUTATION_MR, $this->_object->reverse( 1 ) );
+		$this->assertEquals( MShop_Common_Item_Address_Abstract::SALUTATION_MR, $this->_object->reverse( 0 ) );
 	}
 
 
 	public function testReverseFemale()
 	{
-		$this->assertEquals( MShop_Common_Item_Address_Abstract::SALUTATION_MRS, $this->_object->reverse( 0 ) );
+		$this->assertEquals( MShop_Common_Item_Address_Abstract::SALUTATION_MRS, $this->_object->reverse( 1 ) );
 	}
 }
