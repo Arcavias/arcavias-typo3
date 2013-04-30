@@ -79,20 +79,19 @@ SET @siteid = ( SELECT `id` FROM `mshop_locale_site` WHERE `code` = 'unittest' )
 -- Typo3 tables
 --
 DELETE FROM `fe_users` WHERE `lockToDomain` = 'www.unittest.metaways.de';
-DELETE FROM `tt_address` WHERE `tx_mshop_siteid` = @siteid;
 
 
 --
 -- Typo3 frontend users
 --
 INSERT INTO `fe_users` ( `lockToDomain`, `name`, `username`, `gender`, `company`, `title`, `first_name`, `last_name`, `address`, `zip`, `city`, `zone`, `language`, `telephone`, `email`, `fax`, `www`, `date_of_birth`, `disable`, `password`, `tstamp`, `crdate`)
-	VALUES ( 'www.unittest.metaways.de', 'Max Mustermann', 'unitCustomer1@metaways.de', 1, 'Metaways GmbH', 'Dr.', 'Max', 'Mustermann', 'Musterstraße 1a', '20001', 'Musterstadt', 'Hamburg', 'de', '01234567890', 'unitCustomer1@metaways.de', '01234567890', 'www.metaways.de', 157762800, '0', '5f4dcc3b5aa765d61d8327deb882cf99', 1294916626, 1294916616);
+	VALUES ( 'www.unittest.metaways.de', 'Max Mustermann', 'unitCustomer1@metaways.de', 0, 'Metaways GmbH', 'Dr.', 'Max', 'Mustermann', 'Musterstraße 1a', '20001', 'Musterstadt', 'Hamburg', 'de', '01234567890', 'unitCustomer1@metaways.de', '01234567890', 'www.metaways.de', 157762800, '0', '5f4dcc3b5aa765d61d8327deb882cf99', 1294916626, 1294916616);
 SET @fe_userid1 = ( SELECT LAST_INSERT_ID() );
 INSERT INTO `fe_users` ( `lockToDomain`, `name`, `username`, `gender`, `company`, `title`, `first_name`, `last_name`, `address`, `zip`, `city`, `zone`, `language`, `telephone`, `email`, `fax`, `www`, `date_of_birth`, `disable`, `password`, `tstamp`, `crdate`)
-	VALUES ( 'www.unittest.metaways.de', 'Erika Mustermann', 'unitCustomer2@metaways.de', 0, 'Metaways GmbH', 'Prof. Dr.', 'Erika', 'Mustermann', 'Heidestraße 17', '45632', 'Köln', '', 'de', '09876543210', 'unitCustomer2@metaways.de', '09876543210', 'www.metaways.de', 315529200, '1', '5f4dcc3b5aa765d61d8327deb882cf99', 1295916627, 1294916617);
+	VALUES ( 'www.unittest.metaways.de', 'Erika Mustermann', 'unitCustomer2@metaways.de', 1, 'Metaways GmbH', 'Prof. Dr.', 'Erika', 'Mustermann', 'Heidestraße 17', '45632', 'Köln', '', 'de', '09876543210', 'unitCustomer2@metaways.de', '09876543210', 'www.metaways.de', 315529200, '1', '5f4dcc3b5aa765d61d8327deb882cf99', 1295916627, 1294916617);
 SET @fe_userid2 = ( SELECT LAST_INSERT_ID() );
 INSERT INTO `fe_users` ( `lockToDomain`, `name`, `username`, `gender`, `company`, `title`, `first_name`, `last_name`, `address`, `zip`, `city`, `zone`, `language`, `telephone`, `email`, `fax`, `www`, `date_of_birth`, `disable`, `password`, `tstamp`, `crdate`)
-	VALUES ( 'www.unittest.metaways.de', 'Franz-Xaver Gabler', 'unitCustomer3@metaways.de', 1, 'Metaways GmbH', '', 'Franz-Xaver', 'Gabler', 'Phantasiestraße 2', '23643', 'Berlin', 'Berlin', 'de', '01234509876', 'unitCustomer3@metaways.de', '055544333212', 'www.metaways.de', 473382000, '0', '5f4dcc3b5aa765d61d8327deb882cf99', 1295916628, 1294916618);
+	VALUES ( 'www.unittest.metaways.de', 'Franz-Xaver Gabler', 'unitCustomer3@metaways.de', 0, 'Metaways GmbH', '', 'Franz-Xaver', 'Gabler', 'Phantasiestraße 2', '23643', 'Berlin', 'Berlin', 'de', '01234509876', 'unitCustomer3@metaways.de', '055544333212', 'www.metaways.de', 473382000, '0', '5f4dcc3b5aa765d61d8327deb882cf99', 1295916628, 1294916618);
 SET @fe_userid3 = ( SELECT LAST_INSERT_ID() );
 
 

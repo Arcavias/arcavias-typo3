@@ -523,6 +523,10 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 			$values['ctime'] = $this->_reverse['crdate']->reverse( $values['crdate'] );
 		}
 
+		if( array_key_exists( 'langid', $values ) ) {
+			$values['langid'] = strtolower( $values['langid'] );
+		}
+
 		return new MShop_Customer_Item_Default( $address, $values, $listItems, $refItems );
 	}
 
