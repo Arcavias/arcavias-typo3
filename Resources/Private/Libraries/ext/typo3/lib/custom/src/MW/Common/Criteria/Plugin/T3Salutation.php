@@ -26,10 +26,10 @@ class MW_Common_Criteria_Plugin_T3Salutation implements MW_Common_Criteria_Plugi
 	{
 		switch( $value )
 		{
+			case MShop_Common_Item_Address_Abstract::SALUTATION_MR:
+				return 0;
 			case MShop_Common_Item_Address_Abstract::SALUTATION_MRS:
 			case MShop_Common_Item_Address_Abstract::SALUTATION_MISS:
-				return 0;
-			case MShop_Common_Item_Address_Abstract::SALUTATION_MR:
 				return 1;
 		}
 
@@ -48,9 +48,9 @@ class MW_Common_Criteria_Plugin_T3Salutation implements MW_Common_Criteria_Plugi
 		switch( $value )
 		{
 			case 0:
-				return MShop_Common_Item_Address_Abstract::SALUTATION_MRS;
-			case 1:
 				return MShop_Common_Item_Address_Abstract::SALUTATION_MR;
+			case 1:
+				return MShop_Common_Item_Address_Abstract::SALUTATION_MRS;
 		}
 
 		return MShop_Common_Item_Address_Abstract::SALUTATION_UNKNOWN;
