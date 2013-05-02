@@ -70,6 +70,7 @@ Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-confirm', 'Arc
 
 
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_account-history'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_account-history', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/AccountHistory.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'account-history', 'Arcavias - Account history' );
 
 ?>
