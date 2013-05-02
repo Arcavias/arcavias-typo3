@@ -6159,6 +6159,7 @@ MShop.panel.attribute.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 							fieldLabel : _('Code'),
 							name : 'attribute.code',
 							allowBlank : false,
+							maxLength : 32,
 							emptyText : _('Attribute code (required)')
 						}, {
 							xtype : 'textfield',
@@ -7004,6 +7005,7 @@ MShop.panel.product.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 							fieldLabel : _('Code'),
 							name : 'product.code',
 							allowBlank : false,
+							maxLength : 32,
 							emptyText : _('EAN, SKU or article numer (required)')
 						}, {
 							xtype : 'textarea',
@@ -9076,6 +9078,7 @@ MShop.panel.catalog.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 							fieldLabel : _('Code'),
 							name : 'code',
 							allowBlank : false,
+							maxLength : 32,
 							emptyText : _('Category code (required)')
 						}, {
 							xtype : 'textfield',
@@ -9600,6 +9603,7 @@ MShop.panel.service.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 							fieldLabel : _('Code'),
 							name : 'service.code',
 							allowBlank : false,
+							maxLength : 32,
 							emptyText : _('Unique service code (required)')
 						}, {
 							xtype : 'textfield',
@@ -9989,6 +9993,13 @@ MShop.panel.plugin.ListUi = Ext.extend(MShop.panel.AbstractListUi, {
 				id : 'plugin-list-label'
 			}, {
 				xtype : 'gridcolumn',
+				dataIndex : 'plugin.position',
+				header : _('Position'),
+				sortable : true,
+				width : 100,
+				editable : false
+			}, {
+				xtype : 'gridcolumn',
 				dataIndex : 'plugin.config',
 				header : _('Configuration'),
 				width : 200,
@@ -10130,6 +10141,13 @@ MShop.panel.plugin.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 							allowBlank : false,
 							maxLength : 255,
 							emptyText : _('Internal plugin name (required)')
+						}, {
+							xtype : 'numberfield',
+							fieldLabel : _('Position'),
+							name : 'plugin.position',
+							allowDecimals : false,
+							allowBlank : false,
+							value : 0
 						}, {
 							xtype : 'displayfield',
 							fieldLabel : _('Created'),
@@ -11390,6 +11408,7 @@ MShop.panel.order.base.service.delivery.ItemUi = Ext.extend(Ext.Panel, {
 				}, {
 					xtype: 'displayfield',
 					fieldLabel: 'Code',
+					maxLength : 32,
 					name: 'order.base.service.code'
 				}, {
 					xtype: 'displayfield',
@@ -11791,6 +11810,7 @@ MShop.panel.order.base.service.payment.ItemUi = Ext.extend(Ext.Panel, {
 				}, {
 					xtype: 'displayfield',
 					fieldLabel: 'Code',
+					maxLength : 32,
 					name: 'order.base.service.code'
 				}, {
 					xtype: 'displayfield',
@@ -13028,6 +13048,7 @@ MShop.panel.stock.warehouse.ItemUi = Ext.extend( MShop.panel.AbstractItemUi, {
 							fieldLabel : 'Warehouse code',
 							name : 'product.stock.warehouse.code',
 							allowBlank : false,
+							maxLength : 32,
 							emptyText : _( 'Warehouse code (required)' )
 						}, {
 							xtype : 'textfield',
@@ -13503,6 +13524,7 @@ MShop.panel.locale.site.ItemUi = Ext.extend( MShop.panel.AbstractItemUi, {
 							fieldLabel : _('Code'),
 							name : 'locale.site.code',
 							allowBlank : false,
+							maxLength : 32,
 							emptyText : _('Unique site code (required)')
 						}, {
 							xtype : 'textfield',
