@@ -69,7 +69,12 @@ class MW_View_Helper_Url_Typo3
 			->setUseCacheHash( $chash )
 			->setNoCache( $nocache )
 			->setFormat( $format )
-			->setSection( str_replace( ' ', '-', join( '/', $trailing ) ) );
+			->setSection( str_replace( ' ', '-', join( '-', $trailing ) ) );
+
+		// Slashes in URL parameters confuses the router
+		foreach( $params as $key => $value ) {
+			$params[$key] = str_replace( '/', '', $value );
+		}
 
 		return $this->_uriBuilder->uriFor( $action, $params, ucfirst( $controller ) );
 	}
