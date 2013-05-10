@@ -7,6 +7,8 @@ if ( ! defined( 'TYPO3_MODE' ) ) {
 
 t3lib_extMgm::addStaticFile( $_EXTKEY, 'Configuration/TypoScript/', 'Arcavias configuration' );
 
+$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_arcavias_custom_wizicon'] = t3lib_extMgm::extPath( $_EXTKEY ) . 'Classes/Custom/Wizicon.php';
+
 
 if ( TYPO3_MODE === 'BE' )
 {
