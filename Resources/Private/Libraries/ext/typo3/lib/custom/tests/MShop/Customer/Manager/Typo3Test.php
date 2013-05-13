@@ -91,6 +91,7 @@ class MShop_Customer_Manager_Typo3Test extends MW_Unittest_Testcase
 		$this->assertEquals( 'Musterstadt', $billing->getCity() );
 		$this->assertEquals( 'Hamburg', $billing->getState() );
 		$this->assertEquals( 'de', $billing->getLanguageId() );
+		$this->assertEquals( 'DE', $billing->getCountryId() );
 		$this->assertEquals( '01234567890', $billing->getTelephone() );
 		$this->assertEquals( 'unitCustomer1@metaways.de', $billing->getEMail() );
 		$this->assertEquals( '01234567890', $billing->getTelefax() );

@@ -122,11 +122,10 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 			'type' => 'string',
 			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
 		),
-		// only available as three letter ISO code
 		'customer.countryid' => array(
 			'label' => 'Customer country',
 			'code' => 'customer.countryid',
-			'internalcode' => '1',
+			'internalcode' => 'tsc."cn_iso_2"',
 			'type' => 'string',
 			'internaltype' => MW_DB_Statement_Abstract::PARAM_STR,
 		),
@@ -380,11 +379,12 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 			$stmt->bind( 18, $this->_plugins['customer.status']->translate( $item->getStatus() ), MW_DB_Statement_Abstract::PARAM_INT );
 			$stmt->bind( 19, $item->getPassword() );
 			$stmt->bind( 20, time(), MW_DB_Statement_Abstract::PARAM_INT ); // Modification time
+			$stmt->bind( 21, $billingAddress->getCountryId() );
 
 			if( $id !== null ) {
-				$stmt->bind( 21, $id, MW_DB_Statement_Abstract::PARAM_INT );
+				$stmt->bind( 22, $id, MW_DB_Statement_Abstract::PARAM_INT );
 			} else {
-				$stmt->bind( 21, time() ); // Creation time
+				$stmt->bind( 22, time() ); // Creation time
 			}
 
 			$result = $stmt->execute()->finish();
