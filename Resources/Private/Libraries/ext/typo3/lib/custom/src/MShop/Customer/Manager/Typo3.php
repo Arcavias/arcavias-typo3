@@ -202,11 +202,9 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 		),
 	);
 
-	private $_addressSearchConfig = array(
-	);
-
 	private $_plugins = array();
 	private $_reverse = array();
+	private $_pid;
 
 
 
@@ -231,6 +229,8 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 		$plugin = new MW_Common_Criteria_Plugin_T3Datetime();
 		$this->_plugins['customer.ctime'] = $this->_reverse['crdate'] = $plugin;
 		$this->_plugins['customer.mtime'] = $this->_reverse['tstamp'] = $plugin;
+
+		$this->_pid = $context->getConfig()->get( 'mshop/customer/manager/typo3/pid-default', 0 );
 	}
 
 
@@ -385,6 +385,7 @@ class MShop_Customer_Manager_Typo3 extends MShop_Customer_Manager_Default
 				$stmt->bind( 22, $id, MW_DB_Statement_Abstract::PARAM_INT );
 			} else {
 				$stmt->bind( 22, time() ); // Creation time
+				$stmt->bind( 23, $this->_pid ); // TYPO3 PID value
 			}
 
 			$result = $stmt->execute()->finish();
