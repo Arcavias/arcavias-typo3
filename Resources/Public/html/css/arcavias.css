@@ -1,47 +1,43 @@
 ﻿/* Arcavias standard CSS */
-.button-group {
-	text-align: center;
-	padding: 10px 0px 10px 0px;
-}
 
-.button-group a.standardbutton {
-	height: 25px;
-	margin: 0px 0px 0px 10px;
-	padding: 4px 4px 4px 4px;
-	background: url(images/buttonfond.gif) repeat-x;
-	border: 1px solid #689DB9;
-	box-shadow: 2px 2px 4px #5C88A1;
-	color: #FFFFFF;
-	border-radius: 4px 4px 4px 4px;
-	font-weight: bold;
-	font-family: Arial, Verdana, Helvetica, sans-serif; 
-}
 
-.button-group  button.standardbutton {
-	height: 25px;
-	margin: 0px;
-	padding: 3px 4px 4px 4px;
-	background: url(images/buttonfond.gif) repeat-x;
-	border: 1px solid #689DB9;
+.arcavias .standardbutton {
+	background-image: url("images/buttonfond.png");
+	background-repeat: repeat-x;
+	background-size: contain;
 	box-shadow: 2px 2px 4px #5C88A1;
-	color: #FFFFFF;
-	border-radius: 4px 4px 4px 4px;
+	border: 1px solid #689DB9;
+	border-radius: 4px;
 	text-decoration: none;
 	font-weight: bold;
-	font-family: Arial, Verdana, Helvetica, sans-serif; 
-	font-size: 1em;
+	font-size: 100%;
+	color: #FFFFFF;
+	padding: 4px;
+	margin: 5px;
+	min-width: 60px;
+	line-height: 1em;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.arcavias .standardbutton:hover {
+	background-image: url("images/buttonfond-active.png");
 }
 
 .arcavias .minibutton {
-	padding: 3px 6px;
-	margin: 0px 3px 3px 3px;
-	background: url(images/buttonfond.gif) repeat-x #6C9BB4;
-	border: 1px solid #689DB9;
-	box-shadow: 2px 2px 4px #5C88A1;
-	color: #FFFFFF;
-	border-radius: 4px 4px 4px 4px;
-	display: inline-block;
-	font-weight: bold;
+	min-width: auto;
+}
+
+/** Enforce equal width/height for buttons */
+.arcavias .button-group button.standardbutton {
+	height: 22px;
+	min-width: 70px;
+}
+
+.arcavias .button-group {
+	text-align: center;
+	padding: 10px 0px;
 }
 
 .arcavias .attr-list,
@@ -114,7 +110,7 @@
 }
 
 .catalog-filter-tree .level-2 li a {
-	color: #679CB8;
+	color: #689DB9;
 }
 
 .catalog-filter-tree .level-3 li {
@@ -129,6 +125,46 @@
 
 .catalog-filter-tree .level-3 .active a {
 	font-weight: bold;
+}
+
+.catalog-filter-search {
+	background-image: url("images/buttonfond.png");
+	background-repeat: repeat-x;
+	background-size: 100% 100%;
+	background-color: #689DB9;
+	border: 1px solid #689DB9;
+	border-radius: 4px;
+	white-space: nowrap;
+}
+
+.catalog-filter-search:hover {
+	background-image: url("images/buttonfond-active.png");
+}
+
+.catalog-filter-search .value {
+	background-color: #FFFFFF;
+	border-radius: 4px 0 0 4px;
+	border: none;
+	min-width: 5em;
+	max-width: 25em;
+	height: 1.55em;
+}
+
+.catalog-filter-search .standardbutton {
+	background: none;
+	box-shadow: none;
+	border-radius: 0;
+	border: 0 none;
+	min-width: 2em;
+	padding: 0 5px;
+}
+
+.catalog-filter-search .standardbutton:hover {
+	background: none;
+}
+
+.catalog-filter-search .ui-helper-hidden-accessible {
+	display: none;
 }
 
 /* Product list, stage image section */
@@ -347,6 +383,7 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: #FFFFFF;
+	background-size: contain;
 	width: 240px;
 	height: 320px;
 }
@@ -468,7 +505,7 @@
 	padding: 0.5em;
 	margin-top: 1em;
 	text-align: right;
-	background-color: #679CB8;
+	background-color: #88B3CB;
 }
 
 .catalog-detail-basket .group input {
@@ -478,17 +515,8 @@
 	width: 3em;
 }
 
-.group .standardbutton {
-	padding: 4px 4px 4px 4px;
-	background: url(images/buttonfond.gif) repeat-x;
-	border: 1px solid #689DB9;
-	box-shadow: 2px 2px 4px #5C88A1;
-	color: #FFFFFF;
-	border-radius: 4px 4px 4px 4px;
-	text-decoration: none;
-	display: inline;
-	font-weight: bold;
-	cursor: pointer;
+.catalog-detail-basket .group .standardbutton {
+	font-size: 150%;
 }
 
 /* product attributes */
@@ -567,8 +595,32 @@
 	margin: 0px 0px 8px 0px;
 }
 
+.basket-mini {
+	background-image: url("images/basket.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 5px;
+	margin-top: 0;
+	padding: 5px;
+	height: 60px;
+	width: 70px;
+	background-color: #F2F7FA;
+	border: 1px solid #C3D9E5;
+	text-align: center;
+	line-height: 125%;
+	color: #004266;
+}
+
 .basket-mini h1 {
 	display: none;
+}
+
+.basket-mini-main .quantity {
+	display: block;
+}
+
+.basket-mini-main .value {
+	font-weight: bold;
 }
 
 .basket-standard-main {
@@ -585,6 +637,7 @@
 .account-history-detail-basket .basket {
 	margin-top: 0;
 }
+
 .checkout-standard-summary-basket table,
 .basket-standard-main table,
 .account-history-detail-basket table {
@@ -849,10 +902,6 @@
 
 .checkout-standard-address h2 {
 	padding: 20px 20px 10px 0px;
-}
-
-.checkout-standard-address .button-group a.standardbutton{
-	margin: 0px 10px 0px 0px;
 }
 
 .checkout-standard-address-billing,
