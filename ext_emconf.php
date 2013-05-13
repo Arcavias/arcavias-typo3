@@ -34,7 +34,8 @@ $EM_CONF[$_EXTKEY] = array(
 			'typo3' => '4.5.0-4.99.99',
 			'extbase' => '1.3.2-4.99.99',
 			'scheduler' => '1.1.0-4.99.99',
-			'sr_feuser_register' => '2.6.3-3.99.99'
+			'sr_feuser_register' => '2.6.3-3.99.99',
+			'static_info_tables' => '1.8.0-2.99.99',
 		),
 		'conflicts' => array(
 		),
