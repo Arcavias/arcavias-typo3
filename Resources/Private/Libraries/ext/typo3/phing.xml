@@ -14,7 +14,11 @@
 		<phing target="check" dir="lib/custom" />
 	</target>
 
-	<target name="all" depends="test,check" description="Builds all parts of the package">
+	<target name="clean" description="Cleans up temporary files">
+		<phing target="clean" dir="lib/custom" />
+	</target>
+
+	<target name="all" depends="test,check,clean" description="Builds all parts of the package">
 	</target>
 
 </project>
