@@ -76,7 +76,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 				}
 			}
 
-			$conf = new MW_Config_Array( ( is_array( $this->settings ) ? $this->settings : array() ), $configPaths );
+			$conf = new MW_Config_Array( array(), $configPaths );
 			$conf = new MW_Config_Decorator_MemoryCache( $conf );
 			$context->setConfig( $conf );
 
