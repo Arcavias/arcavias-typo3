@@ -7,11 +7,13 @@
 
 
 	<target name="setup" description="Sets up database incl. unit test data">
-		<phing target="setup" haltonfailure="true" dir="${coredir}" />
+		<echo msg="Setting up test database" />
+		<exec command="php ${coredir}/setup.php --extdir=${extdir} unittest" checkreturn="true" logoutput="true"/>
 	</target>
 
 	<target name="setupperf" description="Sets up database incl. performance test data">
-		<phing target="setupperf" haltonfailure="true" dir="${coredir}" />
+		<echo msg="Setting up performance data" />
+		<exec command="php ${coredir}/setup.php --extdir=${extdir} unitperf" checkreturn="true" logoutput="true"/>
 	</target>
 
 
