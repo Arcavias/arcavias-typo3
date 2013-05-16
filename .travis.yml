@@ -10,4 +10,4 @@ before_script:
   - mysql -e 'create database arcavias;'
   - cp Resources/Private/Libraries/core/config/.resource.php.ci Resources/Private/Libraries/core/config/resource.php
   - cp Resources/Private/Libraries/core/lib/mwlib/tests/config/.resource.php.ci Resources/Private/Libraries/core/lib/mwlib/tests/config/resource.php
-script: "phing setup && phing"
+script: "phing"

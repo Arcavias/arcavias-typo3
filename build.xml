@@ -2,18 +2,16 @@
 
 <project name="Arcavias TYPO3" default="all">
 
-	<property name="coredir" value="${application.startdir}/Resources/Private/Libraries/core" />
-	<property name="extdir" value="${application.startdir}/Resources/Private/Libraries/ext" />
+	<property name="coredir" value="${project.basedir}/Resources/Private/Libraries/core" />
+	<property name="extdir" value="${project.basedir}/Resources/Private/Libraries/ext" />
 
 
 	<target name="setup" description="Sets up database incl. unit test data">
-		<echo msg="Setting up test database" />
-		<exec command="php ${coredir}/setup.php --extdir=${extdir} unittest" checkreturn="true" logoutput="true"/>
+		<phing target="setup" haltonfailure="true" dir="${coredir}" />
 	</target>
 
 	<target name="setupperf" description="Sets up database incl. performance test data">
-		<echo msg="Setting up performance data" />
-		<exec command="php ${coredir}/setup.php --extdir=${extdir} unitperf" checkreturn="true" logoutput="true"/>
+		<phing target="setupperf" haltonfailure="true" dir="${coredir}" />
 	</target>
 
 
@@ -37,8 +35,8 @@
 	</target>
 
 	<target name="testperf" description="Executes performance tests">
-		<phing target="testperf" dir="${coredir}" />
-		<phing target="testperf">
+		<phing target="testperf" haltonfailure="true" dir="${coredir}" />
+		<phing target="testperf" haltonfailure="true">
 			<fileset dir="${extdir}" expandsymboliclinks="true" >
 				<include name="**/phing.xml" />
 			</fileset>

@@ -18,6 +18,12 @@
 		<phing target="clean" dir="lib/custom" />
 	</target>
 
+	<target name="i18n" description="Creates all translation files">
+	</target>
+
+	<target name="build" description="Creates all files to be generated" >
+	</target>
+
 	<target name="all" depends="test,check,clean" description="Builds all parts of the package">
 	</target>
 
