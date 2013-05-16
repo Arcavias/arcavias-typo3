@@ -1,19 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Arcavias TYPO3" default="deploy">
+<project name="Arcavias TYPO3" default="all">
+
+	<property name="coredir" value="${project.basedir}/Resources/Private/Libraries/core" />
+	<property name="extdir" value="${project.basedir}/Resources/Private/Libraries/ext" />
+
+
+	<target name="setup" description="Sets up database incl. unit test data">
+		<echo msg="Setting up test database" />
+		<exec command="php ${coredir}/setup.php --extdir=${extdir} unittest" checkreturn="true" logoutput="true"/>
+	</target>
+
+	<target name="setupperf" description="Sets up database incl. performance test data">
+		<echo msg="Setting up performance data" />
+		<exec command="php ${coredir}/setup.php --extdir=${extdir} unitperf" checkreturn="true" logoutput="true"/>
+	</target>
+
+
+	<target name="coverage" description="Creates coverage reports">
+		<phing target="coverage" haltonfailure="true" dir="${coredir}" />
+		<phing target="coverage" haltonfailure="true">
+			<fileset dir="${extdir}" expandsymboliclinks="true" >
+				<include name="**/phing.xml" />
+			</fileset>
+		</phing>
+	</target>
+
+
+	<target name="test" description="Executes unit tests">
+		<phing target="test" haltonfailure="true" dir="${coredir}" />
+		<phing target="test" haltonfailure="true">
+			<fileset dir="${extdir}" expandsymboliclinks="true" >
+				<include name="**/phing.xml" />
+			</fileset>
+		</phing>
+	</target>
+
+	<target name="testperf" description="Executes performance tests">
+		<phing target="testperf" haltonfailure="true" dir="${coredir}" />
+		<phing target="testperf" haltonfailure="true">
+			<fileset dir="${extdir}" expandsymboliclinks="true" >
+				<include name="**/phing.xml" />
+			</fileset>
+		</phing>
+	</target>
+
+
+	<target name="check" description="Executes all checks">
+		<phing target="check" dir="${coredir}" />
+		<phing target="check">
+			<fileset dir="${extdir}" expandsymboliclinks="true" >
+				<include name="**/phing.xml" />
+			</fileset>
+		</phing>
+	</target>
+
+
+	<target name="clean" description="Cleans up temporary files">
+		<phing target="clean" dir="${coredir}" />
+		<phing target="clean">
+			<fileset dir="${extdir}" expandsymboliclinks="true" >
+				<include name="**/phing.xml" />
+			</fileset>
+		</phing>
+	</target>
+
 
 	<target name="update" description="Updates the Arcavias core">
-		<delete dir="./Resources/Private/Libraries/core.new" />
-		<exec command="git clone https://github.com/Arcavias/arcavias-core.git ./Resources/Private/Libraries/core.new" checkreturn="true" logoutput="true" />
-		<phing target="clean" dir="./Resources/Private/Libraries/core.new" />
-		<phing target="build" dir="./Resources/Private/Libraries/core.new" />
-		<exec command="rsync --delete --recursive --exclude-from=./Resources/Private/Libraries/core.new/.exclude ./Resources/Private/Libraries/core.new/ ./Resources/Private/Libraries/core/"
+		<delete dir="${coredir}.new" />
+		<exec command="git clone https://github.com/Arcavias/arcavias-core.git ${coredir}.new" checkreturn="true" logoutput="true" />
+		<phing target="clean" dir="${coredir}.new" />
+		<phing target="build" dir="${coredir}.new" />
+		<exec command="rsync --delete --recursive --exclude-from=${coredir}.new/.exclude ${coredir}.new/ ${coredir}/"
 			checkreturn="true" logoutput="true" />
-		<delete dir="./Resources/Private/Libraries/core.new" />
-		<exec command="rsync --delete --recursive ./Resources/Private/Libraries/core/client/html/lib/ ./Resources/Public/html/"
+		<delete dir="${coredir}.new" />
+		<exec command="rsync --delete --recursive ${coredir}/client/html/lib/ ./Resources/Public/html/"
 			checkreturn="true" logoutput="true" />
-		<delete dir="./Resources/Private/Libraries/core/client/html/lib" />
+		<delete dir="${coredir}/client/html/lib" />
 	</target>
+
 
 	<target name="deploy" description="Executes all deployments">
 		<propertyprompt propertyName="version" promptText="Enter release version" promptCharacter=":" useExistingValue="true"/>
@@ -32,5 +97,8 @@
 		<filehash file="../arcavias-typo3_${version}.tar.bz2" hashtype="1" />
 		<echo msg="SHA1 hash value: ${filehashvalue}" />
 	</target>
+
+
+	<target name="all" depends="setup,test,check" description="Executes all essential targets for testing" />
 
 </project>
