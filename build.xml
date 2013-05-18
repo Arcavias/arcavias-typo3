@@ -69,14 +69,10 @@
 	<target name="update" description="Updates the Arcavias core">
 		<delete dir="${coredir}.new" />
 		<exec command="git clone https://github.com/Arcavias/arcavias-core.git ${coredir}.new" checkreturn="true" logoutput="true" />
-		<phing target="clean" dir="${coredir}.new" />
 		<phing target="build" dir="${coredir}.new" />
-		<exec command="rsync --delete --recursive --exclude-from=${coredir}.new/.exclude ${coredir}.new/ ${coredir}/"
-			checkreturn="true" logoutput="true" />
+		<exec command="rsync --delete --recursive ${coredir}.new/client/html/lib/ ./Resources/Public/html/" checkreturn="true" logoutput="true" />
+		<exec command="rsync --delete --recursive --exclude-from=${coredir}.new/.exclude --exclude=/client/html/lib ${coredir}.new/ ${coredir}/" checkreturn="true" logoutput="true" />
 		<delete dir="${coredir}.new" />
-		<exec command="rsync --delete --recursive ${coredir}/client/html/lib/ ./Resources/Public/html/"
-			checkreturn="true" logoutput="true" />
-		<delete dir="${coredir}/client/html/lib" />
 	</target>
 
 
@@ -90,7 +86,7 @@
 		    </replaceregexp>
 		  </filterchain>
 		</reflexive>
-		<symlink target="${application.startdir}" link="../arcavias" />
+		<symlink target="${project.basedir}" link="../arcavias" />
 		<exec command="tar -c -h --bzip2 --exclude-vcs -C ../ -f ../arcavias-typo3_${version}.tar.bz2 arcavias"
 			checkreturn="true" logoutput="true"/>
 		<delete file="../arcavias" />
