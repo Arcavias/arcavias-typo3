@@ -3121,7 +3121,7 @@ MShop.panel.AbstractItemUi = Ext.extend(Ext.Window, {
 	maximized : true,
 	layout: 'fit',
 	modal: true,
-
+	
 	initComponent: function() {
 		this.addEvents(
 			/**
@@ -3203,6 +3203,7 @@ MShop.panel.AbstractItemUi = Ext.extend(Ext.Window, {
 			// wait till ref if here
 			return this.initRecord.defer(50, this, arguments);
 		}
+		
 		if (! this.record) {
 			this.record = new this.recordType();
 			this.isNewRecord = true;
@@ -3261,7 +3262,7 @@ MShop.panel.AbstractItemUi = Ext.extend(Ext.Window, {
 			this.isSaveing = false;
 			this.saveMask.hide();
 		}
-
+		
 		this.mainForm.getForm().updateRecord(this.record);
 
 		if (this.isNewRecord) {
@@ -3288,7 +3289,7 @@ MShop.panel.AbstractItemUi = Ext.extend(Ext.Window, {
 		if (records.indexOf(this.record) !== -1 && this.isSaveing) {
 			var ticketFn = this.onAfterSave.deferByTickets(this),
 				wrapTicket = ticketFn();
-
+			
 			this.fireEvent('save', this, this.record, ticketFn);
 			wrapTicket();
 		}
@@ -5106,7 +5107,7 @@ MShop.panel.text.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 	initComponent : function() {
 	
 		this.title = _('Text item details');
-
+		
 		MShop.panel.AbstractItemUi.prototype.setSiteCheck( this );
 
 		this.items = [ {
@@ -9543,6 +9544,7 @@ MShop.panel.service.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 
 	initComponent : function() {
 		this.title = _('Service item details');
+		
 		var that = this;
 		this.items = [ {
 			xtype : 'tabpanel',
@@ -10058,8 +10060,8 @@ MShop.panel.plugin.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 	maximized : true,
 	layout : 'fit',
 	modal : true,
-	
-	
+
+
 	initComponent : function() {
 
 		this.title = _('Plugin item details');
@@ -10176,7 +10178,7 @@ MShop.panel.plugin.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 		MShop.panel.plugin.ItemUi.superclass.initComponent.call(this);
 	},
 
-	
+
 	afterRender : function()
 	{
 		var label = this.record ? this.record.data['plugin.label'] : 'new';
@@ -10192,7 +10194,7 @@ MShop.panel.plugin.ItemUi = Ext.extend(MShop.panel.AbstractItemUi, {
 		var config = {};
 		var editorGrid = this.findByType( 'MShop.panel.plugin.configui' );
 		var first = editorGrid.shift();
-		
+
 		if( first ) {
 			Ext.each( first.data, function( item, index ) {
 				Ext.iterate( item, function( key, value, object ) {
@@ -12999,7 +13001,7 @@ MShop.panel.stock.warehouse.ItemUi = Ext.extend( MShop.panel.AbstractItemUi, {
 	initComponent : function() {
 
 		this.title = _( 'Warehouse' );
-		
+				
 		MShop.panel.AbstractItemUi.prototype.setSiteCheck( this );
 
 		this.items = [ {
@@ -13218,7 +13220,7 @@ MShop.panel.locale.ItemUi = Ext.extend( MShop.panel.AbstractItemUi, {
 	initComponent : function()
 	{
 		this.title = _('Locale item details');
-
+		
 		MShop.panel.AbstractItemUi.prototype.setSiteCheck( this );
 
 		this.items = [ {
@@ -13342,7 +13344,7 @@ MShop.panel.locale.site.ListUi = Ext.extend( MShop.panel.AbstractListUi, {
 
 		MShop.panel.AbstractListUi.prototype.initActions.call( this );
 		MShop.panel.AbstractListUi.prototype.initToolbar.call( this );
-		
+
 		this.initStore();
 
 		MShop.panel.locale.site.ListUi.superclass.initComponent.call( this );
@@ -13387,7 +13389,7 @@ MShop.panel.locale.site.ListUi = Ext.extend( MShop.panel.AbstractListUi, {
 				header : _('Configuration'),
 				width : 200,
 				editable : false,
-				renderer: function (value) {	
+				renderer: function (value) {
 					var s = "";
 					Ext.iterate(value, function (key, value, object) {
 						s = s + String.format('<div>{0}: {1}</div>', key, value);
@@ -13423,7 +13425,7 @@ MShop.panel.locale.site.ListUi = Ext.extend( MShop.panel.AbstractListUi, {
 			}
 		];
 	},
-	
+
 	initStore: function() {
 		this.store = new Ext.data.DirectStore(Ext.apply({
 			autoLoad: false,

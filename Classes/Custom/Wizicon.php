@@ -23,7 +23,7 @@ class tx_arcavias_custom_wizicon
 	public function proc( $wizardItems )
 	{
 		$file = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources/Private/Language/Extension.xml';
-		$xml = t3lib_div::readLLXMLfile( $file, $GLOBALS['LANG']->lang );
+		$xml = t3lib_div::readLLfile( $file, $GLOBALS['LANG']->lang );
 
 		$wizardItems['plugins_tx_arcavias'] = array(
 			'icon' => t3lib_extMgm::extRelPath( 'arcavias' ) . 'Resources/Public/images/arcavias-wizicon.gif',
