@@ -81,12 +81,18 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array( 'Checkout' => 'index' )
 );
 
-
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'checkout-confirm',
 	array( 'Checkout' => 'confirm' ),
 	array( 'Checkout' => 'confirm' )
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'checkout-update',
+	array( 'Checkout' => 'update' ),
+	array( 'Checkout' => 'update' )
 );
 
 
@@ -127,5 +133,12 @@ if( is_array( $arcCfg ) && isset( $arcCfg['useRealUrlAutoConfig'] ) && $arcCfg['
 		'EXT:arcavias/Classes/Custom/Realurl.php:tx_arcavias_custom_realurl->addAutoConfig';
 }
 unset( $arcCfg );
+
+
+/**
+ * Add page TS configuration
+ */
+
+t3lib_extMgm::addPageTSConfig( '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:arcavias/Configuration/TypoScript/page.ts">' );
 
 ?>

@@ -14,24 +14,23 @@ plugin.tx_arcavias {
 					content.baseurl = {$config.baseURL}uploads/tx_arcavias/
 					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/
 				}
-				catalog {
-					listsimple.url.config.type = {$plugin.tx_arcavias.jsonTypeNum}
-					list.search.url.config {
-						chash = 0
-						nocache = 1
-					}
+				catalog.listsimple.url.config.chash = 0
+				checkout.confirm.url.config {
+					absoluteUri = 1
+					chash = 0
 				}
-				checkout.confirm.url.config.absoluteUri = 1
 			}
 		}
 	}
 }
 
 
-arcavias_search = PAGE
-arcavias_search {
-	typeNum = {$plugin.tx_arcavias.jsonTypeNum}
+[globalVar=TSFE:page|layout=240]
+arcavias_json = PAGE
+arcavias_json {
+	typeNum = 0
 	config {
+		no_cache = 1
 		disableAllHeaderCode = 1
 		additionalHeaders = Content-type:application/json
 		disablePrefixComment = 1
@@ -40,18 +39,38 @@ arcavias_search {
 	10 {
 		table = tt_content
 		select.orderBy = sorting
-		select.where = CType='list' AND list_type='arcavias_catalog-listsimple'
 		select.languageField = sys_language_uid
 	}
 }
-
-[globalVar = TSFE:type={$plugin.tx_arcavias.jsonTypeNum}]
-lib.stdheader =
 tt_content {
 	stdWrap {
 		dataWrap = 
 		innerWrap > 
 	}
-	noANameTagForFirstRecord = 1
+}
+[global]
+
+[globalVar=TSFE:page|layout=241]
+arcavias_plain = PAGE
+arcavias_plain {
+	typeNum = 0
+	config {
+		no_cache = 1
+		disableAllHeaderCode = 1
+		additionalHeaders = Content-type:text/plain
+		disablePrefixComment = 1
+	}
+	10 = CONTENT
+	10 {
+		table = tt_content
+		select.orderBy = sorting
+		select.languageField = sys_language_uid
+	}
+}
+tt_content {
+	stdWrap {
+		dataWrap = 
+		innerWrap > 
+	}
 }
 [global]
