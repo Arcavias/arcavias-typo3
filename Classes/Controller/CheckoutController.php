@@ -92,6 +92,7 @@ class Tx_Arcavias_Controller_CheckoutController extends Tx_Arcavias_Controller_A
 		}
 		catch( Exception $e )
 		{
+			@header( 'HTTP/1.1 500 Internal server error', true, 500 );
 			return 'Error: ' . $e->getMessage();
 		}
 	}
