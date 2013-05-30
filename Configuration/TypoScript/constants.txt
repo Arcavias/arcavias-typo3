@@ -1,2 +1,0 @@
-# cat=tx_arcavias/basic; type=int+; label=TypeNum for AJAX HTTP-Request:TypeNum of target page to get JSON Response
-plugin.tx_arcavias.jsonTypeNum = 2000
