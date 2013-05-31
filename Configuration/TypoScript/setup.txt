@@ -26,8 +26,8 @@ plugin.tx_arcavias {
 
 
 [globalVar=TSFE:page|layout=240]
-arcavias_json = PAGE
-arcavias_json {
+arcaviasJson = PAGE
+arcaviasJson {
 	typeNum = 0
 	config {
 		no_cache = 1
@@ -51,8 +51,8 @@ tt_content {
 [global]
 
 [globalVar=TSFE:page|layout=241]
-arcavias_plain = PAGE
-arcavias_plain {
+arcaviasPlain = PAGE
+arcaviasPlain {
 	typeNum = 0
 	config {
 		no_cache = 1
