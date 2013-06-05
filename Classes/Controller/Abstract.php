@@ -32,9 +32,9 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$ds = DIRECTORY_SEPARATOR;
 		$mshop = $this->_getMShop();
 
-
 		$includePaths = $mshop->getIncludePaths();
 		$includePaths[] = get_include_path();
+		$includePaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries' . $ds . 'zendlib';
 
 		if( ( $this->_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
 			throw new Exception( 'Unable to set include paths' );
