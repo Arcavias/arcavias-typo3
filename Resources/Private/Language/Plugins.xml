@@ -15,6 +15,8 @@
 			<label index="catalog-detail.target">Catalog detail page</label>
 			<label index="basket-standard.target">Basket page</label>
 			<label index="checkout-standard.target">Checkout page</label>
+			<label index="checkout-standard-summary-option-terms.target">Terms and conditions page</label>
+			<label index="checkout-standard-summary-option-terms-privacy.target">Privacy policy page</label>
 			<label index="checkout-confirm.target">Confirmation page</label>
 		</languageKey>
 		<languageKey index="de" type="array">
@@ -27,6 +29,8 @@
 			<label index="catalog-detail.target">Detailseite des Katalogs</label>
 			<label index="basket-standard.target">Seite des Warenkorbs</label>
 			<label index="checkout-standard.target">Seite "zur Kasse"</label>
+			<label index="checkout-standard-summary-option-terms.target">Seite der AGBs</label>
+			<label index="checkout-standard-summary-option-terms-privacy.target">Seite der Datenschutzerklärung</label>
 			<label index="checkout-confirm.target">Bestätigungsseite</label>
 		</languageKey>
 	</data>
