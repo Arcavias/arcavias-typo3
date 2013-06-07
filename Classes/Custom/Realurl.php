@@ -24,12 +24,6 @@ class tx_arcavias_custom_realurl
 	function addAutoConfig( $params, &$pObj )
 	{
 		return array_merge_recursive( $params['config'], array(
-			'fixedPostVars' => array(
-				'_DEFAULT' => array(
-					array( 'GETvar' => 'arc[f-catalog-id]' ),
-					array( 'GETvar' => 'arc[l-product-id]' ),
-				),
-			),
 			'postVarSets' => array(
 				'_DEFAULT' => array(
 					'arcavias' => array(
@@ -43,7 +37,12 @@ class tx_arcavias_custom_realurl
 						),
 					),
 					'cat' => array(
+						array( 'GETvar' => 'arc[f-catalog-id]' ),
+					),
+					'page' => array(
 						array( 'GETvar' => 'arc[l-page]' ),
+					),
+					'sort' => array(
 						array(
 							'GETvar' => 'arc[l-sort]',
 							'valueMap' => array(
@@ -52,7 +51,15 @@ class tx_arcavias_custom_realurl
 							),
 							'noMatch' => 'bypass',
 						),
+					),
+					'search' => array(
 						array( 'GETvar' => 'arc[f-search-text]' ),
+					),
+					'prod' => array(
+						array( 'GETvar' => 'arc[l-product-id]' ),
+					),
+					'---' => array(
+						array( 'GETvar' => 'arc[a-name]' ),
 					),
 					'bt' => array(
 						array( 'GETvar' => 'arc[b-action]' ),
