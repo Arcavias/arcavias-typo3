@@ -69,7 +69,7 @@ class MW_View_Helper_Url_Typo3
 			->setUseCacheHash( $chash )
 			->setNoCache( $nocache )
 			->setFormat( $format )
-			->setSection( str_replace( ' ', '-', join( '-', $trailing ) ) );
+			->setSection( join( '/', $trailing ) );
 
 		// Slashes in URL parameters confuses the router
 		foreach( $params as $key => $value ) {

@@ -33,6 +33,34 @@
 					</config>
 				</TCEforms>
 			</settings.client.html.basket.standard.url.target>
+			<settings.client.html.checkout.standard.summary.option.terms.url.target>
+				<TCEforms>
+					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:checkout-standard-summary-option-terms.target</label>
+					<config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>pages</allowed>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>1</minitems>
+						<show_thumbs>1</show_thumbs>
+					</config>
+				</TCEforms>
+			</settings.client.html.checkout.standard.summary.option.terms.url.target>
+			<settings.client.html.checkout.standard.summary.option.terms.privacy.url.target>
+				<TCEforms>
+					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:checkout-standard-summary-option-terms-privacy.target</label>
+					<config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>pages</allowed>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>1</minitems>
+						<show_thumbs>1</show_thumbs>
+					</config>
+				</TCEforms>
+			</settings.client.html.checkout.standard.summary.option.terms.privacy.url.target>
 			<settings.client.html.checkout.confirm.url.target>
 				<TCEforms>
 					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:checkout-confirm.target</label>
