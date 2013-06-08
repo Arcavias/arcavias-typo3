@@ -23,6 +23,9 @@ class tx_arcavias_custom_realurl
 	 */
 	function addAutoConfig( $params, &$pObj )
 	{
+//		$params['config']['init']['enableCHashCache'] = false;
+		$params['config']['init']['emptySegmentValue'] = '-';
+
 		return array_merge_recursive( $params['config'], array(
 			'postVarSets' => array(
 				'_DEFAULT' => array(
@@ -36,13 +39,11 @@ class tx_arcavias_custom_realurl
 							'noMatch' => 'bypass',
 						),
 					),
-					'cat' => array(
-						array( 'GETvar' => 'arc[f-catalog-id]' ),
+					'find' => array(
+						array( 'GETvar' => 'arc[f-search-text]' ),
 					),
-					'page' => array(
+					'list' => array(
 						array( 'GETvar' => 'arc[l-page]' ),
-					),
-					'sort' => array(
 						array(
 							'GETvar' => 'arc[l-sort]',
 							'valueMap' => array(
@@ -52,13 +53,9 @@ class tx_arcavias_custom_realurl
 							'noMatch' => 'bypass',
 						),
 					),
-					'search' => array(
-						array( 'GETvar' => 'arc[f-search-text]' ),
-					),
-					'prod' => array(
+					'cat' => array(
+						array( 'GETvar' => 'arc[f-catalog-id]' ),
 						array( 'GETvar' => 'arc[l-product-id]' ),
-					),
-					'---' => array(
 						array( 'GETvar' => 'arc[a-name]' ),
 					),
 					'bt' => array(
