@@ -73,25 +73,10 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	protected function initializeAction()
 	{
 		$this->uriBuilder->setArgumentPrefix( 'arc' );
-		$context = $this->_getContext();
-
 
 		// Re-initialize the config object because the settings are different due to flexforms
 		$conf = $this->_createConfig( $this->settings );
-		$context->setConfig( $conf );
-
-
-		$langid = '';
-		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-			$langid = $GLOBALS['TSFE']->config['config']['language'];
-		}
-
-		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-		$sitecode = $context->getConfig()->get( 'sitecode', 'default' );
-		// @todo Get chosen currency from frontend
-		$localeItem = $localeManager->bootstrap( $sitecode, $langid, '' );
-
-		$context->setLocale( $localeItem );
+		$this->_getContext()->setConfig( $conf );
 	}
 
 
@@ -181,7 +166,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$context = new MShop_Context_Item_Default();
 
 
-			$conf = $this->_createConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
+			$conf = $this->_createConfig( array() );
 			$context->setConfig( $conf );
 
 
@@ -225,6 +210,19 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
+
+
+			$sitecode = $context->getConfig()->get( 'mshop/locale/site', 'default' );
+			$currency = $context->getConfig()->get( 'mshop/locale/currency', 'EUR' );
+
+			$langid = '';
+			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+				$langid = $GLOBALS['TSFE']->config['config']['language'];
+			}
+
+			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
+			$context->setLocale( $locale );
 
 
 			self::$_context = $context;
