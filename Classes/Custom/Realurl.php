@@ -23,7 +23,9 @@ class tx_arcavias_custom_realurl
 	 */
 	function addAutoConfig( $params, &$pObj )
 	{
-//		$params['config']['init']['enableCHashCache'] = false;
+		$params['config']['init']['enableCHashCache'] = false;
+		$params['config']['init']['enableUrlEncodeCache'] = false;
+		$params['config']['init']['enableUrlDecodeCache'] = false;
 		$params['config']['init']['emptySegmentValue'] = '-';
 
 		return array_merge_recursive( $params['config'], array(
