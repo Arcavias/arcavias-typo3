@@ -166,7 +166,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$context = new MShop_Context_Item_Default();
 
 
-			$conf = $this->_createConfig( array() );
+			$conf = $this->_createConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
 			$context->setConfig( $conf );
 
 
