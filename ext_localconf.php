@@ -134,11 +134,4 @@ if( is_array( $arcCfg ) && isset( $arcCfg['useRealUrlAutoConfig'] ) && $arcCfg['
 }
 unset( $arcCfg );
 
-
-/**
- * Add page TS configuration
- */
-
-t3lib_extMgm::addPageTSConfig( '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:arcavias/Configuration/TypoScript/page.ts">' );
-
 ?>
