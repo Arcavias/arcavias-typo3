@@ -28,6 +28,15 @@ class tx_arcavias_custom_realurl
 		$params['config']['init']['emptySegmentValue'] = '-';
 
 		return array_merge_recursive( $params['config'], array(
+			'preVars' => array(
+				array(
+					'GETvar' => 'no_cache',
+						'valueMap' => array(
+						'nc' => 1,
+					),
+					'noMatch' => 'bypass',
+				),
+			),
 			'fixedPostVars' => array(
 				'_DEFAULT' => array(
 					array( 'GETvar' => 'arc[f-catalog-id]' ),
@@ -65,6 +74,18 @@ class tx_arcavias_custom_realurl
 					),
 					'co' => array(
 						array( 'GETvar' => 'arc[c-step]' ),
+					),
+					'json' => array(
+						'type' => 'single',
+						'keyValues' => array(
+							'type' => 18311919
+						),
+					),
+					'plain' => array(
+						'type' => 'single',
+						'keyValues' => array(
+							'type' => 18311920
+						),
 					),
 				),
 			),

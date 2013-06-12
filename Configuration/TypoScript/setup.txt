@@ -14,10 +14,20 @@ plugin.tx_arcavias {
 					content.baseurl = {$config.baseURL}uploads/tx_arcavias/
 					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/
 				}
-				catalog.listsimple.url.config.chash = 0
-				checkout.confirm.url.config {
-					absoluteUri = 1
+				catalog.listsimple.url.config {
+					type = 18311919
 					chash = 0
+				}
+				checkout {
+					confirm.url.config {
+						absoluteUri = 1
+						chash = 0
+					}
+					update.url.config {
+						type = 18311920
+						absoluteUri = 1
+						chash = 0
+					}
 				}
 			}
 		}
@@ -25,10 +35,9 @@ plugin.tx_arcavias {
 }
 
 
-[globalVar=TSFE:page|layout=240]
-arcavias_json = PAGE
-arcavias_json {
-	typeNum = 0
+arcaviasJson = PAGE
+arcaviasJson {
+	typeNum = 18311919
 	config {
 		no_cache = 1
 		disableAllHeaderCode = 1
@@ -48,12 +57,10 @@ tt_content {
 		innerWrap > 
 	}
 }
-[global]
 
-[globalVar=TSFE:page|layout=241]
-arcavias_plain = PAGE
-arcavias_plain {
-	typeNum = 0
+arcaviasPlain = PAGE
+arcaviasPlain {
+	typeNum = 18311920
 	config {
 		no_cache = 1
 		disableAllHeaderCode = 1
@@ -73,4 +80,3 @@ tt_content {
 		innerWrap > 
 	}
 }
-[global]
