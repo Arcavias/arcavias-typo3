@@ -24,7 +24,11 @@ class tx_arcavias_flexform_catalog
 	public function getCategories( array $config )
 	{
 		$pageTSConfig = t3lib_BEfunc::getModTSconfig( $config['row']['pid'], 'tx_arcavias' );
-		$sitecode = ( isset( $pageTSConfig['properties']['sitecode'] ) ? $pageTSConfig['properties']['sitecode'] : 'default' );
+
+		$sitecode = 'default';
+		if( isset( $pageTSConfig['properties']['mshop.']['locale.']['site'] ) ) {
+			$sitecode = $pageTSConfig['properties']['mshop.']['locale.']['site'];
+		}
 
 		try
 		{
