@@ -84,7 +84,7 @@ class Client_Html_Email_Confirm_Main_Html_DefaultTest extends MW_Unittest_Testca
 		$this->_object->setView( $view );
 
 		$output = $this->_object->getBody();
-		$this->assertStringStartsWith( "<html>\n	<head>\n		<style type=\"text/css\">", $output );
+		$this->assertStringStartsWith( "<html>\n	<body>\n\n	<style type=\"text/css\">", $output );
 	}
 
 
@@ -125,6 +125,7 @@ class Client_Html_Email_Confirm_Main_Html_DefaultTest extends MW_Unittest_Testca
 
 		$view->confirmOrderItem = $orderItem;
 		$view->confirmOrderBaseItem = $orderManager->getSubManager( 'base' )->load( $orderItem->getBaseId() );
+		$view->summaryBasket = $view->confirmOrderBaseItem;
 
 		return $view;
 	}
