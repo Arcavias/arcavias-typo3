@@ -18,8 +18,8 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	static private $_mshop;
 	static private $_context;
 	static private $_extConfig;
-	private $_includePaths;
-	private $_configPaths;
+	static private $_includePaths;
+	static private $_configPaths;
 
 
 	/**
@@ -29,40 +29,36 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	{
 		parent::__construct();
 
-		$ds = DIRECTORY_SEPARATOR;
-		$mshop = $this->_getMShop();
-
-		$includePaths = $mshop->getIncludePaths();
-		$includePaths[] = get_include_path();
-		$includePaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries' . $ds . 'zendlib';
-
-		if( ( $this->_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
-			throw new Exception( 'Unable to set include paths' );
-		}
-
-
-		$configPaths = $mshop->getConfigPaths( 'mysql' );
-
-		// Hook for processing extension config directories
-		if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
+		if( self::$_includePaths === null )
 		{
-			foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
-			{
-				$absPath = t3lib_div::getFileAbsFileName( $dir );
-				if( !empty( $absPath ) ) {
-					$configPaths[] = $absPath;
-				}
+			$ds = DIRECTORY_SEPARATOR;
+
+			$includePaths = $this->_getMShop()->getIncludePaths();
+			$includePaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries' . $ds . 'zendlib';
+			$includePaths[] = get_include_path();
+
+			if( ( self::$_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
+				throw new Exception( 'Unable to set include paths' );
 			}
 		}
 
-		$this->_configPaths = $configPaths;
-	}
+		if( self::$_configPaths === null )
+		{
+			$configPaths = $this->_getMShop()->getConfigPaths( 'mysql' );
 
+			// Hook for processing extension config directories
+			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
+			{
+				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
+				{
+					$absPath = t3lib_div::getFileAbsFileName( $dir );
+					if( !empty( $absPath ) ) {
+						$configPaths[] = $absPath;
+					}
+				}
+			}
 
-	public function __destruct()
-	{
-		if( $this->_includePaths !== false ) {
-			set_include_path( $this->_includePaths );
+			self::$_configPaths = $configPaths;
 		}
 	}
 
@@ -99,7 +95,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function _createConfig( array $settings )
 	{
-		$conf = new MW_Config_Array( array(), $this->_configPaths );
+		$conf = new MW_Config_Array( array(), self::$_configPaths );
 
 		if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
 		{
