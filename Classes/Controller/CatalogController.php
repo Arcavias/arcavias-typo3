@@ -57,6 +57,10 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function listAction()
 	{
+		if( is_object( $GLOBALS['TSFE'] ) && isset( $GLOBALS['TSFE']->config['config'] ) ) {
+			$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
+		}
+
 		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths );
 
@@ -81,6 +85,10 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function detailAction()
 	{
+		if( is_object( $GLOBALS['TSFE'] ) && isset( $GLOBALS['TSFE']->config['config'] ) ) {
+			$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
+		}
+
 		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_Detail_Factory::createClient( $this->_getContext(), $templatePaths );
 

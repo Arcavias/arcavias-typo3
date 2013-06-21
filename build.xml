@@ -76,7 +76,7 @@
 	</target>
 
 
-	<target name="deploy" description="Executes all deployments">
+	<target name="deploy" description="Executes all deployments" depends="clean">
 		<propertyprompt propertyName="version" promptText="Enter release version" promptCharacter=":" useExistingValue="true"/>
 		<reflexive>
 		  <fileset dir="." includes="ext_emconf.php" />
