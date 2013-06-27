@@ -3,11 +3,13 @@ php:
   - "5.4"
   - "5.3"
 before_script:
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar install
   - pear channel-discover pear.phing.info
   - pear install phing/phing
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
   - mysql -e 'create database arcavias;'
-  - cp Resources/Private/Libraries/core/config/.resource.php.ci Resources/Private/Libraries/core/config/resource.php
-  - cp Resources/Private/Libraries/core/lib/mwlib/tests/config/.resource.php.ci Resources/Private/Libraries/core/lib/mwlib/tests/config/resource.php
+  - cp vendor/arcavias/arcavias-core/config/.resource.php.ci vendor/arcavias/arcavias-core/config/resource.php
+  - cp vendor/arcavias/arcavias-core/lib/mwlib/tests/config/.resource.php.ci vendor/arcavias/arcavias-core/lib/mwlib/tests/config/resource.php
 script: "phing"

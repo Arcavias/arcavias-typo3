@@ -6,15 +6,9 @@
  */
 
 return array(
-	'name' => 'Arcavias TYPO3',
-	'description' => 'TYPO3 extension for Arcavias shop system',
-	'author' => 'Metaways Infosystems GmbH',
-	'email' => 'eshop@metaways.de',
-	'version' => '2011-08',
+	'name' => 'typo3',
 	'depends' => array(
-		array( '>=' => array( 'Arcavias' => '2011-03' ) ),
-	),
-	'conflicts' => array(
+		'arcavias-core',
 	),
 	'include' => array(
 		'lib/custom/src',

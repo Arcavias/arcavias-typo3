@@ -2,7 +2,7 @@
 
 <project name="Arcavias TYPO3" default="all">
 
-	<property name="coredir" value="${project.basedir}/Resources/Private/Libraries/core" />
+	<property name="coredir" value="${project.basedir}/vendor/arcavias/arcavias-core" />
 	<property name="extdir" value="${project.basedir}/Resources/Private/Libraries/ext" />
 
 
@@ -67,12 +67,10 @@
 
 
 	<target name="update" description="Updates the Arcavias core">
-		<delete dir="${coredir}.new" />
-		<exec command="git clone https://github.com/Arcavias/arcavias-core.git ${coredir}.new" checkreturn="true" logoutput="true" />
-		<phing target="build" dir="${coredir}.new" />
-		<exec command="rsync --delete --recursive ${coredir}.new/client/html/lib/ ./Resources/Public/html/" checkreturn="true" logoutput="true" />
-		<exec command="rsync --delete --recursive --exclude-from=${coredir}.new/.exclude --exclude=/client/html/lib ${coredir}.new/ ${coredir}/" checkreturn="true" logoutput="true" />
-		<delete dir="${coredir}.new" />
+		<exec command="composer update" checkreturn="true" logoutput="true" />
+		<phing target="build" dir="${coredir}" />
+		<delete dir="vendor/arcavias/arcavias-core/dev/" quiet="true" failonerror="false" />
+		<exec command="rsync --recursive ${coredir}/client/html/lib/ ./Resources/Public/html/" checkreturn="true" logoutput="true" />
 	</target>
 
 
