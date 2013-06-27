@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4053e2ee8770f955bca42c797071289b",
+    "hash": "22bb11dbad8776fd38f19fb57b71e9b6",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
@@ -11,16 +11,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "2440f8dd3f58c8cde25a728085be31923c615c39"
+                "reference": "52dc5f40dce2b9e4a70df120fa0fecfc79ee1efa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/2440f8dd3f58c8cde25a728085be31923c615c39",
-                "reference": "2440f8dd3f58c8cde25a728085be31923c615c39",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/52dc5f40dce2b9e4a70df120fa0fecfc79ee1efa",
+                "reference": "52dc5f40dce2b9e4a70df120fa0fecfc79ee1efa",
                 "shasum": ""
             },
             "require": {
-                "codeplex/phpexcel": ">=1.7.6,<1.8",
                 "ext-curl": "*",
                 "ext-dom": "*",
                 "ext-json": "*",
@@ -28,7 +27,7 @@
                 "ext-pdo": "*",
                 "ext-pdo_mysql": "*",
                 "ext-zip": "*",
-                "php": ">=5.3.0"
+                "php": ">=5.2.0"
             },
             "type": "library",
             "autoload": {
@@ -66,57 +65,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-06-26 12:34:46"
-        },
-        {
-            "name": "codeplex/phpexcel",
-            "version": "1.7.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/markushausammann/PHPExcel",
-                "reference": "1.7.8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/markushausammann/PHPExcel/archive/1.7.8.zip",
-                "reference": "1.7.8",
-                "shasum": ""
-            },
-            "require": {
-                "ext-xml": "*",
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PHPExcel": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Maarten Balliauw",
-                    "homepage": "http://blog.maartenballiauw.be"
-                },
-                {
-                    "name": "Mark Baker"
-                },
-                {
-                    "name": "Erit Tilt"
-                }
-            ],
-            "description": "PHPExcel - OpenXML - Create Excel2007 documents in PHP - Spreadsheet engine",
-            "homepage": "http://phpexcel.codeplex.com",
-            "keywords": [
-                "OpenXML",
-                "excel",
-                "php",
-                "spreadsheet"
-            ],
-            "time": "2012-11-21 10:55:52"
+            "time": "2013-06-27 09:25:41"
         }
     ],
     "packages-dev": [
@@ -130,7 +79,7 @@
         "arcavias/arcavias-core": 20
     },
     "platform": {
-        "php": ">=5.3.0"
+        "php": ">=5.2.0"
     },
     "platform-dev": [
 

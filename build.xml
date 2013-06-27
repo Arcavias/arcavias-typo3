@@ -69,6 +69,7 @@
 	<target name="update" description="Updates the Arcavias core">
 		<exec command="composer update" checkreturn="true" logoutput="true" />
 		<phing target="build" dir="${coredir}" />
+		<delete dir="vendor/arcavias/arcavias-core/dev/" quiet="true" failonerror="false" />
 		<exec command="rsync --recursive ${coredir}/client/html/lib/ ./Resources/Public/html/" checkreturn="true" logoutput="true" />
 	</target>
 
