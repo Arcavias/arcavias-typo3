@@ -1,0 +1,87 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "22bb11dbad8776fd38f19fb57b71e9b6",
+    "packages": [
+        {
+            "name": "arcavias/arcavias-core",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Arcavias/arcavias-core.git",
+                "reference": "52dc5f40dce2b9e4a70df120fa0fecfc79ee1efa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/52dc5f40dce2b9e4a70df120fa0fecfc79ee1efa",
+                "reference": "52dc5f40dce2b9e4a70df120fa0fecfc79ee1efa",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-pcre": "*",
+                "ext-pdo": "*",
+                "ext-pdo_mysql": "*",
+                "ext-zip": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "MShop": "lib/mshoplib/src",
+                    "MAdmin": "lib/mshoplib/src",
+                    "MW": "lib/mwlib/src",
+                    "Client_Html": "client/html/src",
+                    "Controller_Frontend": "controller/frontend/src",
+                    "Controller_ExtJS": "controller/extjs/src",
+                    "": [
+                        "lib/mwlib/lib",
+                        "."
+                    ]
+                },
+                "classmap": [
+                    "lib/mshoplib/src",
+                    "lib/mwlib/lib",
+                    "lib/mwlib/src",
+                    "client/html/src",
+                    "controller/frontend/src",
+                    "controller/extjs/src",
+                    "MShop.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "e-commerce framework for web shops, portals and market places",
+            "homepage": "http://www.arcavias.com/en",
+            "keywords": [
+                "e-commerce",
+                "market place",
+                "portal",
+                "shop"
+            ],
+            "time": "2013-06-27 09:25:41"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "arcavias/arcavias-core": 20
+    },
+    "platform": {
+        "php": ">=5.2.0"
+    },
+    "platform-dev": [
+
+    ]
+}

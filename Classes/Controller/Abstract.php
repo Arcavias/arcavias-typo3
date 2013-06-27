@@ -8,6 +8,9 @@
  */
 
 
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+
 /**
  * Abstract class with common functionality for all controllers.
  *
@@ -18,7 +21,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	static private $_mshop;
 	static private $_context;
 	static private $_extConfig;
-	static private $_includePaths;
 	static private $_configPaths;
 
 
@@ -28,19 +30,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		if( self::$_includePaths === null )
-		{
-			$ds = DIRECTORY_SEPARATOR;
-
-			$includePaths = $this->_getMShop()->getIncludePaths();
-			$includePaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries' . $ds . 'zendlib';
-			$includePaths[] = get_include_path();
-
-			if( ( self::$_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
-				throw new Exception( 'Unable to set include paths' );
-			}
-		}
 
 		if( self::$_configPaths === null )
 		{
@@ -267,13 +256,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		if( self::$_mshop === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries';
-
-			require_once $libPath . $ds . 'core' . $ds . 'MShop.php';
-
-			if( spl_autoload_register( 'MShop::autoload', true, true ) === false ) {
-				throw new Exception( 'Unable to register Arcavias autoload method' );
-			}
+			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
 
 			// Hook for processing extension directories
 			$extDirs = array();
@@ -288,7 +271,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 				}
 			}
 
-			self::$_mshop = new MShop( $extDirs, false, $libPath . $ds . 'core' );
+			self::$_mshop = new MShop( $extDirs, false, $libPath );
 		}
 
 		return self::$_mshop;
