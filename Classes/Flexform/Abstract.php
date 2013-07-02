@@ -7,6 +7,9 @@
  */
 
 
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+
 /**
  * Arcavias abstract flexform helper.
  *
@@ -70,13 +73,7 @@ class tx_arcavias_flexform_abstract
 		if( $this->_mshop === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries';
-
-			require_once $libPath . $ds . 'core' . $ds . 'MShop.php';
-
-			if( spl_autoload_register( 'MShop::autoload' ) === false ) {
-				throw new Exception( 'Unable to register Arcavias autoload method' );
-			}
+			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
 
 			// Hook for processing extension directories
 			$extDirs = array();
@@ -91,15 +88,7 @@ class tx_arcavias_flexform_abstract
 				}
 			}
 
-			$this->_mshop = new MShop( $extDirs, false, $libPath . $ds . 'core' );
-
-
-			$includePaths = $this->_mshop->getIncludePaths();
-			$includePaths[] = get_include_path();
-
-			if( ( $this->_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
-				throw new Exception( 'Unable to set include paths' );
-			}
+			$this->_mshop = new MShop( $extDirs, false, $libPath );
 		}
 
 		return $this->_mshop;
