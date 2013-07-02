@@ -60,23 +60,36 @@ class ext_update
 	 */
 	public function main()
 	{
+		$result = '';
+		$ds = DIRECTORY_SEPARATOR;
+		$basedir = dirname( __FILE__ );
+
 		ini_set( 'max_execution_time', 0 );
 
 
 		$exectimeStart = microtime( true );
 
+		$return = 1;
+		$output = array();
+		$cmd = sprintf( 'php %1$s -n --working-dir=%2$s install 2>&1', $basedir . $ds . 'composer.phar', $basedir );;
 
-		$ds = DIRECTORY_SEPARATOR;
-		$basepath = dirname( __FILE__ ) . $ds . 'Resources' . $ds . 'Private';
-		require_once $basepath . $ds . 'Libraries' . $ds . 'core' . $ds . 'MShop.php';
+		putenv( sprintf( 'COMPOSER_HOME=%1$s', $basedir . $ds . '.composer' ) );
+		exec( $cmd, $output, $return );
 
-		if( spl_autoload_register( 'ext_update::autoload' ) === false ) {
-			throw new Exception( 'Unable to register ext_update::autoload' );
+		echo join( '<br/>', $output );
+
+		if( $return != 0 ) {
+			printf( 'Executing "%1$s" failed</br>', $cmd );
 		}
 
-		if( spl_autoload_register( 'MShop::autoload' ) === false ) {
-			throw new Exception( 'Unable to register MShop::autoload' );
-		}
+		$path = $basedir . $ds  . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core' . $ds . 'dev';
+
+		try {
+			$this->_deleteRecursive( $path );
+		} catch( Exception $e ) {}
+
+		$result = sprintf( "Install process lasted %1\$f sec</br>\n", (microtime( true ) - $exectimeStart) );
+
 
 		// Hook for processing extension directories
 		$extDirs = array();
@@ -91,21 +104,28 @@ class ext_update
 			}
 		}
 
+		require $basedir . $ds . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
 		$mshop = new MShop( $extDirs, false );
 
 
+		$exectimeStart = microtime( true );
+
 		$taskPaths = $mshop->getSetupPaths( 'default' );
 
-		$includePaths = $mshop->getIncludePaths();
-		$includePaths = array_merge( $includePaths, $taskPaths );
+		$includePaths = $taskPaths;
 		$includePaths[] = get_include_path();
 
 		if( set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) === false ) {
 			throw new Exception( 'Unable to extend include path' );
 		}
 
+		if( spl_autoload_register( 'ext_update::autoload' ) === false ) {
+			throw new Exception( 'Unable to register ext_update::autoload' );
+		}
+
 		$configPaths = $mshop->getConfigPaths( 'mysql' );
-		$configPaths[] = $basepath . $ds . 'Config';
+		$configPaths[] = $basedir . $ds  . 'Resources' . $ds  . 'Private' . $ds . 'Config';
 
 
 		$ctx = $this->_getContext( $configPaths );
@@ -125,8 +145,10 @@ class ext_update
 		$manager->run( $dbconfig['adapter'] );
 		echo '</pre>';
 
+		$result .= sprintf( "Setup process lasted %1\$f sec</br>\n", (microtime( true ) - $exectimeStart) );
 
-		return sprintf( "Setup process lasted %1\$f sec\n\n", (microtime( true ) - $exectimeStart) );
+
+		return $result;
 	}
 
 
@@ -153,5 +175,32 @@ class ext_update
 		$ctx->setSession( $session );
 
 		return $ctx;
+	}
+
+
+	/**
+	 * Deletes a directory and all its content.
+	 *
+	 * @param string $path Directory to delete
+	 */
+	protected function _deleteRecursive( $path )
+	{
+		$it = new RecursiveDirectoryIterator( $path );
+		$files = new RecursiveIteratorIterator( $it, RecursiveIteratorIterator::CHILD_FIRST );
+
+		foreach( $files as $file )
+		{
+			if( $file->getFilename() === '.' || $file->getFilename() === '..' ) {
+				continue;
+			}
+
+			if( $file->isDir() ) {
+		    	rmdir( $file->getRealPath() );
+			} else {
+				unlink( $file->getRealPath() );
+			}
+		}
+
+		rmdir( $path );
 	}
 }
