@@ -154,16 +154,27 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$context = new MShop_Context_Item_Default();
 
 
-			$conf = $this->_createConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
-			$context->setConfig( $conf );
+			$config = $this->_createConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
+			$context->setConfig( $config );
 
 
-			$dbm = new MW_DB_Manager_PDO( $conf );
+			$dbm = new MW_DB_Manager_PDO( $config );
 			$context->setDatabaseManager( $dbm );
 
 
 			$cache = new MW_Cache_None();
 			$context->setCache( $cache );
+
+
+			if( isset( $GLOBALS['TSFE']->fe_user ) )
+			{
+				$session = new MW_Session_Typo3( $GLOBALS['TSFE']->fe_user );
+				$context->setSession( $session );
+			}
+
+
+			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
+			$context->setLogger( $logger );
 
 
 			$langid = 'en';
@@ -176,11 +187,12 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$context->setI18n( $i18n );
 
 
-			if( isset( $GLOBALS['TSFE']->fe_user ) )
-			{
-				$session = new MW_Session_Typo3( $GLOBALS['TSFE']->fe_user );
-				$context->setSession( $session );
-			}
+			$sitecode = $config->get( 'mshop/locale/site', 'default' );
+			$currency = $config->get( 'mshop/locale/currency', 'EUR' );
+
+			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
+			$context->setLocale( $locale );
 
 
 			$username = $userid = null;
@@ -194,23 +206,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 			$context->setEditor( $username );
 			$context->setUserId( $userid );
-
-
-			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
-			$context->setLogger( $logger );
-
-
-			$sitecode = $context->getConfig()->get( 'mshop/locale/site', 'default' );
-			$currency = $context->getConfig()->get( 'mshop/locale/currency', 'EUR' );
-
-			$langid = '';
-			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-				$langid = $GLOBALS['TSFE']->config['config']['language'];
-			}
-
-			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
-			$context->setLocale( $locale );
 
 
 			self::$_context = $context;
