@@ -8,6 +8,9 @@
  */
 
 
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+
 /**
  * Arcavias abstract scheduler.
  *
@@ -17,7 +20,6 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 {
 	static private $_mshop;
 	static private $_context;
-	static private $_includePaths = false;
 	private $_domainManagers = array();
 
 
@@ -41,6 +43,9 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 		$sep1000 = $config->get( 'client/html/common/format/seperator1000', ' ' );
 		$helper = new MW_View_Helper_Number_Default( $view, $sepDec, $sep1000 );
 		$view->addHelper( 'number', $helper );
+
+		$helper = new MW_View_Helper_Encoder_Default( $view );
+		$view->addHelper( 'encoder', $helper );
 
 		return $view;
 	}
@@ -113,13 +118,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 		if( self::$_mshop === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Libraries';
-
-			require_once $libPath . $ds . 'core' . $ds . 'MShop.php';
-
-			if( spl_autoload_register( 'MShop::autoload' ) === false ) {
-				throw new Exception( 'Unable to register Arcavias autoload method' );
-			}
+			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
 
 			// Hook for processing extension directories
 			$extDirs = array();
@@ -134,15 +133,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 				}
 			}
 
-			self::$_mshop = new MShop( $extDirs, false, $libPath . $ds . 'core' );
-
-
-			$includePaths = self::$_mshop->getIncludePaths();
-			$includePaths[] = get_include_path();
-
-			if( ( self::$_includePaths = set_include_path( implode( PATH_SEPARATOR, $includePaths ) ) ) === false ) {
-				throw new Exception( 'Unable to set include paths' );
-			}
+			self::$_mshop = new MShop( $extDirs, false, $libPath );
 		}
 
 		return self::$_mshop;
