@@ -8,9 +8,6 @@
  */
 
 
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Abstract.php';
-
-
 /**
  * Controller for adminisration interface.
  *
@@ -25,7 +22,8 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	{
 		parent::__construct();
 
-		$this->_controller = Controller_ExtJS_JsonRpc::getInstance( $this->_getContext() );
+		$cntlPaths = $this->_getMshop()->getCustomPaths( 'controller/extjs' );
+		$this->_controller = new Controller_ExtJS_JsonRpc( $this->_getContext(), $cntlPaths );
 	}
 
 
