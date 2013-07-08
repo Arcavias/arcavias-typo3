@@ -12,7 +12,12 @@
 	},
 	"require": {
 		"php": ">=5.2.0",
-		"arcavias/arcavias-core": "dev-master"
+		"arcavias/arcavias-core": "2013.07.*",
+        "arcavias/extension-installer": "dev-master",
+		"arcavias/ext-typo3": "dev-master"
 	},
-	"include-path": ["Resources/Private/Libraries/zendlib"]
+	"include-path": ["Resources/Private/Libraries/zendlib"],
+    "extra": {
+        "ext-path": "Resources/Private/Libraries/ext"
+    }
 }

@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "22bb11dbad8776fd38f19fb57b71e9b6",
+    "hash": "9889017fcab13a3848a8ad2c7eeb6445",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
-            "version": "dev-master",
+            "version": "2013.07.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "5c7e820939dddc13029f526c4b427d248df4e183"
+                "reference": "2013.07.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/5c7e820939dddc13029f526c4b427d248df4e183",
-                "reference": "5c7e820939dddc13029f526c4b427d248df4e183",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/2013.07.0",
+                "reference": "2013.07.0",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +65,73 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-07-01 16:34:02"
+            "time": "2013-06-27 14:32:30"
+        },
+        {
+            "name": "arcavias/ext-typo3",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Arcavias/ext-typo3.git",
+                "reference": "5eb68a9d501ee78c65e1507d2bbc442143fc405c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/5eb68a9d501ee78c65e1507d2bbc442143fc405c",
+                "reference": "5eb68a9d501ee78c65e1507d2bbc442143fc405c",
+                "shasum": ""
+            },
+            "require": {
+                "arcavias/extension-installer": "dev-master"
+            },
+            "type": "arcavias-extension",
+            "autoload": {
+                "psr-0": {
+                    "MShop": "lib/custom/src",
+                    "MW": "lib/custom/src"
+                },
+                "classmap": [
+                    "lib/custom/src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "Arcavias extension for integration into TYPO3",
+            "homepage": "http://www.arcavias.com/en",
+            "time": "2013-07-08 12:57:44"
+        },
+        {
+            "name": "arcavias/extension-installer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Arcavias/extension-installer.git",
+                "reference": "d9585ed9256de66b5aff2e65649955f10193b631"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Arcavias/extension-installer/zipball/d9585ed9256de66b5aff2e65649955f10193b631",
+                "reference": "d9585ed9256de66b5aff2e65649955f10193b631",
+                "shasum": ""
+            },
+            "type": "composer-installer",
+            "extra": {
+                "class": "Arcavias\\Composer\\ExtensionInstaller"
+            },
+            "autoload": {
+                "psr-0": {
+                    "Arcavias\\Composer": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "custom composer installer for Arcavias extensions",
+            "homepage": "http://www.arcavias.com/en",
+            "time": "2013-07-08 12:47:55"
         }
     ],
     "packages-dev": [
@@ -76,7 +142,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "arcavias/arcavias-core": 20
+        "arcavias/extension-installer": 20,
+        "arcavias/ext-typo3": 20
     },
     "platform": {
         "php": ">=5.2.0"
