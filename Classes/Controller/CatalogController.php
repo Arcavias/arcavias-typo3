@@ -20,7 +20,7 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function filterAction()
 	{
-		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
 
 		return $this->_getClientOutput( $client );
@@ -32,7 +32,7 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function filtersearchAction()
 	{
-		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
 		$client = $client->getSubClient( 'search' );
 
@@ -45,7 +45,7 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function stageAction()
 	{
-		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_Stage_Factory::createClient( $this->_getContext(), $templatePaths );
 
 		return $this->_getClientOutput( $client );
@@ -61,7 +61,7 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 			$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
 		}
 
-		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths );
 
 		return $this->_getClientOutput( $client );
@@ -73,7 +73,7 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function listsimpleAction()
 	{
-		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths, 'Simple' );
 
 		return $this->_getClientOutput( $client );
@@ -89,7 +89,7 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 			$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
 		}
 
-		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Catalog_Detail_Factory::createClient( $this->_getContext(), $templatePaths );
 
 		return $this->_getClientOutput( $client );
