@@ -3,23 +3,24 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9889017fcab13a3848a8ad2c7eeb6445",
+    "hash": "f63bd386c61a33849485e8e393bb2470",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
-            "version": "2013.07.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "2013.07.0"
+                "reference": "208c237441c5c52ab42a384e427c9eadf09b0057"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/2013.07.0",
-                "reference": "2013.07.0",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/208c237441c5c52ab42a384e427c9eadf09b0057",
+                "reference": "208c237441c5c52ab42a384e427c9eadf09b0057",
                 "shasum": ""
             },
             "require": {
+                "arcavias/extension-installer": "dev-master",
                 "ext-curl": "*",
                 "ext-dom": "*",
                 "ext-json": "*",
@@ -50,7 +51,7 @@
                     "client/html/src",
                     "controller/frontend/src",
                     "controller/extjs/src",
-                    "MShop.php"
+                    "Arcavias.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -65,7 +66,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-06-27 14:32:30"
+            "time": "2013-07-23 12:59:32"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -73,12 +74,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "5eb68a9d501ee78c65e1507d2bbc442143fc405c"
+                "reference": "759da9177763507841d1e633256aee2b1f18d732"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/5eb68a9d501ee78c65e1507d2bbc442143fc405c",
-                "reference": "5eb68a9d501ee78c65e1507d2bbc442143fc405c",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/759da9177763507841d1e633256aee2b1f18d732",
+                "reference": "759da9177763507841d1e633256aee2b1f18d732",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +101,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2013-07-08 12:57:44"
+            "time": "2013-07-10 07:33:53"
         },
         {
             "name": "arcavias/extension-installer",
@@ -142,6 +143,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "arcavias/arcavias-core": 20,
         "arcavias/extension-installer": 20,
         "arcavias/ext-typo3": 20
     },
