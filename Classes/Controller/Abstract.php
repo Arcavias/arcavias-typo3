@@ -33,7 +33,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$this->uriBuilder->setArgumentPrefix( 'arc' );
 
 		// Re-initialize the config object because the settings are different due to flexforms
-		$this->_getContext()->setConfig( $this->_createConfig() );
+		$this->_getContext()->setConfig( $this->_getConfig() );
 	}
 
 
@@ -45,79 +45,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	protected function resolveView()
 	{
 		return null;
-	}
-
-
-	/**
-	 * Creates a new configuration object.
-	 *
-	 * @return MW_Config_Interface Configuration object
-	 */
-	protected function _createConfig()
-	{
-		if( self::$_config === null )
-		{
-			$configPaths = $this->_getArcavias()->getConfigPaths( 'mysql' );
-
-			// Hook for processing extension config directories
-			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
-			{
-				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
-				{
-					$absPath = t3lib_div::getFileAbsFileName( $dir );
-					if( !empty( $absPath ) ) {
-						$configPaths[] = $absPath;
-					}
-				}
-			}
-
-			$conf = new MW_Config_Array( array(), $configPaths );
-
-			if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
-			{
-				$prefix = ( isset( $this->_settings['apc']['prefix'] ) ? $this->_settings['apc']['prefix'] : '' );
-				$conf = new MW_Config_Decorator_APC( $conf, $prefix );
-			}
-
-			self::$_config = $conf;
-		}
-
-
-		return new MW_Config_Decorator_Memory( self::$_config );
-	}
-
-
-	/**
-	 * Creates a new translation object.
-	 *
-	 * @return MW_Translation_Interface Configuration object
-	 */
-	protected function _createI18n()
-	{
-		if( !isset( self::$_i18n ) )
-		{
-			$langid = 'en';
-			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-				$langid = $GLOBALS['TSFE']->config['config']['language'];
-			}
-
-			$i18nPaths = $this->_getArcavias()->getI18nPaths();
-			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $langid, array( 'disableNotices' => true ) );
-
-			if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
-			{
-				$prefix = ( isset( $this->_settings['apc']['prefix'] ) ? $this->_settings['apc']['prefix'] : '' );
-				$i18n = new MW_Translation_Decorator_APC( $i18n, $prefix );
-			}
-
-			self::$_i18n = $i18n;
-		}
-
-		if( isset( $this->_settings['i18n'] ) ) {
-			return new MW_Config_Decorator_Memory( self::$_i18n, $this->_settings['i18n'] );
-		}
-
-		return self::$_i18n;
 	}
 
 
@@ -134,7 +61,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
 		$view->addHelper( 'url', $helper );
 
-		$helper = new MW_View_Helper_Translate_Default( $view, $this->_createI18n() );
+		$helper = new MW_View_Helper_Translate_Default( $view, $this->_getI18n() );
 		$view->addHelper( 'translate', $helper );
 
 		$helper = new MW_View_Helper_Parameter_Default( $view, $this->request->getArguments() );
@@ -159,6 +86,76 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 
 	/**
+	 * Returns the Arcavias object.
+	 *
+	 * @return Arcavias Arcavias object
+	 */
+	protected function _getArcavias()
+	{
+		if( self::$_arcavias === null )
+		{
+			$ds = DIRECTORY_SEPARATOR;
+			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
+
+			// Hook for processing extension directories
+			$extDirs = array();
+			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] ) )
+			{
+				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
+				{
+					$absPath = t3lib_div::getFileAbsFileName( $dir );
+					if( !empty( $absPath ) ) {
+						$extDirs[] = $absPath;
+					}
+				}
+			}
+
+			self::$_arcavias = new Arcavias( $extDirs, false, $libPath );
+		}
+
+		return self::$_arcavias;
+	}
+
+
+	/**
+	 * Creates a new configuration object.
+	 *
+	 * @return MW_Config_Interface Configuration object
+	 */
+	protected function _getConfig()
+	{
+		if( self::$_config === null )
+		{
+			$configPaths = $this->_getArcavias()->getConfigPaths( 'mysql' );
+
+			// Hook for processing extension config directories
+			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
+			{
+				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
+				{
+					$absPath = t3lib_div::getFileAbsFileName( $dir );
+					if( !empty( $absPath ) ) {
+						$configPaths[] = $absPath;
+					}
+				}
+			}
+
+			$conf = new MW_Config_Array( array(), $configPaths );
+
+			if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
+			{
+				$prefix = ( isset( $this->settings['apc']['prefix'] ) ? $this->settings['apc']['prefix'] : '' );
+				$conf = new MW_Config_Decorator_APC( $conf, $prefix );
+			}
+
+			self::$_config = $conf;
+		}
+
+		return new MW_Config_Decorator_Memory( self::$_config, (array) $this->settings );
+	}
+
+
+	/**
 	 * Returns the current context.
 	 *
 	 * @return MShop_Context_Item_Interface Context object
@@ -170,7 +167,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$context = new MShop_Context_Item_Default();
 
 
-			$config = $this->_createConfig();
+			$config = $this->_getConfig();
 			$context->setConfig( $config );
 
 			$dbm = new MW_DB_Manager_PDO( $config );
@@ -188,7 +185,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
 
-			$context->setI18n( $this->_createI18n() );
+			$context->setI18n( $this->_getI18n() );
 
 
 			$langid = 'en';
@@ -251,34 +248,46 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 
 	/**
-	 * Returns the Arcavias object.
+	 * Creates a new translation object.
 	 *
-	 * @return Arcavias Arcavias object
+	 * @return MW_Translation_Interface Configuration object
 	 */
-	protected function _getArcavias()
+	protected function _getI18n()
 	{
-		if( self::$_arcavias === null )
+		if( !isset( self::$_i18n ) )
 		{
-			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
-
-			// Hook for processing extension directories
-			$extDirs = array();
-			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] ) )
-			{
-				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
-				{
-					$absPath = t3lib_div::getFileAbsFileName( $dir );
-					if( !empty( $absPath ) ) {
-						$extDirs[] = $absPath;
-					}
-				}
+			$langid = 'en';
+			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+				$langid = $GLOBALS['TSFE']->config['config']['language'];
 			}
 
-			self::$_arcavias = new Arcavias( $extDirs, false, $libPath );
+			$i18nPaths = $this->_getArcavias()->getI18nPaths();
+			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $langid, array( 'disableNotices' => true ) );
+
+			if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
+			{
+				$prefix = ( isset( $this->_settings['apc']['prefix'] ) ? $this->settings['apc']['prefix'] : '' );
+				$i18n = new MW_Translation_Decorator_APC( $i18n, $prefix );
+			}
+
+			if( isset( $this->settings['i18n'][$langid] ) )
+			{
+				$translations = array();
+
+				foreach( (array) $this->settings['i18n'][$langid] as $entry )
+				{
+					if( isset( $entry['domain'] ) && isset( $entry['string'] ) && isset( $entry['trans'] ) ) {
+						$translations[$entry['domain']][$entry['string']] = (array) $entry['trans'];
+					}
+				}
+
+				return new MW_Translation_Decorator_Memory( $i18n, $translations );
+			}
+
+			self::$_i18n = $i18n;
 		}
 
-		return self::$_arcavias;
+		return self::$_i18n;
 	}
 
 

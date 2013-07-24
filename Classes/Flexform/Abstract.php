@@ -17,7 +17,7 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  */
 class tx_arcavias_flexform_abstract
 {
-	private $_mshop;
+	private $_arcavias;
 	private $_context;
 
 
@@ -33,27 +33,24 @@ class tx_arcavias_flexform_abstract
 			$ds = DIRECTORY_SEPARATOR;
 
 			// Important! Sets include paths
-			$mshop = $this->_getMShop();
+			$arcavias = $this->_getArcavias();
 			$context = new MShop_Context_Item_Default();
 
 
-			$configPaths = $mshop->getConfigPaths( 'mysql' );
+			$configPaths = $arcavias->getConfigPaths( 'mysql' );
 			$configPaths[] = t3lib_extMgm::extPath( 'arcavias' ) . 'Resources' . $ds . 'Private' . $ds . 'Config';
 
-			$conf = new MW_Config_Array( ( is_array( $this->settings ) ? $this->settings : array() ), $configPaths );
-			$conf = new MW_Config_Decorator_MemoryCache( $conf );
+			$conf = new MW_Config_Array( array(), $configPaths );
+			$conf = new MW_Config_Decorator_Memory( $conf );
 			$context->setConfig( $conf );
-
 
 			$dbm = new MW_DB_Manager_PDO( $conf );
 			$context->setDatabaseManager( $dbm );
 
-
-			$context->setEditor( 'flexform' );
-
-
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
+
+			$context->setEditor( 'flexform' );
 
 
 			$this->_context = $context;
@@ -64,13 +61,13 @@ class tx_arcavias_flexform_abstract
 
 
 	/**
-	 * Returns the MShop object.
+	 * Returns the Arcavias object.
 	 *
-	 * @return MShop MShop object
+	 * @return Arcavias Arcavias object
 	 */
-	protected function _getMShop()
+	protected function _getArcavias()
 	{
-		if( $this->_mshop === null )
+		if( $this->_arcavias === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
 			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
@@ -88,9 +85,9 @@ class tx_arcavias_flexform_abstract
 				}
 			}
 
-			$this->_mshop = new MShop( $extDirs, false, $libPath );
+			$this->_arcavias = new Arcavias( $extDirs, false, $libPath );
 		}
 
-		return $this->_mshop;
+		return $this->_arcavias;
 	}
 }
