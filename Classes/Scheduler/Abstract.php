@@ -18,9 +18,8 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  */
 abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 {
-	static private $_mshop;
+	static private $_arcavias;
 	static private $_context;
-	private $_domainManagers = array();
 
 
 	/**
@@ -63,7 +62,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			$ds = DIRECTORY_SEPARATOR;
 
 			// Important! Sets include paths
-			$mshop = $this->_getMShop();
+			$mshop = $this->_getArcavias();
 			$context = new MShop_Context_Item_Default();
 
 
@@ -82,23 +81,19 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			}
 
 			$conf = new MW_Config_Array( array(), $configPaths );
-			$conf = new MW_Config_Decorator_MemoryCache( $conf );
+			$conf = new MW_Config_Decorator_Memory( $conf );
 			$context->setConfig( $conf );
-
 
 			$dbm = new MW_DB_Manager_PDO( $conf );
 			$context->setDatabaseManager( $dbm );
 
-
 			$cache = new MW_Cache_None();
 			$context->setCache( $cache );
 
-
-			$context->setEditor( 'scheduler' );
-
-
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
+
+			$context->setEditor( 'scheduler' );
 
 
 			self::$_context = $context;
@@ -109,13 +104,13 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 
 
 	/**
-	 * Returns the MShop object.
+	 * Returns the Arcavias object.
 	 *
-	 * @return MShop MShop object
+	 * @return Arcavias Arcavias object
 	 */
-	protected function _getMShop()
+	protected function _getArcavias()
 	{
-		if( self::$_mshop === null )
+		if( self::$_arcavias === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
 			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
@@ -133,70 +128,10 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 				}
 			}
 
-			self::$_mshop = new MShop( $extDirs, false, $libPath );
+			self::$_arcavias = new Arcavias( $extDirs, false, $libPath );
 		}
 
-		return self::$_mshop;
-	}
-
-
-	/**
-	 * Returns the manager for the given domain and sub-domains.
-	 *
-	 * @param string $domain String of domain and sub-domains, e.g. "product" or "order/base/service"
-	 * @throws MShop_Exception If domain string is invalid or no manager can be instantiated
-	 */
-	protected function _getDomainManager( $domain )
-	{
-		$domain = strtolower( trim( $domain, "/ \n\t\r\0\x0B" ) );
-
-		if( strlen( $domain ) === 0 ) {
-			throw new MShop_Exception( 'An empty domain is invalid' );
-		}
-
-		if( !isset( $this->_domainManagers[$domain] ) )
-		{
-			$parts = explode( '/', $domain );
-
-			foreach( $parts as $part )
-			{
-				if( ctype_alnum( $part ) === false ) {
-					throw new MShop_Exception( sprintf( 'Invalid domain "%1$s"', $domain ) );
-				}
-			}
-
-			if( ( $domainname = array_shift( $parts ) ) === null ) {
-				throw new MShop_Exception( 'An empty domain is invalid' );
-			}
-
-
-			if( !isset( $this->_domainManagers[$domainname] ) )
-			{
-				$iface = 'MShop_Common_Manager_Interface';
-				$factory = 'MShop_' . ucwords( $domainname ) . '_Manager_Factory';
-				$manager = call_user_func_array( $factory . '::createManager', array( $this->_getContext() ) );
-
-				if( !( $manager instanceof $iface ) ) {
-					throw new MShop_Exception( sprintf( 'No factory "%1$s" found', $factory ) );
-				}
-
-				$this->_domainManagers[$domainname] = $manager;
-			}
-
-
-			foreach( $parts as $part )
-			{
-				$tmpname = $domainname .  '/' . $part;
-
-				if( !isset( $this->_domainManagers[$tmpname] ) ) {
-					$this->_domainManagers[$tmpname] = $this->_domainManagers[$domainname]->getSubManager( $part );
-				}
-
-				$domainname = $tmpname;
-			}
-		}
-
-		return $this->_domainManagers[$domain];
+		return self::$_arcavias;
 	}
 
 

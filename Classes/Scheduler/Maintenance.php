@@ -336,8 +336,8 @@ class tx_arcavias_scheduler_maintenance
 		);
 		$orderSearch->setConditions( $orderSearch->combine( '&&', $expr ) );
 
-		$i18nPaths = $this->_getMShop()->getI18nPaths();
-		$templatePaths = $this->_getMShop()->getCustomPaths( 'client/html' );
+		$i18nPaths = $this->_getArcavias()->getI18nPaths();
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
 		$client = Client_Html_Email_Confirm_Factory::createClient( $context, $templatePaths );
 		$mainClient = $client->getSubClient( 'main' );
 		$htmlClient = $mainClient->getSubClient( 'html' );
