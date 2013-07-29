@@ -84,7 +84,7 @@ class ext_update
 
 		require $basedir . $ds . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-		$mshop = new MShop( $extDirs, false );
+		$mshop = new Arcavias( $extDirs, false );
 
 
 		$exectimeStart = microtime( true );
