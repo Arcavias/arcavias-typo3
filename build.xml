@@ -68,6 +68,7 @@
 
 	<target name="update" description="Updates the Arcavias core">
 		<delete dir="vendor/arcavias/arcavias-core" quiet="true" failonerror="false" />
+		<exec command="git pull" checkreturn="true" logoutput="true" />
 		<exec command="composer update" checkreturn="true" logoutput="true" />
 		<phing target="build" dir="${coredir}" />
 		<delete dir="vendor/arcavias/arcavias-core/dev" quiet="true" failonerror="false" />
