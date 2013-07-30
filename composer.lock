@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "ac959d09a617ae80e0bf6e4d92989f96e16de442"
+                "reference": "068648d4a117668f52205a0ca4d5f553531ce3b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/ac959d09a617ae80e0bf6e4d92989f96e16de442",
-                "reference": "ac959d09a617ae80e0bf6e4d92989f96e16de442",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/068648d4a117668f52205a0ca4d5f553531ce3b9",
+                "reference": "068648d4a117668f52205a0ca4d5f553531ce3b9",
                 "shasum": ""
             },
             "require": {
@@ -66,7 +66,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-07-30 10:05:29"
+            "time": "2013-07-30 11:57:51"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -74,12 +74,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "759da9177763507841d1e633256aee2b1f18d732"
+                "reference": "53c76ad094fbfe35b0a10f6c4ab3c74b867383da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/759da9177763507841d1e633256aee2b1f18d732",
-                "reference": "759da9177763507841d1e633256aee2b1f18d732",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/53c76ad094fbfe35b0a10f6c4ab3c74b867383da",
+                "reference": "53c76ad094fbfe35b0a10f6c4ab3c74b867383da",
                 "shasum": ""
             },
             "require": {
@@ -101,7 +101,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2013-07-10 07:33:53"
+            "time": "2013-07-30 11:58:44"
         },
         {
             "name": "arcavias/extension-installer",
