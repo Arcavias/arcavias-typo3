@@ -88,7 +88,7 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	{
 		$context = $this->_getContext();
 
-		$conf = $this->_createConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
+		$conf = $this->_getConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
 		$context->setConfig( $conf );
 
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
