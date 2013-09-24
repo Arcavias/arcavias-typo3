@@ -9,15 +9,16 @@
 
 
 /**
- * Arcavias catalog index scheduler.
+ * Arcavias scheduler.
  *
  * @package TYPO3_Arcavias
  */
-class tx_arcavias_scheduler_catalog
+class tx_arcavias_scheduler_default
 	extends tx_arcavias_scheduler_abstract
 	implements tx_scheduler_AdditionalFieldProvider
 {
-	private $_fieldSite = 'arcavias_catalog_sitecode';
+	private $_fieldSite = 'arcavias_sitecode';
+	private $_fieldController = 'arcavias_controller';
 
 
 	/**
@@ -42,39 +43,29 @@ class tx_arcavias_scheduler_catalog
 
 		try
 		{
-			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-			$siteManager = $localeManager->getSubManager( 'site' );
+			$arcavias = $this->_getArcavias();
+			$manager = MShop_Locale_Manager_Factory::createManager( $context );
 
-			$siteSearch = $siteManager->createSearch( true );
-			$expr = array(
-				$siteSearch->getConditions(),
-				$siteSearch->compare( '==', 'locale.site.code', $this->{$this->_fieldSite} ),
-			);
-			$siteSearch->setConditions( $siteSearch->combine( '&&', $expr ) );
-
-			foreach( $siteManager->searchItems( $siteSearch ) as $siteItem )
+			foreach( (array) $this->{$this->_fieldSite} as $sitecode )
 			{
-				try
-				{
-					$locale = $localeManager->bootstrap( $siteItem->getCode() );
+				$localeItem = $manager->bootstrap( $sitecode, '', '', false );
+				$localeItem->setLanguageId( null );
+				$localeItem->setCurrencyId( null );
 
-					$locale->setLanguageId( null );
-					$locale->setCurrencyId( null );
-					$context->setLocale( $locale );
+				$localContext = clone $context;
+				$localContext->setLocale( $localeItem );
 
-					$manager = MShop_Catalog_Manager_Factory::createManager( $context );
-					$manager->getSubManager( 'index' )->rebuildIndex();
-				}
-				catch( Exception $e )
-				{
-					$str = 'Error processing site "%1$s" in catalog scheduler: %2$s';
-					$context->getLogger()->log( sprintf( $str, $siteItem->getCode(), $e->getMessage() ) );
+				foreach( (array) $this->{$this->_fieldController} as $name ) {
+					Controller_Jobs_Factory::createController( $localContext, $arcavias, $name )->run();
 				}
 			}
 		}
 		catch( Exception $e )
 		{
-			$context->getLogger()->log( 'Error executing catalog scheduler: ' . $e->getMessage() );
+			$logger = $context->getLogger();
+			$logger->log( 'Error executing Arcavias scheduler: ' . $e->getMessage() );
+			$logger->log( $e->getTraceAsString() );
+
 			return false;
 		}
 
@@ -106,6 +97,25 @@ class tx_arcavias_scheduler_catalog
 		try
 		{
 			// In case of editing a task, set to the internal value if data wasn't already submitted
+			if( empty( $taskInfo[$this->_fieldController] ) && $parentObject->CMD === 'edit' ) {
+				$taskInfo[$this->_fieldController] = $task->{$this->_fieldController};
+			}
+
+			$taskInfo[$this->_fieldController] = (array) $taskInfo[$this->_fieldController];
+
+			$fieldCode = sprintf( '<select name="tx_scheduler[%1$s][]" id="%1$s" multiple="multiple" size="10" />', $this->_fieldController );
+			$fieldCode .= $this->_getControllerOptions( $taskInfo[$this->_fieldController] );
+			$fieldCode .= '</select>';
+
+			$additionalFields[$this->_fieldController] = array(
+				'code'     => $fieldCode,
+				'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.label.controller',
+				'cshKey'   => 'xMOD_tx_arcavias',
+				'cshLabel' => $this->_fieldController
+			);
+
+
+			// In case of editing a task, set to the internal value if data wasn't already submitted
 			if( empty( $taskInfo[$this->_fieldSite] ) && $parentObject->CMD === 'edit' ) {
 				$taskInfo[$this->_fieldSite] = $task->{$this->_fieldSite};
 			}
@@ -118,14 +128,14 @@ class tx_arcavias_scheduler_catalog
 
 			$additionalFields[$this->_fieldSite] = array(
 				'code'     => $fieldCode,
-				'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:catalog.label.sitecode',
+				'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.label.sitecode',
 				'cshKey'   => 'xMOD_tx_arcavias',
 				'cshLabel' => $this->_fieldSite
 			);
 		}
 		catch( Exception $e )
 		{
-			error_log( 'Error in catalog scheduler: ' . $e->getMessage() );
+			error_log( 'Error in Arcavias scheduler: ' . $e->getMessage() );
 			error_log( $e->getTraceAsString() );
 		}
 
@@ -144,6 +154,7 @@ class tx_arcavias_scheduler_catalog
 	public function saveAdditionalFields( array $submittedData, tx_scheduler_Task $task )
 	{
 		$task->{$this->_fieldSite} = $submittedData[$this->_fieldSite];
+		$task->{$this->_fieldController} = $submittedData[$this->_fieldController];
 	}
 
 
@@ -160,7 +171,18 @@ class tx_arcavias_scheduler_catalog
 	{
 		try
 		{
+			if( count( (array) $submittedData[$this->_fieldController] ) < 1 ) {
+				throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.controller.missing' ) );
+			}
+
+			if( count( $submittedData[$this->_fieldSite] ) < 1 ) {
+				throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.sitecode.missing' ) );
+			}
+
+
 			$context = $this->_getContext();
+
+
 			$manager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
 
 			$search = $manager->createSearch( true );
@@ -170,11 +192,20 @@ class tx_arcavias_scheduler_catalog
 			);
 			$search->setConditions( $search->combine( '&&', $expr ) );
 
-			if( count( $manager->searchItems( $search ) ) === count( $submittedData[$this->_fieldSite] ) ) {
-				return true;
+			if( count( $manager->searchItems( $search ) ) !== count( $submittedData[$this->_fieldSite] ) ) {
+				throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.sitecode' ) );
 			}
 
-			$message = $GLOBALS['LANG']->sL('LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:catalog.error.sitecode');
+
+			$arcavias = $this->_getArcavias();
+			$cntlPaths = $arcavias->getCustomPaths( 'controller/jobs' );
+
+			foreach( (array) $submittedData[$this->_fieldController] as $name ) {
+				Controller_Jobs_Factory::createController( $context, $arcavias, $name );
+			}
+
+
+			return true;
 		}
 		catch( Exception $e )
 		{
@@ -229,13 +260,37 @@ class tx_arcavias_scheduler_catalog
 		$html = '';
 		$prefix = str_repeat( '-', $level ) . ' ';
 
-		foreach( $siteItems AS $item )
+		foreach( $siteItems as $item )
 		{
 			$active = ( in_array( $item->getCode(), $selected ) ? 'selected="selected"' : '' );
 			$string = '<option value="%1$s" %2$s>%3$s</option>';
 			$html .= sprintf( $string, $item->getCode(), $active, $prefix . $item->getLabel() );
 
 			$html .= $this->_getSiteOptions( $item->getChildren(), $selected, $level+1 );
+		}
+
+		return $html;
+	}
+
+
+	/**
+	 * Returns the HTML code for the controller control.
+	 *
+	 * @param array $selected List of site codes that were previously selected by the user
+	 * @return string HTML code with <option> tags for the select box
+	 */
+	protected function _getControllerOptions( array $selected )
+	{
+		$html = '';
+		$arcavias = $this->_getArcavias();
+		$cntlPaths = $arcavias->getCustomPaths( 'controller/jobs' );
+		$controllers = Controller_Jobs_Factory::getControllers( $this->_getContext(), $arcavias, $cntlPaths );
+
+		foreach( $controllers as $name => $controller )
+		{
+			$active = ( in_array( $name, $selected ) ? 'selected="selected"' : '' );
+			$string = '<option value="%1$s" %2$s>%3$s</option>';
+			$html .= sprintf( $string, $name, $active, $controller->getName() );
 		}
 
 		return $html;

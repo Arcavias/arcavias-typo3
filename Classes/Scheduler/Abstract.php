@@ -23,17 +23,37 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 
 
 	/**
+	 * Creates new translation objects.
+	 *
+	 * @param Arcavias $arcavias Arcavias object
+	 * @param MShop_Context_Item_Interface $context Context object
+	 * @return array List of translation objects implementing MW_Translation_Interface
+	 */
+	protected function _createI18n( Arcavias $arcavias, MShop_Context_Item_Interface $context )
+	{
+		$list = array();
+		$i18nPaths = $arcavias->getI18nPaths();
+		$langManager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'language' );
+
+		foreach( $langManager->searchItems( $langManager->createSearch( true ) ) as $id => $langItem )
+		{
+			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $id, array( 'disableNotices' => true ) );
+			$list[$id] = $i18n;
+		}
+
+		return $list;
+	}
+
+
+	/**
 	 * Creates the view object for the HTML client.
 	 *
+	 * @param MW_Config_Interface $config Configuration object
 	 * @return MW_View_Interface View object
 	 */
-	protected function _createView()
+	protected function _createView( MW_Config_Interface $config )
 	{
 		$view = new MW_View_Default();
-
-		$config = $this->_getContext()->getConfig();
-		$config->set( 'client/html/email/confirm/main/html/encoded', false );
-		$config->set( 'client/html/email/confirm/main/text/encoded', false );
 
 		$helper = new MW_View_Helper_Config_Default( $view, $config );
 		$view->addHelper( 'config', $helper );
@@ -42,6 +62,9 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 		$sep1000 = $config->get( 'client/html/common/format/seperator1000', ' ' );
 		$helper = new MW_View_Helper_Number_Default( $view, $sepDec, $sep1000 );
 		$view->addHelper( 'number', $helper );
+
+		$helper = new MW_View_Helper_Url_None( $view );
+		$view->addHelper( 'url', $helper );
 
 		$helper = new MW_View_Helper_Encoder_Default( $view );
 		$view->addHelper( 'encoder', $helper );
@@ -62,11 +85,11 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			$ds = DIRECTORY_SEPARATOR;
 
 			// Important! Sets include paths
-			$mshop = $this->_getArcavias();
+			$arcavias = $this->_getArcavias();
 			$context = new MShop_Context_Item_Default();
 
 
-			$configPaths = $mshop->getConfigPaths( 'mysql' );
+			$configPaths = $arcavias->getConfigPaths( 'mysql' );
 
 			// Hook for processing extension directories
 			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
@@ -92,6 +115,24 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
+
+			$mail = new MW_Mail_Typo3( t3lib_div::makeInstance( 't3lib_mail_Message' ) );
+			$context->setMail( $mail );
+
+			$i18n = $this->_createI18n( $arcavias, $context );
+			$context->setI18n( $i18n );
+
+			$view = $this->_createView( $conf );
+			$context->setView( $view );
+
+			$langid = 'en';
+			if( isset( $GLOBALS['BE_USER']->user['lang'] ) && $GLOBALS['BE_USER']->user['lang'] != '' ) {
+				$langid = $GLOBALS['BE_USER']->user['lang'];
+			}
+
+			$localeItem = MShop_Locale_Manager_Factory::createManager( $context )->createItem();
+			$localeItem->setLanguageId( $langid );
+			$context->setLocale( $localeItem );
 
 			$context->setEditor( 'scheduler' );
 
@@ -132,44 +173,5 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 		}
 
 		return self::$_arcavias;
-	}
-
-
-	/**
-	 * Starts a new transaction for the current connection.
-	 */
-	protected function _beginTx()
-	{
-		$dbm = $this->_getContext()->getDatabaseManager();
-
-		$conn = $dbm->acquire();
-		$conn->begin();
-		$dbm->release( $conn );
-	}
-
-
-	/**
-	 * Commits an existing transaction for the current connection.
-	 */
-	protected function _commitTx()
-	{
-		$dbm = $this->_getContext()->getDatabaseManager();
-
-		$conn = $dbm->acquire();
-		$conn->commit();
-		$dbm->release( $conn );
-	}
-
-
-	/**
-	 * Rolls back an existing transaction for the current connection.
-	 */
-	protected function _rollbackTx()
-	{
-		$dbm = $this->_getContext()->getDatabaseManager();
-
-		$conn = $dbm->acquire();
-		$conn->rollback();
-		$dbm->release( $conn );
 	}
 }
