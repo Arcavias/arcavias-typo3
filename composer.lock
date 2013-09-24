@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "b0d4ddb611f3c2daa42dff6e09ba2a4d70dfbb63"
+                "reference": "8b6d920799047b3a076eaee543b9ecd0e3fba072"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/b0d4ddb611f3c2daa42dff6e09ba2a4d70dfbb63",
-                "reference": "b0d4ddb611f3c2daa42dff6e09ba2a4d70dfbb63",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/8b6d920799047b3a076eaee543b9ecd0e3fba072",
+                "reference": "8b6d920799047b3a076eaee543b9ecd0e3fba072",
                 "shasum": ""
             },
             "require": {
@@ -39,6 +39,7 @@
                     "Client_Html": "client/html/src",
                     "Controller_Frontend": "controller/frontend/src",
                     "Controller_ExtJS": "controller/extjs/src",
+                    "Controller_Jobs": "controller/jobs/src",
                     "": [
                         "lib/mwlib/lib",
                         "."
@@ -51,6 +52,7 @@
                     "client/html/src",
                     "controller/frontend/src",
                     "controller/extjs/src",
+                    "controller/jobs/src",
                     "Arcavias.php"
                 ]
             },
@@ -66,7 +68,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-07-30 12:30:02"
+            "time": "2013-09-24 16:07:52"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -74,12 +76,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "53c76ad094fbfe35b0a10f6c4ab3c74b867383da"
+                "reference": "c41002b1d935e1c6d3467615bf40ac949f8316c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/53c76ad094fbfe35b0a10f6c4ab3c74b867383da",
-                "reference": "53c76ad094fbfe35b0a10f6c4ab3c74b867383da",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/c41002b1d935e1c6d3467615bf40ac949f8316c8",
+                "reference": "c41002b1d935e1c6d3467615bf40ac949f8316c8",
                 "shasum": ""
             },
             "require": {
@@ -101,7 +103,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2013-07-30 11:58:44"
+            "time": "2013-09-13 15:38:10"
         },
         {
             "name": "arcavias/extension-installer",

@@ -6,28 +6,22 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="catalog.name">Arcavias catalog indexer</label>
-			<label index="catalog.description">Recreates the catalog index for one or more sites</label>
-			<label index="catalog.label.sitecode">Sites</label>
-			<label index="catalog.error.sitecode">One or more sites is invalid or already disabled</label>
-
-			<label index="maintenance.name">Arcavias maintenance tasks</label>
-			<label index="maintenance.description">Runs the periodic tasks of the shop</label>
-			<label index="maintenance.label.name">Name in e-mail "From" header</label>
-			<label index="maintenance.label.email">Sender e-mail address in "From" header</label>
-			<label index="maintenance.error.email">Invalid e-mail address</label>
+			<label index="default.name">Arcavias scheduler</label>
+			<label index="default.description">Executes the selected Arcavias jobs</label>
+			<label index="default.label.controller">Jobs</label>
+			<label index="default.label.sitecode">Sites</label>
+			<label index="default.error.sitecode">One or more sites is invalid or already disabled</label>
+			<label index="default.error.sitecode.missing">Please choose at least one site</label>
+			<label index="default.error.controller.missing">Please choose at least one job</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="catalog.name">Indizierung des Arcavias Produktkatalogs</label>
-			<label index="catalog.description">Erstellt den Katalog-Index für einen oder mehreren Mandanten</label>
-			<label index="catalog.label.sitecode">Mandanten</label>
-			<label index="catalog.error.sitecode">Ein oder mehrere Mandanten sind ungültig oder wurden deaktiviert</label>
-
-			<label index="maintenance.name">Wartungsaufgaben des Arcavias Shops</label>
-			<label index="maintenance.description">Führt die wiederkehrenden Aufgaben des Shops aus</label>
-			<label index="maintenance.label.name">Name des E-Mail Absenders</label>
-			<label index="maintenance.label.email">Absender E-Mail Adresse</label>
-			<label index="maintenance.error.email">Ungültige E-Mail Adresse</label>
+			<label index="default.name">Arcavias Aufgaben</label>
+			<label index="default.description">Führt die ausgewählten Arcavias Aufgaben aus</label>
+			<label index="default.label.controller">Aufgaben</label>
+			<label index="default.label.sitecode">Mandanten</label>
+			<label index="default.error.sitecode">Ein oder mehrere Mandanten sind ungültig oder wurden deaktiviert</label>
+			<label index="default.error.sitecode.missing">Bitte wählen sie mindestens eine Site aus</label>
+			<label index="default.error.controller.missing">Bitte wählen sie mindestens eine Aufgabe aus</label>
 		</languageKey>
 	</data>
 </T3locallang>
