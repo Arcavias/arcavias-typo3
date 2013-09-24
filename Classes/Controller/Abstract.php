@@ -18,11 +18,11 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  */
 abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller_ActionController
 {
-	static private $_i18n;
 	static private $_config;
 	static private $_context;
 	static private $_arcavias;
 	static private $_extConfig;
+	static private $_i18n = array();
 
 
 	/**
@@ -55,13 +55,19 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function _createView()
 	{
+		$langid = 'en';
+		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+			$langid = $GLOBALS['TSFE']->config['config']['language'];
+		}
+		$i18n = $this->_getI18n( array( $langid ) );
+
 		$config = $this->_getContext()->getConfig();
 		$view = new MW_View_Default();
 
 		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
 		$view->addHelper( 'url', $helper );
 
-		$helper = new MW_View_Helper_Translate_Default( $view, $this->_getI18n() );
+		$helper = new MW_View_Helper_Translate_Default( $view, $i18n[$langid] );
 		$view->addHelper( 'translate', $helper );
 
 		$helper = new MW_View_Helper_Parameter_Default( $view, $this->request->getArguments() );
@@ -185,8 +191,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
 
-			$context->setI18n( $this->_getI18n() );
-
 
 			$langid = 'en';
 			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
@@ -199,6 +203,8 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
 			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
 			$context->setLocale( $locale );
+
+			$context->setI18n( $this->_getI18n( array( $langid ) ) );
 
 
 			$username = $userid = null;
@@ -248,43 +254,43 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 
 	/**
-	 * Creates a new translation object.
+	 * Creates new translation objects.
 	 *
-	 * @return MW_Translation_Interface Configuration object
+	 * @param array $langIds List of two letter ISO language IDs
+	 * @return array List of translation objects implementing MW_Translation_Interface
 	 */
-	protected function _getI18n()
+	protected function _getI18n( array $languageIds )
 	{
-		if( !isset( self::$_i18n ) )
+		$i18nPaths = $this->_getArcavias()->getI18nPaths();
+
+		foreach( $languageIds as $langid )
 		{
-			$langid = 'en';
-			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-				$langid = $GLOBALS['TSFE']->config['config']['language'];
-			}
-
-			$i18nPaths = $this->_getArcavias()->getI18nPaths();
-			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $langid, array( 'disableNotices' => true ) );
-
-			if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
+			if( !isset( self::$_i18n[$langid] ) )
 			{
-				$prefix = ( isset( $this->_settings['apc']['prefix'] ) ? $this->settings['apc']['prefix'] : '' );
-				$i18n = new MW_Translation_Decorator_APC( $i18n, $prefix );
-			}
+				$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $langid, array( 'disableNotices' => true ) );
 
-			if( isset( $this->settings['i18n'][$langid] ) )
-			{
-				$translations = array();
-
-				foreach( (array) $this->settings['i18n'][$langid] as $entry )
+				if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
 				{
-					if( isset( $entry['domain'] ) && isset( $entry['string'] ) && isset( $entry['trans'] ) ) {
-						$translations[$entry['domain']][$entry['string']] = (array) $entry['trans'];
-					}
+					$prefix = ( isset( $this->_settings['apc']['prefix'] ) ? $this->settings['apc']['prefix'] : '' );
+					$i18n = new MW_Translation_Decorator_APC( $i18n, $prefix );
 				}
 
-				return new MW_Translation_Decorator_Memory( $i18n, $translations );
-			}
+				if( isset( $this->settings['i18n'][$langid] ) )
+				{
+					$translations = array();
 
-			self::$_i18n = $i18n;
+					foreach( (array) $this->settings['i18n'][$langid] as $entry )
+					{
+						if( isset( $entry['domain'] ) && isset( $entry['string'] ) && isset( $entry['trans'] ) ) {
+							$translations[$entry['domain']][$entry['string']] = (array) $entry['trans'];
+						}
+					}
+
+					$i18n = new MW_Translation_Decorator_Memory( $i18n, $translations );
+				}
+
+				self::$_i18n[$langid] = $i18n;
+			}
 		}
 
 		return self::$_i18n;
