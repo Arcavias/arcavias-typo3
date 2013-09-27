@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "8b6d920799047b3a076eaee543b9ecd0e3fba072"
+                "reference": "773f54b62aa40638772b6fc1a4659d83b462cbae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/8b6d920799047b3a076eaee543b9ecd0e3fba072",
-                "reference": "8b6d920799047b3a076eaee543b9ecd0e3fba072",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/773f54b62aa40638772b6fc1a4659d83b462cbae",
+                "reference": "773f54b62aa40638772b6fc1a4659d83b462cbae",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-09-24 16:07:52"
+            "time": "2013-09-27 10:13:39"
         },
         {
             "name": "arcavias/ext-typo3",
