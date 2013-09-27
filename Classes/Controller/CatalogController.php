@@ -53,6 +53,18 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 
 
 	/**
+	 * Renders the catalog stock section.
+	 */
+	public function stockAction()
+	{
+		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+		$client = Client_Html_Catalog_Stock_Factory::createClient( $this->_getContext(), $templatePaths );
+
+		return $this->_getClientOutput( $client );
+	}
+
+
+	/**
 	 * Renders the catalog list section.
 	 */
 	public function listAction()
