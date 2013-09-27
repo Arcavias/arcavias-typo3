@@ -39,6 +39,13 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
+	'catalog-stock',
+	array( 'Catalog' => 'stock' ),
+	array()
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
 	'catalog-list',
 	array( 'Catalog' => 'list' ),
 	array()
