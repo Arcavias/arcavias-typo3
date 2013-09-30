@@ -19,6 +19,7 @@ class tx_arcavias_scheduler_default
 {
 	private $_fieldSite = 'arcavias_sitecode';
 	private $_fieldController = 'arcavias_controller';
+	private $_fieldTSconfig = 'arcavias_config';
 
 
 	/**
@@ -30,7 +31,7 @@ class tx_arcavias_scheduler_default
 	{
 		try
 		{
-			$context = $this->_getContext();
+			$context = $this->_getContext( $this->_parseTS( $this->{$this->_fieldTSconfig} ) );
 		}
 		catch( Exception $e )
 		{
@@ -132,6 +133,24 @@ class tx_arcavias_scheduler_default
 				'cshKey'   => 'xMOD_tx_arcavias',
 				'cshLabel' => $this->_fieldSite
 			);
+
+
+			// In case of editing a task, set to the internal value if data wasn't already submitted
+			if( empty( $taskInfo[$this->_fieldTSconfig] ) && $parentObject->CMD === 'edit' ) {
+				$taskInfo[$this->_fieldTSconfig] = $task->{$this->_fieldTSconfig};
+			}
+
+			$taskInfo[$this->_fieldTSconfig] = (string) $taskInfo[$this->_fieldTSconfig];
+
+			$fieldStr = '<textarea name="tx_scheduler[%1$s]" id="%1$s" rows="20" cols="80" >%2$s</textarea>';
+			$fieldCode = sprintf( $fieldStr, $this->_fieldTSconfig, $taskInfo[$this->_fieldTSconfig] );
+
+			$additionalFields[$this->_fieldTSconfig] = array(
+				'code'     => $fieldCode,
+				'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.label.tsconfig',
+				'cshKey'   => 'xMOD_tx_arcavias',
+				'cshLabel' => $this->_fieldTSconfig
+			);
 		}
 		catch( Exception $e )
 		{
@@ -155,6 +174,7 @@ class tx_arcavias_scheduler_default
 	{
 		$task->{$this->_fieldSite} = $submittedData[$this->_fieldSite];
 		$task->{$this->_fieldController} = $submittedData[$this->_fieldController];
+		$task->{$this->_fieldTSconfig} = $submittedData[$this->_fieldTSconfig];
 	}
 
 
@@ -178,6 +198,8 @@ class tx_arcavias_scheduler_default
 			if( count( $submittedData[$this->_fieldSite] ) < 1 ) {
 				throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.sitecode.missing' ) );
 			}
+
+			$this->_parseTS( $submittedData[$this->_fieldTSconfig] );
 
 
 			$context = $this->_getContext();
