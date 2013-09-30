@@ -10,18 +10,22 @@
 			<label index="default.description">Executes the selected Arcavias jobs</label>
 			<label index="default.label.controller">Jobs</label>
 			<label index="default.label.sitecode">Sites</label>
+			<label index="default.label.tsconfig">TypoScript configuration</label>
 			<label index="default.error.sitecode">One or more sites is invalid or already disabled</label>
 			<label index="default.error.sitecode.missing">Please choose at least one site</label>
 			<label index="default.error.controller.missing">Please choose at least one job</label>
+			<label index="default.error.tsconfig.invalid">The TypoScript configuration is invalid</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="default.name">Arcavias Aufgaben</label>
 			<label index="default.description">Führt die ausgewählten Arcavias Aufgaben aus</label>
 			<label index="default.label.controller">Aufgaben</label>
 			<label index="default.label.sitecode">Mandanten</label>
+			<label index="default.label.tsconfig">TypoScript Konfiguration</label>
 			<label index="default.error.sitecode">Ein oder mehrere Mandanten sind ungültig oder wurden deaktiviert</label>
 			<label index="default.error.sitecode.missing">Bitte wählen sie mindestens eine Site aus</label>
 			<label index="default.error.controller.missing">Bitte wählen sie mindestens eine Aufgabe aus</label>
+			<label index="default.error.tsconfig.invalid">Die TypoScript Konfiguration ist ungültig</label>
 		</languageKey>
 	</data>
 </T3locallang>
