@@ -3,13 +3,12 @@ php:
   - "5.4"
   - "5.3"
 before_script:
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install
+  - composer install
   - pear channel-discover pear.phing.info
   - pear install phing/phing
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
   - mysql -e 'create database arcavias;'
-  - cp vendor/arcavias/arcavias-core/config/.resource.php.ci vendor/arcavias/arcavias-core/config/resource.php
-  - cp vendor/arcavias/arcavias-core/lib/mwlib/tests/config/.resource.php.ci vendor/arcavias/arcavias-core/lib/mwlib/tests/config/resource.php
+  - echo "<?php return array( 'db' => array( 'adapter' => 'mysql', 'host' => '127.0.0.1', 'database' => 'arcavias', 'username' => 'root', 'password' => '', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array( \"SET NAMES 'utf8'\", \"SET SESSION sql_mode='ANSI'\" ) ) );" > vendor/arcavias/arcavias-core/config/resource.php
+  - echo "<?php return array( 'db' => array( 'adapter' => 'mysql', 'host' => '127.0.0.1', 'database' => 'arcavias', 'username' => 'root', 'password' => '', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array( \"SET NAMES 'utf8'\", \"SET SESSION sql_mode='ANSI'\" ) ) );" > vendor/arcavias/arcavias-core/lib/mwlib/tests/config/resource.php
 script: "phing"

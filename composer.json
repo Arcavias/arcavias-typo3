@@ -14,7 +14,8 @@
 		"php": ">=5.2.0",
 		"arcavias/arcavias-core": "dev-master",
         "arcavias/extension-installer": "dev-master",
-		"arcavias/ext-typo3": "dev-master"
+		"arcavias/ext-typo3": "dev-master",
+		"arcavias/ext-zend": "dev-master"
 	},
 	"include-path": ["Resources/Private/Libraries/zendlib"],
     "extra": {
