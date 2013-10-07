@@ -67,12 +67,12 @@
 
 
 	<target name="update" description="Updates the Arcavias core">
-		<delete dir="vendor/arcavias/arcavias-core" quiet="true" failonerror="false" />
 		<exec command="git pull" checkreturn="true" logoutput="true" />
 		<exec command="composer update" checkreturn="true" logoutput="true" />
+		<copy todir="Resources/Public/html/">
+			<fileset dir="${coredir}/client/html/lib/" expandsymboliclinks="true" />
+		</copy>
 		<phing target="build" dir="${coredir}" />
-		<delete dir="vendor/arcavias/arcavias-core/dev" quiet="true" failonerror="false" />
-		<exec command="rsync --recursive ${coredir}/client/html/lib/ ./Resources/Public/html/" checkreturn="true" logoutput="true" />
 	</target>
 
 

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f63bd386c61a33849485e8e393bb2470",
+    "hash": "b883a7ee478698032fb6c128b17da327",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "21619adc54afffd1169e76fdd10aa00d2ad47535"
+                "reference": "9a58363bac076458c8c09102297e46ff1b2f5ed2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/21619adc54afffd1169e76fdd10aa00d2ad47535",
-                "reference": "21619adc54afffd1169e76fdd10aa00d2ad47535",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/9a58363bac076458c8c09102297e46ff1b2f5ed2",
+                "reference": "9a58363bac076458c8c09102297e46ff1b2f5ed2",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-09-30 08:23:58"
+            "time": "2013-10-05 16:25:45"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -76,12 +76,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "c41002b1d935e1c6d3467615bf40ac949f8316c8"
+                "reference": "f4075e7c2498a58258ce32aab117d1d1ee42e10e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/c41002b1d935e1c6d3467615bf40ac949f8316c8",
-                "reference": "c41002b1d935e1c6d3467615bf40ac949f8316c8",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/f4075e7c2498a58258ce32aab117d1d1ee42e10e",
+                "reference": "f4075e7c2498a58258ce32aab117d1d1ee42e10e",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,41 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2013-09-13 15:38:10"
+            "time": "2013-10-07 09:41:44"
+        },
+        {
+            "name": "arcavias/ext-zend",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Arcavias/ext-zend.git",
+                "reference": "11a316a2a394f07b9742a959f9c35b092b9edf72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Arcavias/ext-zend/zipball/11a316a2a394f07b9742a959f9c35b092b9edf72",
+                "reference": "11a316a2a394f07b9742a959f9c35b092b9edf72",
+                "shasum": ""
+            },
+            "require": {
+                "arcavias/extension-installer": "dev-master"
+            },
+            "type": "arcavias-extension",
+            "autoload": {
+                "psr-0": {
+                    "MW": "lib/custom/src"
+                },
+                "classmap": [
+                    "lib/custom/src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "Arcavias extension for utilizing Zend Framework components",
+            "homepage": "http://www.arcavias.com/en",
+            "time": "2013-10-07 09:40:16"
         },
         {
             "name": "arcavias/extension-installer",
@@ -147,7 +181,8 @@
     "stability-flags": {
         "arcavias/arcavias-core": 20,
         "arcavias/extension-installer": 20,
-        "arcavias/ext-typo3": 20
+        "arcavias/ext-typo3": 20,
+        "arcavias/ext-zend": 20
     },
     "platform": {
         "php": ">=5.2.0"
