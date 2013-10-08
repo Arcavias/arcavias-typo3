@@ -61,6 +61,7 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 
 
 		$this->view->assign( 'htmlHeader', $html );
+		$this->view->assign( 'config', $this->_getJsonClientConfig() );
 		$this->view->assign( 'site', $this->_getSite( $this->request ) );
 		$this->view->assign( 'smd', $this->_controller->getJsonSmd( $serviceUrl ) );
 		$this->view->assign( 'itemSchemas', $this->_controller->getJsonItemSchemas() );
@@ -104,6 +105,13 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	protected function resolveView()
 	{
 		return Tx_Extbase_MVC_Controller_ActionController::resolveView();
+	}
+
+
+	protected function _getJsonClientConfig()
+	{
+		$config = $this->_getContext()->getConfig()->get( 'client/extjs', array() );
+		return json_encode( array( 'client' => array( 'extjs' => $config ) ), JSON_FORCE_OBJECT );
 	}
 
 
