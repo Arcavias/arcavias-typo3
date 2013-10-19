@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b883a7ee478698032fb6c128b17da327",
+    "hash": "aea515366d3aee74cb6c150c60be8c4e",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
@@ -11,15 +11,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "9a58363bac076458c8c09102297e46ff1b2f5ed2"
+                "reference": "bfa37f7ae925c460ea9b664853f6ef547ec03807"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/9a58363bac076458c8c09102297e46ff1b2f5ed2",
-                "reference": "9a58363bac076458c8c09102297e46ff1b2f5ed2",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/bfa37f7ae925c460ea9b664853f6ef547ec03807",
+                "reference": "bfa37f7ae925c460ea9b664853f6ef547ec03807",
                 "shasum": ""
             },
             "require": {
+                "arcavias/ext-phpexcel": "dev-master",
                 "arcavias/extension-installer": "dev-master",
                 "ext-curl": "*",
                 "ext-dom": "*",
@@ -68,7 +69,43 @@
                 "portal",
                 "shop"
             ],
-            "time": "2013-10-05 16:25:45"
+            "time": "2013-10-18 20:55:04"
+        },
+        {
+            "name": "arcavias/ext-phpexcel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Arcavias/ext-phpexcel.git",
+                "reference": "e9b256f635c1f2c0e06dc322d1e221169417ae4e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Arcavias/ext-phpexcel/zipball/e9b256f635c1f2c0e06dc322d1e221169417ae4e",
+                "reference": "e9b256f635c1f2c0e06dc322d1e221169417ae4e",
+                "shasum": ""
+            },
+            "require": {
+                "arcavias/extension-installer": "dev-master"
+            },
+            "type": "arcavias-extension",
+            "autoload": {
+                "psr-0": {
+                    "MW": "lib/custom/src",
+                    "PHPExcel": "lib/phpexcel"
+                },
+                "classmap": [
+                    "lib/custom/src",
+                    "lib/phpexcel"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "Arcavias extension for providing PHPExcel containers",
+            "homepage": "http://www.arcavias.com/en",
+            "time": "2013-10-07 17:17:39"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -76,12 +113,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "f4075e7c2498a58258ce32aab117d1d1ee42e10e"
+                "reference": "47de7c23cc8f84135d89c631c9ac62df48d51f38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/f4075e7c2498a58258ce32aab117d1d1ee42e10e",
-                "reference": "f4075e7c2498a58258ce32aab117d1d1ee42e10e",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/47de7c23cc8f84135d89c631c9ac62df48d51f38",
+                "reference": "47de7c23cc8f84135d89c631c9ac62df48d51f38",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +140,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2013-10-07 09:41:44"
+            "time": "2013-10-08 21:21:43"
         },
         {
             "name": "arcavias/ext-zend",
@@ -181,6 +218,7 @@
     "stability-flags": {
         "arcavias/arcavias-core": 20,
         "arcavias/extension-installer": 20,
+        "arcavias/ext-phpexcel": 20,
         "arcavias/ext-typo3": 20,
         "arcavias/ext-zend": 20
     },
