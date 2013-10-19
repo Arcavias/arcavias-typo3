@@ -19,6 +19,7 @@
 			<label index="checkout-standard-summary-option-terms.target">Terms and conditions page</label>
 			<label index="checkout-standard-summary-option-terms-privacy.target">Privacy policy page</label>
 			<label index="checkout-confirm.target">Confirmation page</label>
+			<label index="checkout-update.target">Page with "checkout payment update" plugin</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="catalog-filter.tree-start">Zeige Kategorien erst ab folgendem Knoten an</label>
@@ -34,6 +35,7 @@
 			<label index="checkout-standard-summary-option-terms.target">Seite der AGBs</label>
 			<label index="checkout-standard-summary-option-terms-privacy.target">Seite der Datenschutzerklärung</label>
 			<label index="checkout-confirm.target">Bestätigungsseite</label>
+			<label index="checkout-update.target">Seite für Aktualisierungen durch externe Zahlungsdienstleister</label>
 		</languageKey>
 	</data>
 </T3locallang>
