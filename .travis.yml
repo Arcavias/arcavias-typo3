@@ -3,7 +3,7 @@ php:
   - "5.4"
   - "5.3"
 before_script:
-  - composer install
+  - composer -vv install
   - pear channel-discover pear.phing.info
   - pear install phing/phing
   - pear install pear/PHP_CodeSniffer
