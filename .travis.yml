@@ -3,8 +3,8 @@ php:
   - "5.4"
   - "5.3"
 before_script:
-  - curl -sS https://getcomposer.org/installer | php
-  - php composer.phar install
+  - composer install
+  - ln -s ../../../../Resources/Private/Libraries/ext/phpexcel vendor/arcavias/arcavias-core/ext/phpexcel
   - pear channel-discover pear.phing.info
   - pear install phing/phing
   - pear install pear/PHP_CodeSniffer

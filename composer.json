@@ -20,6 +20,6 @@
 	},
 	"include-path": ["Resources/Private/Libraries/zendlib"],
 	"extra": {
-		"ext-path": "vendor/arcavias/arcavias-core/ext"
+		"ext-path": "Resources/Private/Libraries/ext/"
 	}
 }

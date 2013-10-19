@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2149d5f5541c5bbc23454454df621864",
+    "hash": "e98653d0bc2acb426cc6f88e13b5f0cb",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
