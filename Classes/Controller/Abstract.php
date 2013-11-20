@@ -30,10 +30,25 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function initializeAction()
 	{
-		$this->uriBuilder->setArgumentPrefix( 'arc' );
+		$context = $this->_getContext();
+		$config = $this->_getConfig();
 
 		// Re-initialize the config object because the settings are different due to flexforms
-		$this->_getContext()->setConfig( $this->_getConfig() );
+		$context->setConfig( $config );
+
+		$langid = 'en';
+		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+			$langid = $GLOBALS['TSFE']->config['config']['language'];
+		}
+
+		$sitecode = $config->get( 'mshop/locale/site', 'default' );
+		$currency = $config->get( 'mshop/locale/currency', 'EUR' );
+
+		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+		$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
+		$context->setLocale( $locale );
+
+		$this->uriBuilder->setArgumentPrefix( 'arc' );
 	}
 
 
@@ -197,27 +212,14 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 				$langid = $GLOBALS['TSFE']->config['config']['language'];
 			}
 
-			$sitecode = $config->get( 'mshop/locale/site', 'default' );
-			$currency = $config->get( 'mshop/locale/currency', 'EUR' );
-
-			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
-			$context->setLocale( $locale );
-
 			$context->setI18n( $this->_getI18n( array( $langid ) ) );
 
 
-			$username = $userid = null;
-
-			if( TYPO3_MODE === 'BE' ) {
-				$username = $GLOBALS['BE_USER']->user['username'];
-			} elseif( TYPO3_MODE === 'FE' && $GLOBALS['TSFE']->loginUser == 1 ) {
-				$username = $GLOBALS['TSFE']->fe_user->user['username'];
-				$userid = $GLOBALS['TSFE']->fe_user->user[$GLOBALS['TSFE']->fe_user->userid_column];
+			if( TYPO3_MODE === 'FE' && $GLOBALS['TSFE']->loginUser == 1 )
+			{
+				$context->setEditor( $GLOBALS['TSFE']->fe_user->user['username'] );
+				$context->setUserId( $GLOBALS['TSFE']->fe_user->user[$GLOBALS['TSFE']->fe_user->userid_column] );
 			}
-
-			$context->setEditor( $username );
-			$context->setUserId( $userid );
 
 
 			self::$_context = $context;
