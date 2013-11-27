@@ -25,14 +25,13 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	/**
 	 * Creates new translation objects.
 	 *
-	 * @param Arcavias $arcavias Arcavias object
 	 * @param MShop_Context_Item_Interface $context Context object
+	 * @param array List of paths to the i18n files
 	 * @return array List of translation objects implementing MW_Translation_Interface
 	 */
-	protected function _createI18n( Arcavias $arcavias, MShop_Context_Item_Interface $context )
+	protected function _createI18n( MShop_Context_Item_Interface $context, array $i18nPaths )
 	{
 		$list = array();
-		$i18nPaths = $arcavias->getI18nPaths();
 		$langManager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'language' );
 
 		foreach( $langManager->searchItems( $langManager->createSearch( true ) ) as $id => $langItem )
@@ -120,20 +119,11 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			$mail = new MW_Mail_Typo3( t3lib_div::makeInstance( 't3lib_mail_Message' ) );
 			$context->setMail( $mail );
 
-			$i18n = $this->_createI18n( $arcavias, $context );
+			$i18n = $this->_createI18n( $context, $arcavias->getI18nPaths() );
 			$context->setI18n( $i18n );
 
 			$view = $this->_createView( $conf );
 			$context->setView( $view );
-
-			$langid = 'en';
-			if( isset( $GLOBALS['BE_USER']->user['lang'] ) && $GLOBALS['BE_USER']->user['lang'] != '' ) {
-				$langid = $GLOBALS['BE_USER']->user['lang'];
-			}
-
-			$localeItem = MShop_Locale_Manager_Factory::createManager( $context )->createItem();
-			$localeItem->setLanguageId( $langid );
-			$context->setLocale( $localeItem );
 
 			$context->setEditor( 'scheduler' );
 
