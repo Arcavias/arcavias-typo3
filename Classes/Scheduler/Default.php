@@ -47,17 +47,18 @@ class tx_arcavias_scheduler_default
 			$arcavias = $this->_getArcavias();
 			$manager = MShop_Locale_Manager_Factory::createManager( $context );
 
+			$langid = 'en';
+			if( isset( $GLOBALS['BE_USER']->user['lang'] ) && $GLOBALS['BE_USER']->user['lang'] != '' ) {
+				$langid = $GLOBALS['BE_USER']->user['lang'];
+			}
+
 			foreach( (array) $this->{$this->_fieldSite} as $sitecode )
 			{
-				$localeItem = $manager->bootstrap( $sitecode, '', '', false );
-				$localeItem->setLanguageId( null );
-				$localeItem->setCurrencyId( null );
-
-				$localContext = clone $context;
-				$localContext->setLocale( $localeItem );
+				$localeItem = $manager->bootstrap( $sitecode, $langid, '', false );
+				$context->setLocale( $localeItem );
 
 				foreach( (array) $this->{$this->_fieldController} as $name ) {
-					Controller_Jobs_Factory::createController( $localContext, $arcavias, $name )->run();
+					Controller_Jobs_Factory::createController( $context, $arcavias, $name )->run();
 				}
 			}
 		}

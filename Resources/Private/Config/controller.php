@@ -5,27 +5,43 @@
  */
 
 return array(
-	'attribute' =>  array(
-		'import' => array(
-			'text' => array(
-				'default' => array(
-					'uploaddir' => PATH_site . 'typo3temp',
-					'fileperms' => 0660,
-				),
-			),
-		),
-	),
-	'catalog' =>  array(
-		'import' => array(
-			'text' => array(
-				'default' => array(
-					'uploaddir' => PATH_site . 'typo3temp',
-					'fileperms' => 0660,
-				),
-			),
-		),
-	),
 	'extjs' => array(
+		'attribute' =>  array(
+			'import' => array(
+				'text' => array(
+					'default' => array(
+						'uploaddir' => PATH_site . 'typo3temp',
+						'fileperms' => 0660,
+					),
+				),
+			),
+			'export' => array(
+				'text' => array(
+					'default' => array(
+						'downloaddir' => '../typo3temp',
+						'exportdir' => PATH_site . 'typo3temp',
+					),
+				),
+			),
+		),
+		'catalog' =>  array(
+			'import' => array(
+				'text' => array(
+					'default' => array(
+						'uploaddir' => PATH_site . 'typo3temp',
+						'fileperms' => 0660,
+					),
+				),
+			),
+			'export' => array(
+				'text' => array(
+					'default' => array(
+						'downloaddir' => '../typo3temp',
+						'exportdir' => PATH_site . 'typo3temp',
+					),
+				),
+			),
+		),
 		'media' => array(
 			'default' => array(
 
@@ -112,13 +128,21 @@ return array(
 				),
 			),
 		),
-	),
-	'product' =>  array(
-		'import' => array(
-			'text' => array(
-				'default' => array(
-					'uploaddir' => PATH_site . 'typo3temp',
-					'fileperms' => 0660,
+		'product' =>  array(
+			'import' => array(
+				'text' => array(
+					'default' => array(
+						'uploaddir' => PATH_site . 'typo3temp',
+						'fileperms' => 0660,
+					),
+				),
+			),
+			'export' => array(
+				'text' => array(
+					'default' => array(
+						'downloaddir' => '../typo3temp',
+						'exportdir' => PATH_site . 'typo3temp',
+					),
 				),
 			),
 		),
