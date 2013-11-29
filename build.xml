@@ -72,7 +72,6 @@
 		<copy todir="Resources/Public/html/">
 			<fileset dir="${coredir}/client/html/lib/" expandsymboliclinks="true" />
 		</copy>
-		<phing target="build" dir="${coredir}" />
 	</target>
 
 
