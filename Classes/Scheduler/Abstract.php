@@ -127,6 +127,11 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 
 			$context->setEditor( 'scheduler' );
 
+			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+			$localeItem = $localeManager->createItem();
+			$localeItem->setLanguageId( 'en' );
+			$context->setLocale( $localeItem );
+
 
 			self::$_context = $context;
 		}
@@ -185,7 +190,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			throw new Exception( $msg );
 		}
 
-		return $this->convertTypoScriptArrayToPlainArray( $parser->setup );
+		return $this->_convertTypoScriptArrayToPlainArray( $parser->setup );
 	}
 
 
@@ -195,7 +200,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	 * @param array $typoScriptArray TypoScript configuration array
 	 * @return array Multi-dimensional, associative list of key/value pairs without dots in keys
 	 */
-	protected function convertTypoScriptArrayToPlainArray(array $typoScriptArray)
+	protected function _convertTypoScriptArrayToPlainArray(array $typoScriptArray)
 	{
 		foreach ($typoScriptArray as $key => &$value) {
 			if (substr($key, -1) === '.') {
@@ -203,7 +208,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 				$hasNodeWithoutDot = array_key_exists($keyWithoutDot, $typoScriptArray);
 				$typoScriptNodeValue = $hasNodeWithoutDot ? $typoScriptArray[$keyWithoutDot] : NULL;
 				if (is_array($value)) {
-					$typoScriptArray[$keyWithoutDot] = $this->convertTypoScriptArrayToPlainArray($value);
+					$typoScriptArray[$keyWithoutDot] = $this->_convertTypoScriptArrayToPlainArray($value);
 					if (!is_null($typoScriptNodeValue)) {
 						$typoScriptArray[$keyWithoutDot]['_typoScriptNodeValue'] = $typoScriptNodeValue;
 					}

@@ -93,7 +93,9 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 		$context->setConfig( $conf );
 
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-		$context->setLocale( $localeManager->createItem() );
+		$localeItem = $localeManager->createItem();
+		$localeItem->setLanguageId( 'en' );
+		$context->setLocale( $localeItem );
 
 		if( TYPO3_MODE === 'BE' ) {
 			$context->setEditor( $GLOBALS['BE_USER']->user['username'] );
