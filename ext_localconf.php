@@ -20,7 +20,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'catalog-filter',
 	array( 'Catalog' => 'filter' ),
-	array()
+	array( 'Catalog' => 'filter' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
