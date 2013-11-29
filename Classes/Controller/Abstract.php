@@ -172,7 +172,15 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			self::$_config = $conf;
 		}
 
-		return new MW_Config_Decorator_Memory( self::$_config, (array) $this->settings );
+		$settings = (array) $this->settings;
+
+		if( isset( $this->settings['typo3']['tsconfig'] ) )
+		{
+			$tsconfig = $this->_parseTS( $this->settings['typo3']['tsconfig'] );
+			$settings = Tx_Extbase_Utility_Arrays::arrayMergeRecursiveOverrule( $settings, $tsconfig );
+		}
+
+		return new MW_Config_Decorator_Memory( self::$_config, $settings );
 	}
 
 
@@ -313,5 +321,55 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$this->response->addAdditionalHeaderData( $client->getHeader() );
 
 		return $client->getBody();
+	}
+
+
+	/**
+	 * Parses TypoScript configuration string.
+	 *
+	 * @param string $tsString TypoScript string
+	 * @return array Mulit-dimensional, associative list of key/value pairs
+	 * @throws Exception If parsing the configuration string fails
+	 */
+	protected function _parseTS( $tsString )
+	{
+		$parser = t3lib_div::makeInstance( 't3lib_tsparser' );
+		$parser->parse( $tsString );
+
+		if( !empty( $parser->errors ) )
+		{
+			$msg = $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:default.error.tsconfig.invalid' );
+			throw new Exception( $msg );
+		}
+
+		return $this->_convertTypoScriptArrayToPlainArray( $parser->setup );
+	}
+
+
+	/**
+	 * Removes dots from config keys (copied from Extbase TypoScriptService class available since TYPO3 6.0)
+	 *
+	 * @param array $typoScriptArray TypoScript configuration array
+	 * @return array Multi-dimensional, associative list of key/value pairs without dots in keys
+	 */
+	protected function _convertTypoScriptArrayToPlainArray(array $typoScriptArray)
+	{
+		foreach ($typoScriptArray as $key => &$value) {
+			if (substr($key, -1) === '.') {
+				$keyWithoutDot = substr($key, 0, -1);
+				$hasNodeWithoutDot = array_key_exists($keyWithoutDot, $typoScriptArray);
+				$typoScriptNodeValue = $hasNodeWithoutDot ? $typoScriptArray[$keyWithoutDot] : NULL;
+				if (is_array($value)) {
+					$typoScriptArray[$keyWithoutDot] = $this->_convertTypoScriptArrayToPlainArray($value);
+					if (!is_null($typoScriptNodeValue)) {
+						$typoScriptArray[$keyWithoutDot]['_typoScriptNodeValue'] = $typoScriptNodeValue;
+					}
+					unset($typoScriptArray[$key]);
+				} else {
+					$typoScriptArray[$keyWithoutDot] = NULL;
+				}
+			}
+		}
+		return $typoScriptArray;
 	}
 }
