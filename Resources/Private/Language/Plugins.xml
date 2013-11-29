@@ -20,6 +20,8 @@
 			<label index="checkout-standard-summary-option-terms-privacy.target">Privacy policy page</label>
 			<label index="checkout-confirm.target">Confirmation page</label>
 			<label index="checkout-update.target">Page with "checkout payment update" plugin</label>
+			<label index="default.typo3.tsconfig">TypoScript configuration</label>
+			<label index="default.error.tsconfig.invalid">The TypoScript configuration is invalid</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="catalog-filter.tree-start">Zeige Kategorien erst ab folgendem Knoten an</label>
@@ -36,6 +38,8 @@
 			<label index="checkout-standard-summary-option-terms-privacy.target">Seite der Datenschutzerklärung</label>
 			<label index="checkout-confirm.target">Bestätigungsseite</label>
 			<label index="checkout-update.target">Seite für Aktualisierungen durch externe Zahlungsdienstleister</label>
+			<label index="default.typo3.tsconfig">TypoScript Konfiguration</label>
+			<label index="default.error.tsconfig.invalid">Die TypoScript Konfiguration ist ungültig</label>
 		</languageKey>
 	</data>
 </T3locallang>
