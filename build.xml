@@ -4,16 +4,35 @@
 
 	<property name="coredir" value="${project.basedir}/vendor/arcavias/arcavias-core" />
 	<property name="extdir" value="${project.basedir}/Resources/Private/Libraries/ext" />
+	<property name="confdir" value="${project.basedir}/Resources/Private/Config" />
+	<property name="codestddir" value="${coredir}/misc/coding" />
+	
 
 
-	<target name="setup" description="Sets up database incl. unit test data">
-		<echo msg="Setting up test database" />
-		<exec command="php ${coredir}/setup.php --extdir=${extdir} unittest" checkreturn="true" logoutput="true"/>
+	<target name="config" description="Provides the database configuration">
+		<property name="config-available" value="0" />
+		<available file="${coredir}/config/resource.php" property="config-available" value="1" />
+		<if>
+			<equals arg1="${config-available}" arg2="0" />
+			<then>
+				<propertyprompt propertyName="dbhost" promptText="Database host" promptCharacter=":" useExistingValue="true"/>
+				<propertyprompt propertyName="dbname" promptText="Database name" promptCharacter=":" useExistingValue="true"/>
+				<propertyprompt propertyName="dbuser" promptText="Database user" promptCharacter=":" useExistingValue="true"/>
+				<propertyprompt propertyName="dbpass" promptText="Database password" promptCharacter=":" useExistingValue="true"/>
+				<echo file="${coredir}/config/resource.php" msg="&lt;?php return array( 'db' => array( 'adapter' => 'mysql', 'host' => '${dbhost}', 'database' => '${dbname}', 'username' => '${dbuser}', 'password' => '${dbpass}', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array( 'SET NAMES \'utf8\'', 'SET SESSION sql_mode=\'ANSI\'' ) ) );" />
+			</then>
+		</if>
+		<copy file="${coredir}/config/resource.php" tofile="${coredir}/lib/mwlib/config/resource.php" overwrite="true" />
 	</target>
 
-	<target name="setupperf" description="Sets up database incl. performance test data">
+	<target name="setup" depends="config" description="Sets up database incl. unit test data">
+		<echo msg="Setting up test database" />
+		<exec command="php ${coredir}/setup.php --config=${confdir} --config=${coredir}/config --extdir=${extdir} unittest" checkreturn="true" logoutput="true"/>
+	</target>
+
+	<target name="setupperf" depends="config" description="Sets up database incl. performance test data">
 		<echo msg="Setting up performance data" />
-		<exec command="php ${coredir}/setup.php --extdir=${extdir} unitperf" checkreturn="true" logoutput="true"/>
+		<exec command="php ${coredir}/setup.php --config=${confdir} --config=${coredir}/config --extdir=${extdir} unitperf" checkreturn="true" logoutput="true"/>
 	</target>
 
 
@@ -57,6 +76,8 @@
 
 
 	<target name="clean" description="Cleans up temporary files">
+		<delete file="${coredir}/config/resource.php" quiet="true" />
+		<delete file="${coredir}/lib/mwlib/config/resource.php" quiet="true" />
 		<phing target="clean" dir="${coredir}" />
 		<phing target="clean">
 			<fileset dir="${extdir}" expandsymboliclinks="true" >
@@ -94,6 +115,6 @@
 	</target>
 
 
-	<target name="all" depends="setup,test,check" description="Executes all essential targets for testing" />
+	<target name="all" depends="setup,test,check,clean" description="Executes all essential targets for testing" />
 
 </project>
