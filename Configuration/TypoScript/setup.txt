@@ -18,11 +18,17 @@ plugin.tx_arcavias {
 					content.baseurl = uploads/tx_arcavias/
 					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/
 				}
-				catalog.listsimple.url.config {
-					type = 18311919
-					chash = 0
+				catalog {
+					list.search.url.config {
+						nocache = 1
+						chash = 1
+					}
+					listsimple.url.config {
+						type = 18311919
+						chash = 0
+					}
+					stock.url.config.type = 18311919
 				}
-				catalog.stock.url.config.type = 18311919
 				checkout {
 					confirm.url.config {
 						absoluteUri = 1
