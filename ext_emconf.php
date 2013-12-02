@@ -38,6 +38,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'static_info_tables' => '1.8.0-6.99.99',
 		),
 		'conflicts' => array(
+			'jquerycolorbox' => '0.0.0-0.0.1',
 		),
 		'suggests' => array(
 			'realurl' => '1.10.0-1.99.99',
