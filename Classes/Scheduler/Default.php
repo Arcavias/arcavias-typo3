@@ -250,14 +250,9 @@ class tx_arcavias_scheduler_default
 		$context = $this->_getContext();
 		$manager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
 
-		$search = $manager->createSearch( true );
-		$expr = array(
-			$search->getConditions(),
-			$search->compare( '==', 'locale.site.level', 0 ),
-		);
-		$search->setConditions( $search->combine( '&&', $expr ) );
+		$search = $manager->createSearch();
+		$search->setConditions( $search->compare( '==', 'locale.site.level', 0 ) );
 		$search->setSortations( array( $search->sort( '+', 'locale.site.label' ) ) );
-
 
 		$sites = $manager->searchItems( $search );
 
@@ -286,8 +281,9 @@ class tx_arcavias_scheduler_default
 		foreach( $siteItems as $item )
 		{
 			$active = ( in_array( $item->getCode(), $selected ) ? 'selected="selected"' : '' );
-			$string = '<option value="%1$s" %2$s>%3$s</option>';
-			$html .= sprintf( $string, $item->getCode(), $active, $prefix . $item->getLabel() );
+			$disabled = ( $item->getStatus() > 0 ? '' : 'disabled="disabled"' );
+			$string = '<option value="%1$s" %2$s %3$s>%4$s</option>';
+			$html .= sprintf( $string, $item->getCode(), $active, $disabled, $prefix . $item->getLabel() );
 
 			$html .= $this->_getSiteOptions( $item->getChildren(), $selected, $level+1 );
 		}
