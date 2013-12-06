@@ -48,6 +48,8 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
 		$context->setLocale( $locale );
 
+		$context->setI18n( $this->_getI18n( array( $locale->getLanguageId() ) ) );
+
 		$this->uriBuilder->setArgumentPrefix( 'arc' );
 	}
 
@@ -70,13 +72,12 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function _createView()
 	{
-		$langid = 'en';
-		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-			$langid = $GLOBALS['TSFE']->config['config']['language'];
-		}
+		$context = $this->_getContext();
+		$config = $context->getConfig();
+
+		$langid = $context->getLocale()->getLanguageId();
 		$i18n = $this->_getI18n( array( $langid ) );
 
-		$config = $this->_getContext()->getConfig();
 		$view = new MW_View_Default();
 
 		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
@@ -211,15 +212,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
-
-
-			$langid = 'en';
-			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-				$langid = $GLOBALS['TSFE']->config['config']['language'];
-			}
-
-			$context->setI18n( $this->_getI18n( array( $langid ) ) );
-
 
 			if( TYPO3_MODE === 'FE' && $GLOBALS['TSFE']->loginUser == 1 )
 			{

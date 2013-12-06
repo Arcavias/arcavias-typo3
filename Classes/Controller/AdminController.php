@@ -87,19 +87,24 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	 */
 	protected function initializeAction()
 	{
+		$langid = 'en';
+		if( isset( $GLOBALS['BE_USER']->uc['lang'] ) ) {
+			$langid = $GLOBALS['BE_USER']->uc['lang'];
+		}
+
 		$context = $this->_getContext();
 
 		$conf = $this->_getConfig( ( is_array( $this->settings ) ? $this->settings : array() ) );
 		$context->setConfig( $conf );
 
+		$context->setI18n( $this->_getI18n( array( $langid ) ) );
+
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
 		$localeItem = $localeManager->createItem();
-		$localeItem->setLanguageId( 'en' );
+		$localeItem->setLanguageId( $langid );
 		$context->setLocale( $localeItem );
 
-		if( TYPO3_MODE === 'BE' ) {
-			$context->setEditor( $GLOBALS['BE_USER']->user['username'] );
-		}
+		$context->setEditor( $GLOBALS['BE_USER']->user['username'] );
 	}
 
 
