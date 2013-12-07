@@ -98,13 +98,12 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 		$context->setConfig( $conf );
 
 		$context->setI18n( $this->_getI18n( array( $langid ) ) );
+		$context->setEditor( $GLOBALS['BE_USER']->user['username'] );
 
 		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
 		$localeItem = $localeManager->createItem();
 		$localeItem->setLanguageId( $langid );
 		$context->setLocale( $localeItem );
-
-		$context->setEditor( $GLOBALS['BE_USER']->user['username'] );
 	}
 
 
