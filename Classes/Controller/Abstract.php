@@ -18,6 +18,7 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  */
 abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller_ActionController
 {
+	static private $_locale;
 	static private $_config;
 	static private $_context;
 	static private $_arcavias;
@@ -36,19 +37,24 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		// Re-initialize the config object because the settings are different due to flexforms
 		$context->setConfig( $config );
 
-		$langid = 'en';
-		if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
-			$langid = $GLOBALS['TSFE']->config['config']['language'];
+		if( !isset( self::$_locale ) )
+		{
+			$langid = 'en';
+			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
+				$langid = $GLOBALS['TSFE']->config['config']['language'];
+			}
+
+			$sitecode = $config->get( 'mshop/locale/site', 'default' );
+			$currency = $config->get( 'mshop/locale/currency', 'EUR' );
+
+			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
+			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
+
+			self::$_locale = $locale;
 		}
 
-		$sitecode = $config->get( 'mshop/locale/site', 'default' );
-		$currency = $config->get( 'mshop/locale/currency', 'EUR' );
-
-		$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
-		$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
-		$context->setLocale( $locale );
-
-		$context->setI18n( $this->_getI18n( array( $locale->getLanguageId() ) ) );
+		$context->setLocale( self::$_locale );
+		$context->setI18n( $this->_getI18n( array( self::$_locale->getLanguageId() ) ) );
 
 		$this->uriBuilder->setArgumentPrefix( 'arc' );
 	}

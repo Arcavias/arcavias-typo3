@@ -28,6 +28,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'typo3' => '4.5.0-6.2.99',
 			'extbase' => '1.3.2-6.99.99',
 			'scheduler' => '1.1.0-6.99.99',
+			'static_info_tables' => '1.8.0-6.99.99',
 		),
 		'conflicts' => array(
 			'jquerycolorbox' => '0.0.0-0.0.1',
@@ -35,7 +36,6 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 			'realurl' => '1.10.0-1.99.99',
 			'sr_feuser_register' => '2.6.3-3.99.99',
-			'static_info_tables' => '1.8.0-6.99.99',
 		),
 	),
 );
