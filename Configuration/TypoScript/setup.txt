@@ -15,8 +15,8 @@ plugin.tx_arcavias {
 		client {
 			html {
 				common {
-					content.baseurl = uploads/tx_arcavias/
-					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/
+					content.baseurl = uploads/tx_arcavias
+					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html
 				}
 				catalog {
 					list.search.url.config {
