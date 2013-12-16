@@ -29,13 +29,13 @@ $EM_CONF[$_EXTKEY] = array(
 			'extbase' => '1.3.2-6.99.99',
 			'scheduler' => '1.1.0-6.99.99',
 			'static_info_tables' => '1.8.0-6.99.99',
-			'datamints_feuser' => '0.6.4-1.99.99',
 		),
 		'conflicts' => array(
 			'jquerycolorbox' => '0.0.0-0.0.1',
 		),
 		'suggests' => array(
 			'realurl' => '1.10.0-1.99.99',
+			'datamints_feuser' => '0.6.4-1.99.99',
 			'sr_feuser_register' => '2.6.3-3.99.99',
 		),
 	),
