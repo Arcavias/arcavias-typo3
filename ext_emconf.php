@@ -35,6 +35,7 @@ $EM_CONF[$_EXTKEY] = array(
 		),
 		'suggests' => array(
 			'realurl' => '1.10.0-1.99.99',
+			'datamints_feuser' => '0.6.4-1.99.99',
 			'sr_feuser_register' => '2.6.3-3.99.99',
 		),
 	),
