@@ -245,7 +245,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		if( self::$_extConfig === null )
 		{
 			if( ( $conf = unserialize( $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['arcavias'] ) ) === false ) {
-				throw new Exception( 'Unable to get extension configuration' );
+				$conf = array();
 			}
 
 			self::$_extConfig = $conf;
