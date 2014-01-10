@@ -5,6 +5,11 @@ $extensionPath = t3lib_extMgm::extPath( 'arcavias' );
 
 return array(
 	'Tx_Arcavias_Controller_Abstract' => $extensionPath . 'Classes/Controller/Abstract.php',
+	'Tx_Arcavias_Controller_AccountController' => $extensionPath . 'Classes/Controller/AccountController.php',
+	'Tx_Arcavias_Controller_AdminController' => $extensionPath . 'Classes/Controller/AdminController.php',
+	'Tx_Arcavias_Controller_BasketController' => $extensionPath . 'Classes/Controller/BasketController.php',
+	'Tx_Arcavias_Controller_CatalogController' => $extensionPath . 'Classes/Controller/CatalogController.php',
+	'Tx_Arcavias_Controller_CheckoutController' => $extensionPath . 'Classes/Controller/CheckoutController.php',
 
 	'tx_arcavias_custom_realurl' => $extensionPath . 'Classes/Custom/Realurl.php',
 	'tx_arcavias_custom_wizicon' => $extensionPath . 'Classes/Custom/Wizicon.php',
