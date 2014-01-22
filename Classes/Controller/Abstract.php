@@ -210,11 +210,12 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			$cache = new MW_Cache_None();
 			$context->setCache( $cache );
 
-			if( isset( $GLOBALS['TSFE']->fe_user ) )
-			{
+			if( isset( $GLOBALS['TSFE']->fe_user ) ) {
 				$session = new MW_Session_Typo3( $GLOBALS['TSFE']->fe_user );
-				$context->setSession( $session );
+			} else {
+				$session = new MW_Session_None();
 			}
+			$context->setSession( $session );
 
 			$logger = MAdmin_Log_Manager_Factory::createManager( $context );
 			$context->setLogger( $logger );
