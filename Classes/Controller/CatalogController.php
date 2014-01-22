@@ -20,10 +20,21 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function filterAction()
 	{
-		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
-		$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
+		try
+		{
+			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
 
-		return $this->_getClientOutput( $client );
+			return $this->_getClientOutput( $client );
+		}
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
 	}
 
 
@@ -32,11 +43,22 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function filtersearchAction()
 	{
-		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
-		$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
-		$client = $client->getSubClient( 'search' );
+		try
+		{
+			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
+			$client = $client->getSubClient( 'search' );
 
-		return $this->_getClientOutput( $client );
+			return $this->_getClientOutput( $client );
+		}
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
 	}
 
 
@@ -45,10 +67,21 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function stageAction()
 	{
-		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
-		$client = Client_Html_Catalog_Stage_Factory::createClient( $this->_getContext(), $templatePaths );
+		try
+		{
+			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_Stage_Factory::createClient( $this->_getContext(), $templatePaths );
 
-		return $this->_getClientOutput( $client );
+			return $this->_getClientOutput( $client );
+		}
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
 	}
 
 
@@ -57,10 +90,21 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function stockAction()
 	{
-		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
-		$client = Client_Html_Catalog_Stock_Factory::createClient( $this->_getContext(), $templatePaths );
+		try
+		{
+			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_Stock_Factory::createClient( $this->_getContext(), $templatePaths );
 
-		return $this->_getClientOutput( $client );
+			return $this->_getClientOutput( $client );
+		}
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
 	}
 
 
@@ -69,14 +113,25 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function listAction()
 	{
-		if( is_object( $GLOBALS['TSFE'] ) && isset( $GLOBALS['TSFE']->config['config'] ) ) {
-			$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
+		try
+		{
+			if( is_object( $GLOBALS['TSFE'] ) && isset( $GLOBALS['TSFE']->config['config'] ) ) {
+				$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
+			}
+
+			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths );
+
+			return $this->_getClientOutput( $client );
 		}
-
-		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
-		$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths );
-
-		return $this->_getClientOutput( $client );
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
 	}
 
 
@@ -85,10 +140,21 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function listsimpleAction()
 	{
-		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
-		$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths, 'Simple' );
+		try
+		{
+			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_List_Factory::createClient( $this->_getContext(), $templatePaths, 'Simple' );
 
-		return $this->_getClientOutput( $client );
+			return $this->_getClientOutput( $client );
+		}
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
 	}
 
 
@@ -97,13 +163,24 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 	 */
 	public function detailAction()
 	{
-		if( is_object( $GLOBALS['TSFE'] ) && isset( $GLOBALS['TSFE']->config['config'] ) ) {
-			$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
+		try
+		{
+			if( is_object( $GLOBALS['TSFE'] ) && isset( $GLOBALS['TSFE']->config['config'] ) ) {
+				$GLOBALS['TSFE']->config['config']['noPageTitle'] = 2;
+			}
+
+			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_Detail_Factory::createClient( $this->_getContext(), $templatePaths );
+
+			return $this->_getClientOutput( $client );
 		}
-
-		$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
-		$client = Client_Html_Catalog_Detail_Factory::createClient( $this->_getContext(), $templatePaths );
-
-		return $this->_getClientOutput( $client );
+		catch( Exception $e )
+		{
+			$this->flashMessageContainer->add(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			);
+		}
 	}
 }
