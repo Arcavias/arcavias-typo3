@@ -19,15 +19,18 @@ class tx_arcavias_flexform_catalog
 	 * Returns the list of categories with their ID.
 	 *
 	 * @param array $config Associative array of existing configurations
+	 * @param string $sitecode Unique code of the site to retrieve the categories for
 	 * @return array Associative array with existing and new entries
 	 */
-	public function getCategories( array $config )
+	public function getCategories( array $config, $sitecode = 'default' )
 	{
-		$pageTSConfig = t3lib_BEfunc::getModTSconfig( $config['row']['pid'], 'tx_arcavias' );
+		if( isset( $config['row'] ) && isset( $config['row']['pid'] ) )
+		{
+			$pageTSConfig = t3lib_BEfunc::getModTSconfig( $config['row']['pid'], 'tx_arcavias' );
 
-		$sitecode = 'default';
-		if( isset( $pageTSConfig['properties']['mshop.']['locale.']['site'] ) ) {
-			$sitecode = $pageTSConfig['properties']['mshop.']['locale.']['site'];
+			if( isset( $pageTSConfig['properties']['mshop.']['locale.']['site'] ) ) {
+				$sitecode = $pageTSConfig['properties']['mshop.']['locale.']['site'];
+			}
 		}
 
 		try
