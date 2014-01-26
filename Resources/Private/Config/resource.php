@@ -13,7 +13,6 @@ return array(
 		'stmt' => array(
 			"SET NAMES 'utf8'",
 			"SET SESSION sql_mode='ANSI'",
-			"SET SESSION query_cache_type=OFF"
 		),
 	),
 );
