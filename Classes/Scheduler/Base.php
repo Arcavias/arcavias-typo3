@@ -16,7 +16,7 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  *
  * @package TYPO3_Arcavias
  */
-abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
+abstract class Tx_Arcavias_Scheduler_Base
 {
 	static private $_arcavias;
 	static private $_context;
@@ -29,7 +29,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	 * @param array List of paths to the i18n files
 	 * @return array List of translation objects implementing MW_Translation_Interface
 	 */
-	protected function _createI18n( MShop_Context_Item_Interface $context, array $i18nPaths )
+	public static function createI18n( MShop_Context_Item_Interface $context, array $i18nPaths )
 	{
 		$list = array();
 		$langManager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'language' );
@@ -50,7 +50,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	 * @param MW_Config_Interface $config Configuration object
 	 * @return MW_View_Interface View object
 	 */
-	protected function _createView( MW_Config_Interface $config )
+	public static function createView( MW_Config_Interface $config )
 	{
 		$view = new MW_View_Default();
 
@@ -73,19 +73,52 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 
 
 	/**
+	 * Executes the jobs.
+	 *
+	 * @param array $sitecodes List of site codes
+	 * @param array $controllers List of controller names
+	 * @param string $tsconfig TypoScript configuration string
+	 * @param string $langid Two letter ISO language code of the backend user
+	 * @throws Controller_Jobs_Exception If a job can't be executed
+	 * @throws MShop_Exception If an error in a manager occurs
+	 * @throws MW_DB_Exception If a database error occurs
+	 */
+	public static function execute( array $sitecodes, array $controllers, $tsconfig, $langid )
+	{
+		$conf = self::parseTS( $tsconfig );
+		$context = self::getContext( $conf );
+		$arcavias = self::getArcavias();
+
+		$manager = MShop_Locale_Manager_Factory::createManager( $context );
+
+		foreach( $sitecodes as $sitecode )
+		{
+			$localeItem = $manager->bootstrap( $sitecode, $langid, '', false );
+			$context->setLocale( $localeItem );
+
+			foreach( (array) $controllers as $name ) {
+				Controller_Jobs_Factory::createController( $context, $arcavias, $name )->run();
+			}
+		}
+
+		return true;
+	}
+
+
+	/**
 	 * Returns the current context.
 	 *
 	 * @param array Multi-dimensional associative list of key/value pairs
 	 * @return MShop_Context_Item_Interface Context object
 	 */
-	protected function _getContext( array $localConf = array() )
+	public static function getContext( array $localConf = array() )
 	{
 		if( self::$_context === null )
 		{
 			$ds = DIRECTORY_SEPARATOR;
 
 			// Important! Sets include paths
-			$arcavias = $this->_getArcavias();
+			$arcavias = Tx_Arcavias_Scheduler_Base::getArcavias();
 			$context = new MShop_Context_Item_Default();
 
 
@@ -119,10 +152,10 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			$mail = new MW_Mail_Typo3( t3lib_div::makeInstance( 't3lib_mail_Message' ) );
 			$context->setMail( $mail );
 
-			$i18n = $this->_createI18n( $context, $arcavias->getI18nPaths() );
+			$i18n = Tx_Arcavias_Scheduler_Base::createI18n( $context, $arcavias->getI18nPaths() );
 			$context->setI18n( $i18n );
 
-			$view = $this->_createView( $conf );
+			$view = Tx_Arcavias_Scheduler_Base::createView( $conf );
 			$context->setView( $view );
 
 			$context->setEditor( 'scheduler' );
@@ -145,7 +178,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	 *
 	 * @return Arcavias Arcavias object
 	 */
-	protected function _getArcavias()
+	public static function getArcavias()
 	{
 		if( self::$_arcavias === null )
 		{
@@ -179,7 +212,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	 * @return array Mulit-dimensional, associative list of key/value pairs
 	 * @throws Exception If parsing the configuration string fails
 	 */
-	protected function _parseTS( $tsString )
+	public static function parseTS( $tsString )
 	{
 		$parser = t3lib_div::makeInstance( 't3lib_tsparser' );
 		$parser->parse( $tsString );
@@ -190,7 +223,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 			throw new Exception( $msg );
 		}
 
-		return $this->_convertTypoScriptArrayToPlainArray( $parser->setup );
+		return self::_convertTypoScriptArrayToPlainArray( $parser->setup );
 	}
 
 
@@ -200,7 +233,7 @@ abstract class tx_arcavias_scheduler_abstract extends tx_scheduler_Task
 	 * @param array $typoScriptArray TypoScript configuration array
 	 * @return array Multi-dimensional, associative list of key/value pairs without dots in keys
 	 */
-	protected function _convertTypoScriptArrayToPlainArray(array $typoScriptArray)
+	protected static function _convertTypoScriptArrayToPlainArray(array $typoScriptArray)
 	{
 		foreach ($typoScriptArray as $key => &$value) {
 			if (substr($key, -1) === '.') {

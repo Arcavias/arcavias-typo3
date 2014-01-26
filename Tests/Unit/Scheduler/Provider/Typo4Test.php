@@ -1,6 +1,14 @@
 <?php
 
 
+class tx_scheduler_TestTask extends tx_scheduler_Task
+{
+	public function execute()
+	{
+	}
+}
+
+
 class tx_scheduler_Module
 {
 	public $CMD;
@@ -11,7 +19,7 @@ class tx_scheduler_Module
 }
 
 
-class Tx_Arcavias_Tests_Unit_Scheduler_DefaultTest
+class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Typo4Test
 	extends Tx_Extbase_Tests_Unit_BaseTestCase
 {
 	private $_object;
@@ -19,24 +27,17 @@ class Tx_Arcavias_Tests_Unit_Scheduler_DefaultTest
 
 	public function setUp()
 	{
-		$this->_object = new tx_arcavias_scheduler_default();
+		if( interface_exists( 'TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface' ) ) {
+			$this->markTestSkipped( 'Test is for TYPO3 4.x only' );
+		}
+
+		$this->_object = new Tx_Arcavias_Scheduler_Provider_Typo4();
 	}
 
 
 	public function tearDown()
 	{
 		unset( $this->_object );
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function execute()
-	{
-		$result = $this->_object->execute();
-
-		$this->assertTrue( $result );
 	}
 
 
@@ -68,12 +69,13 @@ class Tx_Arcavias_Tests_Unit_Scheduler_DefaultTest
 			'arcavias_controller' => 'testcntl',
 			'arcavias_config' => 'testconf',
 		);
+		$task = new tx_scheduler_TestTask();
 
-		$this->_object->saveAdditionalFields( $data, $this->_object );
+		$this->_object->saveAdditionalFields( $data, $task );
 
-		$this->assertEquals( 'testsite', $this->_object->arcavias_sitecode );
-		$this->assertEquals( 'testcntl', $this->_object->arcavias_controller );
-		$this->assertEquals( 'testconf', $this->_object->arcavias_config );
+		$this->assertEquals( 'testsite', $task->arcavias_sitecode );
+		$this->assertEquals( 'testcntl', $task->arcavias_controller );
+		$this->assertEquals( 'testconf', $task->arcavias_config );
 	}
 
 

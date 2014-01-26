@@ -1,79 +1,23 @@
 <?php
 
 /**
- * @copyright Copyright (c) Metaways Infosystems GmbH, 2012
+ * @copyright Copyright (c) Metaways Infosystems GmbH, 2014
  * @license GPLv3, http://www.gnu.org/copyleft/gpl.html
  * @package TYPO3_Arcavias
- * @version $Id$
  */
 
+namespace Arcavias\Arcavias\Scheduler\Provider;
 
 /**
  * Arcavias scheduler.
  *
  * @package TYPO3_Arcavias
  */
-class tx_arcavias_scheduler_default
-	extends tx_arcavias_scheduler_abstract
-	implements tx_scheduler_AdditionalFieldProvider
+class Typo6 implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface
 {
 	private $_fieldSite = 'arcavias_sitecode';
 	private $_fieldController = 'arcavias_controller';
 	private $_fieldTSconfig = 'arcavias_config';
-
-
-	/**
-	 * Function executed by the scheduler.
-	 *
-	 * @return boolean True if success, false if not
-	 */
-	public function execute()
-	{
-		try
-		{
-			$context = $this->_getContext( $this->_parseTS( $this->{$this->_fieldTSconfig} ) );
-		}
-		catch( Exception $e )
-		{
-			error_log( 'Unable to create context: ' . $e->getMessage() );
-			error_log( $e->getTraceAsString() );
-
-			return false;
-		}
-
-
-		try
-		{
-			$arcavias = $this->_getArcavias();
-			$manager = MShop_Locale_Manager_Factory::createManager( $context );
-
-			$langid = 'en';
-			if( isset( $GLOBALS['BE_USER']->user['lang'] ) && $GLOBALS['BE_USER']->user['lang'] != '' ) {
-				$langid = $GLOBALS['BE_USER']->user['lang'];
-			}
-
-			foreach( (array) $this->{$this->_fieldSite} as $sitecode )
-			{
-				$localeItem = $manager->bootstrap( $sitecode, $langid, '', false );
-				$context->setLocale( $localeItem );
-
-				foreach( (array) $this->{$this->_fieldController} as $name ) {
-					Controller_Jobs_Factory::createController( $context, $arcavias, $name )->run();
-				}
-			}
-		}
-		catch( Exception $e )
-		{
-			$logger = $context->getLogger();
-			$logger->log( 'Error executing Arcavias scheduler: ' . $e->getMessage() );
-			$logger->log( $e->getTraceAsString() );
-
-			return false;
-		}
-
-
-		return true;
-	}
 
 
 	/**
@@ -92,7 +36,7 @@ class tx_arcavias_scheduler_default
 	 *			['cshKey']		=> The CSH key for the field
 	 *			['cshLabel']	=> The code of the CSH label
 	 */
-	public function getAdditionalFields( array &$taskInfo, $task, tx_scheduler_Module $parentObject )
+	public function getAdditionalFields( array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject )
 	{
 		$additionalFields = array();
 
@@ -171,7 +115,7 @@ class tx_arcavias_scheduler_default
 	 * @param array $submittedData Array containing the data submitted by the user
 	 * @param tx_scheduler_Task	$task Reference to the current task object
 	 */
-	public function saveAdditionalFields( array $submittedData, tx_scheduler_Task $task )
+	public function saveAdditionalFields( array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task )
 	{
 		$task->{$this->_fieldSite} = $submittedData[$this->_fieldSite];
 		$task->{$this->_fieldController} = $submittedData[$this->_fieldController];
@@ -188,25 +132,25 @@ class tx_arcavias_scheduler_default
 	 * @param tx_scheduler_Module $parentObject Reference to the calling object (Scheduler's BE module)
 	 * @return boolean True if validation was ok (or selected class is not relevant), false otherwise
 	 */
-	public function validateAdditionalFields( array &$submittedData, tx_scheduler_Module $parentObject )
+	public function validateAdditionalFields( array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject )
 	{
 		try
 		{
 			if( count( (array) $submittedData[$this->_fieldController] ) < 1 ) {
-				throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.controller.missing' ) );
+				throw new \Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.controller.missing' ) );
 			}
 
 			if( count( $submittedData[$this->_fieldSite] ) < 1 ) {
-				throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.sitecode.missing' ) );
+				throw new \Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.sitecode.missing' ) );
 			}
 
-			$this->_parseTS( $submittedData[$this->_fieldTSconfig] );
+			\Tx_Arcavias_Scheduler_Base::parseTS( $submittedData[$this->_fieldTSconfig] );
 
 
-			$context = $this->_getContext();
+			$context = \Tx_Arcavias_Scheduler_Base::getContext();
 
 
-			$manager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
+			$manager = \MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
 
 			$search = $manager->createSearch( true );
 			$expr = array(
@@ -220,22 +164,21 @@ class tx_arcavias_scheduler_default
 			}
 
 
-			$arcavias = $this->_getArcavias();
+			$arcavias = \Tx_Arcavias_Scheduler_Base::getArcavias();
 			$cntlPaths = $arcavias->getCustomPaths( 'controller/jobs' );
 
 			foreach( (array) $submittedData[$this->_fieldController] as $name ) {
-				Controller_Jobs_Factory::createController( $context, $arcavias, $name );
+				\Controller_Jobs_Factory::createController( $context, $arcavias, $name );
 			}
 
 
 			return true;
 		}
-		catch( Exception $e )
+		catch( \Exception $e )
 		{
-			$message = $e->getMessage();
+			$parentObject->addMessage( $e->getMessage(), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR );
 		}
 
-		$parentObject->addMessage( $message, t3lib_FlashMessage::ERROR );
 		return false;
 	}
 
@@ -247,8 +190,8 @@ class tx_arcavias_scheduler_default
 	 */
 	protected function _getAvailableSites()
 	{
-		$context = $this->_getContext();
-		$manager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
+		$context = \Tx_Arcavias_Scheduler_Base::getContext();
+		$manager = \MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'site' );
 
 		$search = $manager->createSearch();
 		$search->setConditions( $search->compare( '==', 'locale.site.level', 0 ) );
@@ -257,7 +200,7 @@ class tx_arcavias_scheduler_default
 		$sites = $manager->searchItems( $search );
 
 		foreach( $sites as $id => $siteItem ) {
-			$sites[$id] = $manager->getTree( $id, array(), MW_Tree_Manager_Abstract::LEVEL_TREE );
+			$sites[$id] = $manager->getTree( $id, array(), \MW_Tree_Manager_Abstract::LEVEL_TREE );
 		}
 
 		return $sites;
@@ -301,9 +244,11 @@ class tx_arcavias_scheduler_default
 	protected function _getControllerOptions( array $selected )
 	{
 		$html = '';
-		$arcavias = $this->_getArcavias();
+		$context = \Tx_Arcavias_Scheduler_Base::getContext();
+		$arcavias = \Tx_Arcavias_Scheduler_Base::getArcavias();
 		$cntlPaths = $arcavias->getCustomPaths( 'controller/jobs' );
-		$controllers = Controller_Jobs_Factory::getControllers( $this->_getContext(), $arcavias, $cntlPaths );
+
+		$controllers = \Controller_Jobs_Factory::getControllers( $context, $arcavias, $cntlPaths );
 
 		foreach( $controllers as $name => $controller )
 		{
