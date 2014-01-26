@@ -119,12 +119,25 @@ class ext_update
 
 		$manager = new MW_Setup_Manager_Default( $dbm->acquire(), $dbconfig, $taskPaths, $ctx );
 
-		echo '<pre>';
-		$manager->run( $dbconfig['adapter'] );
-		echo '</pre>';
+		ob_start();
+
+		try
+		{
+			$manager->run( $dbconfig['adapter'] );
+			$output = ob_get_contents();
+		}
+		catch( Exception $e )
+		{
+			$output = ob_get_contents();
+			$output .= PHP_EOL . $e->getMessage();
+			$output .= PHP_EOL . $e->getTraceAsString();
+		}
+
+		ob_end_clean();
 
 
-		return sprintf( "Setup process lasted %1\$f sec</br>\n", (microtime( true ) - $exectimeStart) );
+		return '<pre>' . $output . '</pre>' . PHP_EOL .
+			sprintf( "Setup process lasted %1\$f sec</br>\n", (microtime( true ) - $exectimeStart) );
 	}
 
 
