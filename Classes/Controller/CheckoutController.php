@@ -28,11 +28,11 @@ class Tx_Arcavias_Controller_CheckoutController extends Tx_Arcavias_Controller_A
 		}
 		catch( Exception $e )
 		{
-			$this->flashMessageContainer->add(
+			t3lib_FlashMessageQueue::addMessage( new t3lib_FlashMessage(
 				'An error occured. Please go back to the previous page and try again',
 				'Error',
 				t3lib_Flashmessage::ERROR
-			);
+			) );
 		}
 	}
 
@@ -60,11 +60,11 @@ class Tx_Arcavias_Controller_CheckoutController extends Tx_Arcavias_Controller_A
 		}
 		catch( Exception $e )
 		{
-			$this->flashMessageContainer->add(
+			t3lib_FlashMessageQueue::addMessage( new t3lib_FlashMessage(
 				'An error occured. Please go back to the previous page and try again',
 				'Error',
 				t3lib_Flashmessage::ERROR
-			);
+			) );
 		}
 	}
 
