@@ -85,7 +85,7 @@ class Typo6 implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface
 				$taskInfo[$this->_fieldTSconfig] = $task->{$this->_fieldTSconfig};
 			}
 
-			$taskInfo[$this->_fieldTSconfig] = (string) $taskInfo[$this->_fieldTSconfig];
+			$taskInfo[$this->_fieldTSconfig] = htmlspecialchars( $taskInfo[$this->_fieldTSconfig], ENT_QUOTES, 'UTF-8' );
 
 			$fieldStr = '<textarea name="tx_scheduler[%1$s]" id="%1$s" rows="20" cols="80" >%2$s</textarea>';
 			$fieldCode = sprintf( $fieldStr, $this->_fieldTSconfig, $taskInfo[$this->_fieldTSconfig] );
@@ -225,8 +225,10 @@ class Typo6 implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface
 		{
 			$active = ( in_array( $item->getCode(), $selected ) ? 'selected="selected"' : '' );
 			$disabled = ( $item->getStatus() > 0 ? '' : 'disabled="disabled"' );
-			$string = '<option value="%1$s" %2$s %3$s>%4$s</option>';
-			$html .= sprintf( $string, $item->getCode(), $active, $disabled, $prefix . $item->getLabel() );
+			$label = $prefix . htmlspecialchars( $item->getLabel(), ENT_QUOTES, 'UTF-8' );
+			$code = htmlspecialchars( $item->getCode(), ENT_QUOTES, 'UTF-8' );
+
+			$html .= sprintf( '<option value="%1$s" %2$s %3$s>%4$s</option>', $code, $active, $disabled, $label );
 
 			$html .= $this->_getSiteOptions( $item->getChildren(), $selected, $level+1 );
 		}
@@ -253,8 +255,10 @@ class Typo6 implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface
 		foreach( $controllers as $name => $controller )
 		{
 			$active = ( in_array( $name, $selected ) ? 'selected="selected"' : '' );
-			$string = '<option value="%1$s" %2$s>%3$s</option>';
-			$html .= sprintf( $string, $name, $active, $controller->getName() );
+			$cntl = htmlspecialchars( $controller->getName(), ENT_QUOTES, 'UTF-8' );
+			$name = htmlspecialchars( $name, ENT_QUOTES, 'UTF-8' );
+
+			$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', $name, $active, $cntl );
 		}
 
 		return $html;
