@@ -22,7 +22,7 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	{
 		parent::__construct();
 
-		$cntlPaths = $this->_getArcavias()->getCustomPaths( 'controller/extjs' );
+		$cntlPaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'controller/extjs' );
 		$this->_controller = new Controller_ExtJS_JsonRpc( $this->_getContext(), $cntlPaths );
 	}
 
@@ -38,7 +38,7 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 		$abslen = strlen( PATH_site );
 		$ds = DIRECTORY_SEPARATOR;
 
-		foreach( $this->_getArcavias()->getCustomPaths( 'client/extjs' ) as $base => $paths )
+		foreach( Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/extjs' ) as $base => $paths )
 		{
 			$relJsbPath = '../' . substr( $base, $abslen );
 

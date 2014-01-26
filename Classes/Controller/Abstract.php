@@ -8,22 +8,26 @@
  */
 
 
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-
-
 /**
  * Abstract class with common functionality for all controllers.
  *
  * @package TYPO3_Arcavias
  */
-abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller_ActionController
+abstract class Tx_Arcavias_Controller_Abstract
+	extends Tx_Extbase_MVC_Controller_ActionController
 {
+	private $_arcavias;
 	static private $_locale;
-	static private $_config;
 	static private $_context;
-	static private $_arcavias;
-	static private $_extConfig;
 	static private $_i18n = array();
+
+
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->_arcavias = Tx_Arcavias_Base::getArcavias();
+	}
 
 
 	/**
@@ -114,78 +118,21 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 
 	/**
-	 * Returns the Arcavias object.
-	 *
-	 * @return Arcavias Arcavias object
-	 */
-	protected function _getArcavias()
-	{
-		if( self::$_arcavias === null )
-		{
-			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
-
-			// Hook for processing extension directories
-			$extDirs = array();
-			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] ) )
-			{
-				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
-				{
-					$absPath = t3lib_div::getFileAbsFileName( $dir );
-					if( !empty( $absPath ) ) {
-						$extDirs[] = $absPath;
-					}
-				}
-			}
-
-			self::$_arcavias = new Arcavias( $extDirs, false, $libPath );
-		}
-
-		return self::$_arcavias;
-	}
-
-
-	/**
 	 * Creates a new configuration object.
 	 *
 	 * @return MW_Config_Interface Configuration object
 	 */
 	protected function _getConfig()
 	{
-		if( self::$_config === null )
-		{
-			$configPaths = $this->_getArcavias()->getConfigPaths( 'mysql' );
-
-			// Hook for processing extension config directories
-			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
-			{
-				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
-				{
-					$absPath = t3lib_div::getFileAbsFileName( $dir );
-					if( !empty( $absPath ) ) {
-						$configPaths[] = $absPath;
-					}
-				}
-			}
-
-			$conf = new MW_Config_Array( array(), $configPaths );
-
-			if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true ) {
-				$conf = new MW_Config_Decorator_APC( $conf, $this->_getExtConfig( 'apcPrefix', 't3:' ) );
-			}
-
-			self::$_config = $conf;
-		}
-
 		$settings = (array) $this->settings;
 
 		if( isset( $this->settings['typo3']['tsconfig'] ) )
 		{
-			$tsconfig = $this->_parseTS( $this->settings['typo3']['tsconfig'] );
+			$tsconfig = Tx_Arcavias_Base::parseTS( $this->settings['typo3']['tsconfig'] );
 			$settings = Tx_Extbase_Utility_Arrays::arrayMergeRecursiveOverrule( $settings, $tsconfig );
 		}
 
-		return new MW_Config_Decorator_Memory( self::$_config, $settings );
+		return Tx_Arcavias_Base::getConfig( $settings );
 	}
 
 
@@ -235,32 +182,6 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 
 
 	/**
-	 * Returns the extension configuration.
-	 *
-	 * @param string Name of the configuration setting
-	 * @param mixed Value returned if no value in extension configuration was found
-	 * @return mixed Value associated with the configuration setting
-	 */
-	protected function _getExtConfig( $name, $default = null )
-	{
-		if( self::$_extConfig === null )
-		{
-			if( ( $conf = unserialize( $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['arcavias'] ) ) === false ) {
-				$conf = array();
-			}
-
-			self::$_extConfig = $conf;
-		}
-
-		if( isset( self::$_extConfig[$name] ) ) {
-			return self::$_extConfig[$name];
-		}
-
-		return $default;
-	}
-
-
-	/**
 	 * Creates new translation objects.
 	 *
 	 * @param array $langIds List of two letter ISO language IDs
@@ -268,7 +189,7 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 	 */
 	protected function _getI18n( array $languageIds )
 	{
-		$i18nPaths = $this->_getArcavias()->getI18nPaths();
+		$i18nPaths = Tx_Arcavias_Base::getArcavias()->getI18nPaths();
 
 		foreach( $languageIds as $langid )
 		{
@@ -276,10 +197,8 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 			{
 				$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $langid, array( 'disableNotices' => true ) );
 
-				if( function_exists( 'apc_store' ) === true && $this->_getExtConfig( 'useAPC', false ) == true )
-				{
-					$prefix = ( isset( $this->_settings['apc']['prefix'] ) ? $this->settings['apc']['prefix'] : '' );
-					$i18n = new MW_Translation_Decorator_APC( $i18n, $prefix );
+				if( function_exists( 'apc_store' ) === true && Tx_Arcavias_Base::getExtConfig( 'useAPC', false ) == true ) {
+					$i18n = new MW_Translation_Decorator_APC( $i18n, Tx_Arcavias_Base::getExtConfig( 'apcPrefix', 't3:' ) );
 				}
 
 				if( isset( $this->settings['i18n'][$langid] ) )
@@ -318,55 +237,5 @@ abstract class Tx_Arcavias_Controller_Abstract extends Tx_Extbase_MVC_Controller
 		$this->response->addAdditionalHeaderData( $client->getHeader() );
 
 		return $client->getBody();
-	}
-
-
-	/**
-	 * Parses TypoScript configuration string.
-	 *
-	 * @param string $tsString TypoScript string
-	 * @return array Mulit-dimensional, associative list of key/value pairs
-	 * @throws Exception If parsing the configuration string fails
-	 */
-	protected function _parseTS( $tsString )
-	{
-		$parser = t3lib_div::makeInstance( 't3lib_tsparser' );
-		$parser->parse( $tsString );
-
-		if( !empty( $parser->errors ) )
-		{
-			$msg = $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:default.error.tsconfig.invalid' );
-			throw new Exception( $msg );
-		}
-
-		return $this->_convertTypoScriptArrayToPlainArray( $parser->setup );
-	}
-
-
-	/**
-	 * Removes dots from config keys (copied from Extbase TypoScriptService class available since TYPO3 6.0)
-	 *
-	 * @param array $typoScriptArray TypoScript configuration array
-	 * @return array Multi-dimensional, associative list of key/value pairs without dots in keys
-	 */
-	protected function _convertTypoScriptArrayToPlainArray(array $typoScriptArray)
-	{
-		foreach ($typoScriptArray as $key => &$value) {
-			if (substr($key, -1) === '.') {
-				$keyWithoutDot = substr($key, 0, -1);
-				$hasNodeWithoutDot = array_key_exists($keyWithoutDot, $typoScriptArray);
-				$typoScriptNodeValue = $hasNodeWithoutDot ? $typoScriptArray[$keyWithoutDot] : NULL;
-				if (is_array($value)) {
-					$typoScriptArray[$keyWithoutDot] = $this->_convertTypoScriptArrayToPlainArray($value);
-					if (!is_null($typoScriptNodeValue)) {
-						$typoScriptArray[$keyWithoutDot]['_typoScriptNodeValue'] = $typoScriptNodeValue;
-					}
-					unset($typoScriptArray[$key]);
-				} else {
-					$typoScriptArray[$keyWithoutDot] = NULL;
-				}
-			}
-		}
-		return $typoScriptArray;
 	}
 }

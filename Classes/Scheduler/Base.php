@@ -4,44 +4,17 @@
  * @copyright Copyright (c) Metaways Infosystems GmbH, 2012
  * @license GPLv3, http://www.gnu.org/copyleft/gpl.html
  * @package TYPO3_Arcavias
- * @version $Id$
  */
-
-
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 
 /**
- * Arcavias abstract scheduler.
+ * Arcavias common scheduler class.
  *
  * @package TYPO3_Arcavias
  */
-abstract class Tx_Arcavias_Scheduler_Base
+class Tx_Arcavias_Scheduler_Base
 {
-	static private $_arcavias;
 	static private $_context;
-
-
-	/**
-	 * Creates new translation objects.
-	 *
-	 * @param MShop_Context_Item_Interface $context Context object
-	 * @param array List of paths to the i18n files
-	 * @return array List of translation objects implementing MW_Translation_Interface
-	 */
-	public static function createI18n( MShop_Context_Item_Interface $context, array $i18nPaths )
-	{
-		$list = array();
-		$langManager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'language' );
-
-		foreach( $langManager->searchItems( $langManager->createSearch( true ) ) as $id => $langItem )
-		{
-			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $id, array( 'disableNotices' => true ) );
-			$list[$id] = $i18n;
-		}
-
-		return $list;
-	}
 
 
 	/**
@@ -85,9 +58,9 @@ abstract class Tx_Arcavias_Scheduler_Base
 	 */
 	public static function execute( array $sitecodes, array $controllers, $tsconfig, $langid )
 	{
-		$conf = self::parseTS( $tsconfig );
+		$conf = Tx_Arcavias_Base::parseTS( $tsconfig );
 		$context = self::getContext( $conf );
-		$arcavias = self::getArcavias();
+		$arcavias = Tx_Arcavias_Base::getArcavias();
 
 		$manager = MShop_Locale_Manager_Factory::createManager( $context );
 
@@ -115,29 +88,12 @@ abstract class Tx_Arcavias_Scheduler_Base
 	{
 		if( self::$_context === null )
 		{
-			$ds = DIRECTORY_SEPARATOR;
-
 			// Important! Sets include paths
-			$arcavias = Tx_Arcavias_Scheduler_Base::getArcavias();
+			$arcavias = Tx_Arcavias_Base::getArcavias();
 			$context = new MShop_Context_Item_Default();
 
 
-			$configPaths = $arcavias->getConfigPaths( 'mysql' );
-
-			// Hook for processing extension directories
-			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] ) )
-			{
-				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['confDirs'] as $dir )
-				{
-					$absPath = t3lib_div::getFileAbsFileName( $dir );
-					if( !empty( $absPath ) ) {
-						$configPaths[] = $absPath;
-					}
-				}
-			}
-
-			$conf = new MW_Config_Array( array(), $configPaths );
-			$conf = new MW_Config_Decorator_Memory( $conf, $localConf );
+			$conf = Tx_Arcavias_Base::getConfig( $localConf );
 			$context->setConfig( $conf );
 
 			$dbm = new MW_DB_Manager_PDO( $conf );
@@ -152,7 +108,7 @@ abstract class Tx_Arcavias_Scheduler_Base
 			$mail = new MW_Mail_Typo3( t3lib_div::makeInstance( 't3lib_mail_Message' ) );
 			$context->setMail( $mail );
 
-			$i18n = Tx_Arcavias_Scheduler_Base::createI18n( $context, $arcavias->getI18nPaths() );
+			$i18n = self::_createI18n( $context, $arcavias->getI18nPaths() );
 			$context->setI18n( $i18n );
 
 			$view = Tx_Arcavias_Scheduler_Base::createView( $conf );
@@ -174,83 +130,23 @@ abstract class Tx_Arcavias_Scheduler_Base
 
 
 	/**
-	 * Returns the Arcavias object.
+	 * Creates new translation objects.
 	 *
-	 * @return Arcavias Arcavias object
+	 * @param MShop_Context_Item_Interface $context Context object
+	 * @param array List of paths to the i18n files
+	 * @return array List of translation objects implementing MW_Translation_Interface
 	 */
-	public static function getArcavias()
+	protected static function _createI18n( MShop_Context_Item_Interface $context, array $i18nPaths )
 	{
-		if( self::$_arcavias === null )
+		$list = array();
+		$langManager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'language' );
+
+		foreach( $langManager->searchItems( $langManager->createSearch( true ) ) as $id => $langItem )
 		{
-			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
-
-			// Hook for processing extension directories
-			$extDirs = array();
-			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] ) )
-			{
-				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
-				{
-					$absPath = t3lib_div::getFileAbsFileName( $dir );
-					if( !empty( $absPath ) ) {
-						$extDirs[] = $absPath;
-					}
-				}
-			}
-
-			self::$_arcavias = new Arcavias( $extDirs, false, $libPath );
+			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $id, array( 'disableNotices' => true ) );
+			$list[$id] = $i18n;
 		}
 
-		return self::$_arcavias;
-	}
-
-
-	/**
-	 * Parses TypoScript configuration string.
-	 *
-	 * @param string $tsString TypoScript string
-	 * @return array Mulit-dimensional, associative list of key/value pairs
-	 * @throws Exception If parsing the configuration string fails
-	 */
-	public static function parseTS( $tsString )
-	{
-		$parser = t3lib_div::makeInstance( 't3lib_tsparser' );
-		$parser->parse( $tsString );
-
-		if( !empty( $parser->errors ) )
-		{
-			$msg = $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.tsconfig.invalid' );
-			throw new Exception( $msg );
-		}
-
-		return self::_convertTypoScriptArrayToPlainArray( $parser->setup );
-	}
-
-
-	/**
-	 * Removes dots from config keys (copied from Extbase TypoScriptService class available since TYPO3 6.0)
-	 *
-	 * @param array $typoScriptArray TypoScript configuration array
-	 * @return array Multi-dimensional, associative list of key/value pairs without dots in keys
-	 */
-	protected static function _convertTypoScriptArrayToPlainArray(array $typoScriptArray)
-	{
-		foreach ($typoScriptArray as $key => &$value) {
-			if (substr($key, -1) === '.') {
-				$keyWithoutDot = substr($key, 0, -1);
-				$hasNodeWithoutDot = array_key_exists($keyWithoutDot, $typoScriptArray);
-				$typoScriptNodeValue = $hasNodeWithoutDot ? $typoScriptArray[$keyWithoutDot] : NULL;
-				if (is_array($value)) {
-					$typoScriptArray[$keyWithoutDot] = $this->_convertTypoScriptArrayToPlainArray($value);
-					if (!is_null($typoScriptNodeValue)) {
-						$typoScriptArray[$keyWithoutDot]['_typoScriptNodeValue'] = $typoScriptNodeValue;
-					}
-					unset($typoScriptArray[$key]);
-				} else {
-					$typoScriptArray[$keyWithoutDot] = NULL;
-				}
-			}
-		}
-		return $typoScriptArray;
+		return $list;
 	}
 }

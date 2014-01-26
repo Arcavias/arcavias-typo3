@@ -22,7 +22,7 @@ class Tx_Arcavias_Controller_BasketController extends Tx_Arcavias_Controller_Abs
 	{
 		try
 		{
-			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
 			$client = Client_Html_Basket_Standard_Factory::createClient( $this->_getContext(), $templatePaths );
 
 			return $this->_getClientOutput( $client );
@@ -45,7 +45,7 @@ class Tx_Arcavias_Controller_BasketController extends Tx_Arcavias_Controller_Abs
 	{
 		try
 		{
-			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
 			$client = Client_Html_Basket_Mini_Factory::createClient( $this->_getContext(), $templatePaths );
 
 			return $this->_getClientOutput( $client );

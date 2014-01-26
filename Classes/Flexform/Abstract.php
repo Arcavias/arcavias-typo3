@@ -7,17 +7,13 @@
  */
 
 
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-
-
 /**
  * Arcavias abstract flexform helper.
  *
  * @package TYPO3_Arcavias
  */
-class tx_arcavias_flexform_abstract
+class Tx_Arcavias_Flexform_Abstract
 {
-	private $_arcavias;
 	private $_context;
 
 
@@ -33,7 +29,7 @@ class tx_arcavias_flexform_abstract
 			$ds = DIRECTORY_SEPARATOR;
 
 			// Important! Sets include paths
-			$arcavias = $this->_getArcavias();
+			$arcavias = Tx_Arcavias_Base::getArcavias();
 			$context = new MShop_Context_Item_Default();
 
 
@@ -57,37 +53,5 @@ class tx_arcavias_flexform_abstract
 		}
 
 		return $this->_context;
-	}
-
-
-	/**
-	 * Returns the Arcavias object.
-	 *
-	 * @return Arcavias Arcavias object
-	 */
-	protected function _getArcavias()
-	{
-		if( $this->_arcavias === null )
-		{
-			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
-
-			// Hook for processing extension directories
-			$extDirs = array();
-			if( is_array( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] ) )
-			{
-				foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
-				{
-					$absPath = t3lib_div::getFileAbsFileName( $dir );
-					if( !empty( $absPath ) ) {
-						$extDirs[] = $absPath;
-					}
-				}
-			}
-
-			$this->_arcavias = new Arcavias( $extDirs, false, $libPath );
-		}
-
-		return $this->_arcavias;
 	}
 }

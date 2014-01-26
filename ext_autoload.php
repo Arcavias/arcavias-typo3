@@ -4,6 +4,8 @@
 $extensionPath = t3lib_extMgm::extPath( 'arcavias' );
 
 return array(
+	'tx_arcavias_base' => $extensionPath . 'Classes/Base.php',
+
 	'tx_arcavias_controller_abstract' => $extensionPath . 'Classes/Controller/Abstract.php',
 	'tx_arcavias_controller_accountcontroller' => $extensionPath . 'Classes/Controller/AccountController.php',
 	'tx_arcavias_controller_admincontroller' => $extensionPath . 'Classes/Controller/AdminController.php',

@@ -69,27 +69,8 @@ class ext_update
 		$exectimeStart = microtime( true );
 
 
-		// Hook for processing extension directories
-		$extDirs = array();
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs']))
-		{
-			foreach( $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['arcavias']['extDirs'] as $dir )
-			{
-				$absPath = t3lib_div::getFileAbsFileName( $dir );
-				if( !empty( $absPath ) ) {
-					$extDirs[] = $absPath;
-				}
-			}
-		}
-
-		require $basedir . $ds . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-
-		$mshop = new Arcavias( $extDirs, false );
-
-
-		$exectimeStart = microtime( true );
-
-		$taskPaths = $mshop->getSetupPaths( 'default' );
+		$arcavias = Tx_Arcavias_Base::getArcavias();
+		$taskPaths = $arcavias->getSetupPaths( 'default' );
 
 		$includePaths = $taskPaths;
 		$includePaths[] = get_include_path();
@@ -102,11 +83,8 @@ class ext_update
 			throw new Exception( 'Unable to register ext_update::autoload' );
 		}
 
-		$configPaths = $mshop->getConfigPaths( 'mysql' );
-		$configPaths[] = $basedir . $ds  . 'Resources' . $ds  . 'Private' . $ds . 'Config';
 
-
-		$ctx = $this->_getContext( $configPaths );
+		$ctx = $this->_getContext();
 
 		$dbm = $ctx->getDatabaseManager();
 		$conf = $ctx->getConfig();
@@ -144,14 +122,13 @@ class ext_update
 	/**
 	 * Returns a new context object.
 	 *
-	 * @param array $configPaths List of configuration paths
 	 * @return MShop_Context_Item_Interface Context object
 	 */
-	protected function _getContext( array $configPaths )
+	protected function _getContext()
 	{
 		$ctx = new MShop_Context_Item_Default();
 
-		$conf = new MW_Config_Array( array(), $configPaths );
+		$conf = Tx_Arcavias_Base::getConfig();
 		$ctx->setConfig( $conf );
 
 		$dbm = new MW_DB_Manager_PDO( $conf );

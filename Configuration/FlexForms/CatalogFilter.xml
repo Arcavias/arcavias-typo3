@@ -25,7 +25,7 @@
 					<config>
 						<type>select</type>
 						<multiple>0</multiple>
-						<itemsProcFunc>tx_arcavias_flexform_catalog->getCategories</itemsProcFunc>
+						<itemsProcFunc>Tx_Arcavias_Flexform_Catalog->getCategories</itemsProcFunc>
 						<items type="array">
 							<numIndex index="0" type="array">
 								<numIndex index="0"></numIndex>

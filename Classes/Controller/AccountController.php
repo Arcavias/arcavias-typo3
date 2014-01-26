@@ -21,7 +21,7 @@ class Tx_Arcavias_Controller_AccountController extends Tx_Arcavias_Controller_Ab
 	{
 		try
 		{
-			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
 			$client = Client_Html_Account_History_Factory::createClient( $this->_getContext(), $templatePaths );
 
 			return $this->_getClientOutput( $client );
