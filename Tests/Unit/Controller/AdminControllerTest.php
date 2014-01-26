@@ -9,19 +9,21 @@ class Tx_Arcavias_Tests_Unit_Controller_AdminControllerTest
 
 	public function setUp()
 	{
-		$this->_object = $this->getAccessibleMock( 'Tx_Arcavias_Controller_AdminController', null );
+		$this->_object = $this->getAccessibleMock( 'Tx_Arcavias_Controller_AdminController', array( 'dummy' ) );
 		$this->_view = $this->getMock( 'Tx_Fluid_View_TemplateView', array(), array(), '', false );
 
 		$objManager = new Tx_Extbase_Object_ObjectManager();
 
-		$flashMessages = new Tx_Extbase_MVC_Controller_FlashMessages();
-		$uriBuilder = $objManager->create( 'Tx_Extbase_MVC_Web_Routing_UriBuilder' );
-		$response = $objManager->create( 'Tx_Extbase_MVC_Web_Response' );
-		$request = $objManager->create( 'Tx_Extbase_MVC_Web_Request' );
+		$uriBuilder = $objManager->get( 'Tx_Extbase_MVC_Web_Routing_UriBuilder' );
+		$response = $objManager->get( 'Tx_Extbase_MVC_Web_Response' );
+		$request = $objManager->get( 'Tx_Extbase_MVC_Web_Request' );
 
 		$uriBuilder->setRequest( $request );
 
-		$this->_object->injectFlashMessageContainer( $flashMessages );
+		if( method_exists( $response, 'setRequest' ) ) {
+			$response->setRequest( $request );
+		}
+
 		$this->_object->_set( 'uriBuilder', $uriBuilder );
 		$this->_object->_set( 'response', $response );
 		$this->_object->_set( 'request', $request );
