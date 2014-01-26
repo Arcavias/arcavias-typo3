@@ -21,7 +21,7 @@ class Tx_Arcavias_Controller_CheckoutController extends Tx_Arcavias_Controller_A
 	{
 		try
 		{
-			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
 			$client = Client_Html_Checkout_Standard_Factory::createClient( $this->_getContext(), $templatePaths );
 
 			return $this->_getClientOutput( $client );
@@ -44,7 +44,7 @@ class Tx_Arcavias_Controller_CheckoutController extends Tx_Arcavias_Controller_A
 	{
 		try
 		{
-			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
 			$client = Client_Html_Checkout_Confirm_Factory::createClient( $this->_getContext(), $templatePaths );
 
 			$view = $this->_createView();
@@ -76,7 +76,7 @@ class Tx_Arcavias_Controller_CheckoutController extends Tx_Arcavias_Controller_A
 	{
 		try
 		{
-			$templatePaths = $this->_getArcavias()->getCustomPaths( 'client/html' );
+			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
 			$client = Client_Html_Checkout_Update_Factory::createClient( $this->_getContext(), $templatePaths );
 
 			$view = $this->_createView();

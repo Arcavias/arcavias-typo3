@@ -144,7 +144,7 @@ class Tx_Arcavias_Scheduler_Provider_Typo4
 				throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.sitecode.missing' ) );
 			}
 
-			Tx_Arcavias_Scheduler_Base::parseTS( $submittedData[$this->_fieldTSconfig] );
+			Tx_Arcavias_Base::parseTS( $submittedData[$this->_fieldTSconfig] );
 
 
 			$context = Tx_Arcavias_Scheduler_Base::getContext();
@@ -164,7 +164,7 @@ class Tx_Arcavias_Scheduler_Provider_Typo4
 			}
 
 
-			$arcavias = Tx_Arcavias_Scheduler_Base::getArcavias();
+			$arcavias = Tx_Arcavias_Base::getArcavias();
 			$cntlPaths = $arcavias->getCustomPaths( 'controller/jobs' );
 
 			foreach( (array) $submittedData[$this->_fieldController] as $name ) {
@@ -245,8 +245,8 @@ class Tx_Arcavias_Scheduler_Provider_Typo4
 	protected function _getControllerOptions( array $selected )
 	{
 		$html = '';
+		$arcavias = Tx_Arcavias_Base::getArcavias();
 		$context = Tx_Arcavias_Scheduler_Base::getContext();
-		$arcavias = Tx_Arcavias_Scheduler_Base::getArcavias();
 		$cntlPaths = $arcavias->getCustomPaths( 'controller/jobs' );
 
 		$controllers = Controller_Jobs_Factory::getControllers( $context, $arcavias, $cntlPaths );

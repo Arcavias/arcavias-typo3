@@ -12,8 +12,8 @@
  *
  * @package TYPO3_Arcavias
  */
-class tx_arcavias_flexform_catalog
-	extends tx_arcavias_flexform_abstract
+class Tx_Arcavias_Flexform_Catalog
+	extends Tx_Arcavias_Flexform_Abstract
 {
 	/**
 	 * Returns the list of categories with their ID.
