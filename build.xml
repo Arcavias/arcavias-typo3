@@ -15,10 +15,11 @@
 		<if>
 			<equals arg1="${config-available}" arg2="0" />
 			<then>
-				<propertyprompt propertyName="dbhost" promptText="Database host" promptCharacter=":" useExistingValue="true"/>
-				<propertyprompt propertyName="dbname" promptText="Database name" promptCharacter=":" useExistingValue="true"/>
-				<propertyprompt propertyName="dbuser" promptText="Database user" promptCharacter=":" useExistingValue="true"/>
-				<propertyprompt propertyName="dbpass" promptText="Database password" promptCharacter=":" useExistingValue="true"/>
+				<input propertyName="dbhost" promptChar=" :" defaultValue="localhost" >Server host</input>
+				<input propertyName="dbport" promptChar="      :" defaultValue="3306" >Server port</input>
+				<input propertyName="dbname" promptChar=":" defaultValue="arcavias" >Database name</input>
+				<input propertyName="dbuser" promptChar="        :" defaultValue="root" >User name</input>
+				<input propertyName="dbpass" promptChar="             :" defaultValue="" >Password</input>
 				<echo file="${coredir}/config/resource.php" msg="&lt;?php return array( 'db' => array( 'adapter' => 'mysql', 'host' => '${dbhost}', 'database' => '${dbname}', 'username' => '${dbuser}', 'password' => '${dbpass}', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array( 'SET NAMES \'utf8\'', 'SET SESSION sql_mode=\'ANSI\'' ) ) );" />
 			</then>
 		</if>
@@ -115,7 +116,7 @@
 	</target>
 
 
-	<target name="release" description="Creates new release" depends="deploy">
+	<target name="release" description="Creates new release" depends="clean">
 		<propertyprompt propertyName="version" promptText="Enter release version" promptCharacter=":" useExistingValue="true"/>
 		<exec command="git branch ${version}" checkreturn="true" logoutput="true" />
 		<exec command="git tag -a arcavias-typo3_${version} -m 'Release ${version}'" checkreturn="true" logoutput="true" />
