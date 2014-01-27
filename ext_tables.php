@@ -14,7 +14,7 @@ if ( TYPO3_MODE === 'BE' )
 {
 	Tx_Extbase_Utility_Extension::registerModule(
 		$_EXTKEY,
-		'user',
+		'web',
 		'tx_arcavias_admin',
 		'', // position
 		array(
