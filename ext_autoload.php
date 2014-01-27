@@ -22,6 +22,7 @@ return array(
 	'tx_arcavias_scheduler_base' => $extensionPath . 'Classes/Scheduler/Base.php',
 	'tx_arcavias_scheduler_task_typo4' => $extensionPath . 'Classes/Scheduler/Task/Typo4.php',
 	'tx_arcavias_scheduler_provider_typo4' => $extensionPath . 'Classes/Scheduler/Provider/Typo4.php',
+	'tx_arcavias_scheduler_provider_abstract' => $extensionPath . 'Classes/Scheduler/Provider/Abstract.php',
 	'Arcavias\Arcavias\Scheduler\Task\Typo6' => $extensionPath . 'Classes/Scheduler/Task/Typo6.php',
 	'Arcavias\Arcavias\Scheduler\Provider\Typo6' => $extensionPath . 'Classes/Scheduler/Provider/Typo6.php',
 );

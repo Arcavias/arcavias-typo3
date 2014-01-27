@@ -44,6 +44,25 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Typo6Test
 	/**
 	 * @test
 	 */
+	public function getAdditionalFieldsException()
+	{
+		$manager = MShop_Attribute_Manager_Factory::createManager( Tx_Arcavias_Scheduler_Base::getContext() );
+
+		$taskInfo = array();
+		$module = new \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController();
+		$module->CMD = 'edit';
+
+		MShop_Locale_Manager_Factory::injectManager( 'MShop_Locale_Manager_Default', $manager );
+		$result = $this->_object->getAdditionalFields( $taskInfo, $this->_object, $module );
+		MShop_Locale_Manager_Factory::injectManager( 'MShop_Locale_Manager_Default', null );
+
+		$this->assertEquals( array(), $result );
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function saveAdditionalFields()
 	{
 		$data = array(
