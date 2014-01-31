@@ -35,10 +35,6 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-filter', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogFilter.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-filter', 'Arcavias - Catalog filter' );
 
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-filtersearch'] = 'pi_flexform';
-t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-filtersearch', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogFilterSearch.xml' );
-Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-filtersearch', 'Arcavias - Catalog search filter' );
-
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-list'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-list', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogList.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-list', 'Arcavias - Catalog list' );
@@ -52,6 +48,7 @@ t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-detail', 'FILE:EXT:' .
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-detail', 'Arcavias - Catalog detail' );
 
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-listsimple', 'Arcavias - Catalog simple search list' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-count', 'Arcavias - Catalog count source' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-stock', 'Arcavias - Catalog stock source' );
 
 
