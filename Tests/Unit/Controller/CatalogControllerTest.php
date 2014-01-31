@@ -40,6 +40,44 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 	/**
 	 * @test
 	 */
+	public function countAction()
+	{
+		$name = 'Client_Html_Catalog_Count_Default';
+		$client = $this->getMock( $name, array( 'getBody', 'getHeader', 'process' ), array(), '', false );
+
+		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
+		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
+
+		Client_Html_Catalog_Count_Factory::injectClient( $name, $client );
+		$output = $this->_object->countAction();
+		Client_Html_Catalog_Count_Factory::injectClient( $name, null );
+
+		$this->assertEquals( 'body', $output );
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function countActionException()
+	{
+		$name = 'Client_Html_Catalog_Count_Default';
+		$client = $this->getMock( $name, array( 'process' ), array(), '', false );
+
+		$client->expects( $this->once() )->method( 'process' )->will( $this->throwException( new Exception() ) );
+
+		Client_Html_Catalog_Count_Factory::injectClient( $name, $client );
+		$output = $this->_object->countAction();
+		Client_Html_Catalog_Count_Factory::injectClient( $name, null );
+
+		$this->assertEquals( 1, count( t3lib_FlashMessageQueue::getAllMessagesAndFlush() ) );
+		$this->assertNull( $output );
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function detailAction()
 	{
 		$name = 'Client_Html_Catalog_Detail_Default';
@@ -106,48 +144,6 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 
 		Client_Html_Catalog_Filter_Factory::injectClient( $name, $client );
 		$output = $this->_object->filterAction();
-		Client_Html_Catalog_Filter_Factory::injectClient( $name, null );
-
-		$this->assertEquals( 1, count( t3lib_FlashMessageQueue::getAllMessagesAndFlush() ) );
-		$this->assertNull( $output );
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function filtersearchAction()
-	{
-		$name = 'Client_Html_Catalog_Filter_Default';
-		$subname = 'Client_Html_Catalog_Filter_Search_Default';
-
-		$client = $this->getMock( $name, array( 'getSubClient', 'process' ), array(), '', false );
-		$subclient = $this->getMock( $subname, array( 'getBody', 'getHeader', 'process' ), array(), '', false );
-
-		$client->expects( $this->once() )->method( 'getSubClient' )->will( $this->returnValue( $subclient ) );
-		$subclient->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
-		$subclient->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
-
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
-		$output = $this->_object->filtersearchAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
-
-		$this->assertEquals( 'body', $output );
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function filtersearchActionException()
-	{
-		$name = 'Client_Html_Catalog_Filter_Default';
-		$client = $this->getMock( $name, array( 'getSubClient' ), array(), '', false );
-
-		$client->expects( $this->once() )->method( 'getSubClient' )->will( $this->throwException( new Exception() ) );
-
-		Client_Html_Catalog_Filter_Factory::injectClient( $name, $client );
-		$output = $this->_object->filtersearchAction();
 		Client_Html_Catalog_Filter_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 1, count( t3lib_FlashMessageQueue::getAllMessagesAndFlush() ) );
@@ -280,9 +276,9 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Catalog_Stock_Factory::injectClient( $name, $client );
 		$output = $this->_object->stockAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Catalog_Stock_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}
