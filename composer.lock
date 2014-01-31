@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "63691732f1b5f3c77ffa1fdaafc57b45eba5ecea"
+                "reference": "2d2d0700904235f11ceb409609d12a473a5e884a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/63691732f1b5f3c77ffa1fdaafc57b45eba5ecea",
-                "reference": "63691732f1b5f3c77ffa1fdaafc57b45eba5ecea",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/2d2d0700904235f11ceb409609d12a473a5e884a",
+                "reference": "2d2d0700904235f11ceb409609d12a473a5e884a",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-01-22 12:59:46"
+            "time": "2014-01-31 14:54:23"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -80,12 +80,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "f4a45c01ae57f17c5a40095de81ecb0b26d0a35f"
+                "reference": "c3c1063c36cb99ce44fd362eca73afbfc454f355"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/f4a45c01ae57f17c5a40095de81ecb0b26d0a35f",
-                "reference": "f4a45c01ae57f17c5a40095de81ecb0b26d0a35f",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/c3c1063c36cb99ce44fd362eca73afbfc454f355",
+                "reference": "c3c1063c36cb99ce44fd362eca73afbfc454f355",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-01-10 17:43:11"
+            "time": "2014-01-22 16:58:57"
         },
         {
             "name": "arcavias/ext-zend",
@@ -115,12 +115,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-zend.git",
-                "reference": "20cdf61cbce21b1869e53b88dea0d1af13a1cb23"
+                "reference": "7630e8637be4c0d7235fd0b49e3ff5ac041aa7f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-zend/zipball/20cdf61cbce21b1869e53b88dea0d1af13a1cb23",
-                "reference": "20cdf61cbce21b1869e53b88dea0d1af13a1cb23",
+                "url": "https://api.github.com/repos/Arcavias/ext-zend/zipball/7630e8637be4c0d7235fd0b49e3ff5ac041aa7f9",
+                "reference": "7630e8637be4c0d7235fd0b49e3ff5ac041aa7f9",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
             ],
             "description": "Arcavias extension for utilizing Zend Framework components",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-01-06 19:28:28"
+            "time": "2014-01-31 11:03:35"
         },
         {
             "name": "arcavias/extension-installer",
