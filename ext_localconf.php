@@ -29,16 +29,16 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
-	'catalog-filtersearch',
-	array( 'Catalog' => 'filtersearch' ),
+	'catalog-stage',
+	array( 'Catalog' => 'stage' ),
 	array()
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
-	'catalog-stage',
-	array( 'Catalog' => 'stage' ),
-	array()
+	'catalog-count',
+	array( 'Catalog' => 'count' ),
+	array( 'Catalog' => 'count' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(

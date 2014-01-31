@@ -27,6 +27,7 @@ plugin.tx_arcavias {
 						type = 18311919
 						chash = 0
 					}
+					count.url.config.type = 18311919
 					stock.url.config.type = 18311919
 				}
 				checkout {
@@ -52,7 +53,7 @@ arcaviasJson {
 	config {
 		no_cache = 1
 		disableAllHeaderCode = 1
-		additionalHeaders = Content-type:application/json
+		additionalHeaders = Content-type:application/javascript
 		disablePrefixComment = 1
 	}
 	10 = CONTENT

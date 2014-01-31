@@ -39,15 +39,14 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 
 
 	/**
-	 * Renders the catalog search filter section.
+	 * Renders the catalog counts.
 	 */
-	public function filtersearchAction()
+	public function countAction()
 	{
 		try
 		{
 			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
-			$client = Client_Html_Catalog_Filter_Factory::createClient( $this->_getContext(), $templatePaths );
-			$client = $client->getSubClient( 'search' );
+			$client = Client_Html_Catalog_Count_Factory::createClient( $this->_getContext(), $templatePaths );
 
 			return $this->_getClientOutput( $client );
 		}
