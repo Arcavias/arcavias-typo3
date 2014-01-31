@@ -35,8 +35,9 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	public function indexAction()
 	{
 		$html = '';
-		$abslen = strlen( PATH_site );
 		$ds = DIRECTORY_SEPARATOR;
+		$abslen = strlen( PATH_site );
+		$langid = $this->_getContext()->getLocale()->getLanguageId();
 
 		foreach( Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/extjs' ) as $base => $paths )
 		{
@@ -50,17 +51,19 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 					throw new Exception( sprintf( 'JSB2 file "%1$s" not found', $jsbAbsPath ) );
 				}
 
-				$jsb2 = new MW_Jsb2_Default( $jsbAbsPath, dirname( $relJsbPath . $ds . $path ) );
+				$jsb2 = new MW_Jsb2_Default( $jsbAbsPath, $relJsbPath . $ds . dirname( $path ) );
 				$html .= $jsb2->getHTML( 'css' );
 				$html .= $jsb2->getHTML( 'js' );
 			}
 		}
 
-		$serviceUrl = 'mod.php?M=user_ArcaviasTxArcaviasAdmin&tx_arcavias_user_arcaviastxarcaviasadmin[controller]=Admin&tx_arcavias_user_arcaviastxarcaviasadmin[action]=do';
-		$urlTemplate = 'mod.php?M=user_ArcaviasTxArcaviasAdmin&tx_arcavias_user_arcaviastxarcaviasadmin[site]={site}&tx_arcavias_user_arcaviastxarcaviasadmin[tab]={tab}';
+		$serviceUrl = 'mod.php?M=web_ArcaviasTxArcaviasAdmin&tx_arcavias_web_arcaviastxarcaviasadmin[controller]=Admin&tx_arcavias_web_arcaviastxarcaviasadmin[action]=do';
+		$urlTemplate = 'mod.php?M=web_ArcaviasTxArcaviasAdmin&tx_arcavias_web_arcaviastxarcaviasadmin[site]={site}&tx_arcavias_web_arcaviastxarcaviasadmin[tab]={tab}';
 
 
 		$this->view->assign( 'htmlHeader', $html );
+		$this->view->assign( 'locale', $langid );
+		$this->view->assign( 'i18nContent', $this->_getJsonClientI18n( $langid ) );
 		$this->view->assign( 'config', $this->_getJsonClientConfig() );
 		$this->view->assign( 'site', $this->_getSite( $this->request ) );
 		$this->view->assign( 'smd', $this->_controller->getJsonSmd( $serviceUrl ) );
@@ -88,7 +91,7 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	protected function initializeAction()
 	{
 		$langid = 'en';
-		if( isset( $GLOBALS['BE_USER']->uc['lang'] ) ) {
+		if( isset( $GLOBALS['BE_USER']->uc['lang'] ) && $GLOBALS['BE_USER']->uc['lang'] != '' ) {
 			$langid = $GLOBALS['BE_USER']->uc['lang'];
 		}
 
@@ -122,6 +125,20 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	{
 		$config = $this->_getContext()->getConfig()->get( 'client/extjs', array() );
 		return json_encode( array( 'client' => array( 'extjs' => $config ) ), JSON_FORCE_OBJECT );
+	}
+
+
+	protected function _getJsonClientI18n( $locale )
+	{
+		$i18nPaths = Tx_Arcavias_Base::getArcavias()->getI18nPaths();
+		$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $locale, array('disableNotices'=>true) );
+
+		$content = array(
+			'client/extjs' => $i18n->getAll( 'client/extjs' ),
+			'client/extjs/ext' => $i18n->getAll( 'client/extjs/ext' ),
+		);
+
+		return json_encode( $content, JSON_FORCE_OBJECT );
 	}
 
 

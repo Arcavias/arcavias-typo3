@@ -2,35 +2,42 @@
 <html>
 
 <head>
-	<title>Arcavias Administration Interface</title>
+	<title>Arcavias administration Interface</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript">
+
+	window.MShop = {
+
+			i18n: {
+				locale: '{locale}',
+				content: <f:format.html parseFuncTSPath="empty">{i18nContent}</f:format.html>
+			},
+
+			config: {
+				data: <f:format.html parseFuncTSPath="empty">{config}</f:format.html>,
+
+				site: <f:format.html parseFuncTSPath="empty">{site}</f:format.html>,
+
+				itemschema: <f:format.html parseFuncTSPath="empty">{itemSchemas}</f:format.html>,
+
+				searchschema: <f:format.html parseFuncTSPath="empty">{searchSchemas}</f:format.html>,
+
+				smd: <f:format.html parseFuncTSPath="empty">{smd}</f:format.html>,
+
+				urlTemplate: '<f:format.html parseFuncTSPath="empty">{urlTemplate}</f:format.html>',
+
+				activeTab: {activeTab},
+
+				baseurl: {
+					content: '../uploads/tx_arcavias/'
+				}
+			}
+		}
+
+	</script>
 
 	<f:format.html parseFuncTSPath="empty">{htmlHeader}</f:format.html>
 
-	<script type="text/javascript">
-
-		Ext.ns('MShop.config');
-
-		MShop.config.configuration = '<f:format.html parseFuncTSPath="empty">{config}</f:format.html>';
-
-		MShop.config.urlTemplate = '<f:format.html parseFuncTSPath="empty">{urlTemplate}</f:format.html>';
-
-		MShop.config.activeTab = {activeTab};
-
-		MShop.config.site = <f:format.html parseFuncTSPath="empty">{site}</f:format.html>;
-
-		MShop.config.itemschema = <f:format.html parseFuncTSPath="empty">{itemSchemas}</f:format.html>;
-
-		MShop.config.searchschema = <f:format.html parseFuncTSPath="empty">{searchSchemas}</f:format.html>;
-
-		MShop.config.smd = <f:format.html parseFuncTSPath="empty">{smd}</f:format.html>;
-
-
-		Ext.ns('MShop.config.baseurl');
-
-		MShop.config.baseurl.content = '../uploads/tx_arcavias/';
-
-	</script>
 </head>
 <body>
 	<noscript><p>You need to enable javascript!</p></noscript>
