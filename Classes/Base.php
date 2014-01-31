@@ -154,7 +154,7 @@ class Tx_Arcavias_Base
 				$hasNodeWithoutDot = array_key_exists($keyWithoutDot, $typoScriptArray);
 				$typoScriptNodeValue = $hasNodeWithoutDot ? $typoScriptArray[$keyWithoutDot] : NULL;
 				if (is_array($value)) {
-					$typoScriptArray[$keyWithoutDot] = $this->_convertTypoScriptArrayToPlainArray($value);
+					$typoScriptArray[$keyWithoutDot] = self::_convertTypoScriptArrayToPlainArray($value);
 					if (!is_null($typoScriptNodeValue)) {
 						$typoScriptArray[$keyWithoutDot]['_typoScriptNodeValue'] = $typoScriptNodeValue;
 					}
