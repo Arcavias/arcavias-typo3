@@ -24,7 +24,7 @@ class Tx_Arcavias_Tests_Unit_Flexform_CatalogTest
 	 */
 	public function getCategories()
 	{
-		$result = $this->_object->getCategories( array( 'items' => array() ), 'unittest' );
+		$result = $this->_object->getCategories( array( 'items' => array() ), null, 'unittest' );
 
 		$this->assertArrayHasKey( 'items', $result );
 	}
