@@ -19,10 +19,11 @@ class Tx_Arcavias_Flexform_Catalog
 	 * Returns the list of categories with their ID.
 	 *
 	 * @param array $config Associative array of existing configurations
+	 * @param t3lib_TCEforms $tceForms TCE forms object
 	 * @param string $sitecode Unique code of the site to retrieve the categories for
 	 * @return array Associative array with existing and new entries
 	 */
-	public function getCategories( array $config, $sitecode = 'default' )
+	public function getCategories( array $config, t3lib_TCEforms $tceForms = null, $sitecode = 'default' )
 	{
 		if( isset( $config['row'] ) && isset( $config['row']['pid'] ) )
 		{
