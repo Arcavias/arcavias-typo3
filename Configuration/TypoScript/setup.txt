@@ -1,8 +1,8 @@
 page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Public/html/css/arcavias.css
-page.includeJSlibs.jquery = EXT:arcavias/Resources/Public/html/js/jquery.min.js
-page.includeJSlibs.jquery-migrate = EXT:arcavias/Resources/Public/html/js/jquery-migrate.js
-page.includeJSlibs.jquery-ui = EXT:arcavias/Resources/Public/html/js/jquery-ui.custom.min.js
-page.includeJS.tx_arcavias = EXT:arcavias/Resources/Public/html/js/arcavias.js
+page.includeJSFooterlibs.jquery = EXT:arcavias/Resources/Public/html/js/jquery.min.js
+page.includeJSFooterlibs.jquery-migrate = EXT:arcavias/Resources/Public/html/js/jquery-migrate.js
+page.includeJSFooterlibs.jquery-ui = EXT:arcavias/Resources/Public/html/js/jquery-ui.custom.min.js
+page.includeJSFooter.tx_arcavias = EXT:arcavias/Resources/Public/html/js/arcavias.js
 
 plugin.tx_arcavias {
 	mvc {
