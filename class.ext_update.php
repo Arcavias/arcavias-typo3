@@ -87,12 +87,18 @@ class ext_update
 		$ctx = $this->_getContext();
 
 		$dbm = $ctx->getDatabaseManager();
-		$conf = $ctx->getConfig();
+		$config = $ctx->getConfig();
+		$local = array();
 
-		if( ( $dbconfig = $conf->get( 'resource/db' ) ) === null ) {
+		if( ( $dbconfig = $config->get( 'resource/db' ) ) === null ) {
 			throw new Exception( 'Configuration for database adapter missing' );
 		}
-		$conf->set( 'resource/db/limit', 2 );
+		$config->set( 'resource/db/limit', 2 );
+
+		if( Tx_Arcavias_Base::getExtConfig( 'useDemoData', 1 ) == 1 ) {
+			$local = array( 'setup' => array( 'default' => array( 'demo' => true ) ) );
+		}
+		$ctx->setConfig( new MW_Config_Decorator_Memory( $config, $local ) );
 
 
 		$manager = new MW_Setup_Manager_Default( $dbm->acquire(), $dbconfig, $taskPaths, $ctx );
