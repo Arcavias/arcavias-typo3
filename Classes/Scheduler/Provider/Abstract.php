@@ -129,7 +129,7 @@ abstract class Tx_Arcavias_Scheduler_Provider_Abstract
 			throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.controller.missing' ) );
 		}
 
-		if( count( $submittedData[$this->_fieldSite] ) < 1 ) {
+		if( count( (array) $submittedData[$this->_fieldSite] ) < 1 ) {
 			throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:default.error.sitecode.missing' ) );
 		}
 
