@@ -10,6 +10,12 @@
 		"forum": "https://forum.arcavias.com",
 		"wiki": "https://docs.arcavias.com"
 	},
+	"repositories": [
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    ],
 	"require": {
 		"php": ">=5.2.0",
 		"arcavias/arcavias-core": "dev-master",
