@@ -239,7 +239,7 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
 		Client_Html_Catalog_Session_Factory::injectClient( $name, $client );
-		$output = $this->_object->stageAction();
+		$output = $this->_object->sessionAction();
 		Client_Html_Catalog_Session_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
