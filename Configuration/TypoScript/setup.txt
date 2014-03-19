@@ -1,8 +1,8 @@
-page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Public/html/css/arcavias.css
-page.includeJSFooterlibs.jquery = EXT:arcavias/Resources/Public/html/js/jquery.min.js
-page.includeJSFooterlibs.jquery-migrate = EXT:arcavias/Resources/Public/html/js/jquery-migrate.js
-page.includeJSFooterlibs.jquery-ui = EXT:arcavias/Resources/Public/html/js/jquery-ui.custom.min.js
-page.includeJSFooter.tx_arcavias = EXT:arcavias/Resources/Public/html/js/arcavias.js
+page.includeCSS.tx_arcavias = EXT:arcavias/Resources/Public/html/classic/css/arcavias.css
+page.includeJSFooterlibs.jquery = EXT:arcavias/Resources/Public/html/classic/js/jquery.min.js
+page.includeJSFooterlibs.jquery-migrate = EXT:arcavias/Resources/Public/html/classic/js/jquery-migrate.js
+page.includeJSFooterlibs.jquery-ui = EXT:arcavias/Resources/Public/html/classic/js/jquery-ui.custom.min.js
+page.includeJSFooter.tx_arcavias = EXT:arcavias/Resources/Public/html/classic/js/arcavias.js
 
 plugin.tx_arcavias {
 	mvc {
@@ -16,7 +16,7 @@ plugin.tx_arcavias {
 			html {
 				common {
 					content.baseurl = uploads/tx_arcavias
-					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html
+					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/classic
 				}
 				catalog {
 					list.search.url.config {
