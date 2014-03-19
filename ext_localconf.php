@@ -69,6 +69,13 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array()
 );
 
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'catalog-session',
+	array( 'Catalog' => 'session' ),
+	array( 'Catalog' => 'session' )
+);
+
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
@@ -140,11 +147,9 @@ if( class_exists( '\TYPO3\CMS\Scheduler\Task\AbstractTask' ) ) {
  * Add RealURL Configuration
  */
 
-$arcCfg = @unserialize( $_EXTCONF );
-if( is_array( $arcCfg ) && isset( $arcCfg['useRealUrlAutoConfig'] ) && $arcCfg['useRealUrlAutoConfig'] != 0 ) {
+if( Tx_Arcavias_Base::getExtConfig( 'useRealUrlAutoConfig', 1 ) != 0 ) {
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['arcavias'] =
 		'EXT:arcavias/Classes/Custom/Realurl.php:tx_arcavias_custom_realurl->addAutoConfig';
 }
-unset( $arcCfg );
 
 ?>

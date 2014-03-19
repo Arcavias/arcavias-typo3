@@ -182,4 +182,27 @@ class Tx_Arcavias_Controller_CatalogController extends Tx_Arcavias_Controller_Ab
 			) );
 		}
 	}
+
+
+	/**
+	 * Renders the user session related catalog section.
+	 */
+	public function sessionAction()
+	{
+		try
+		{
+			$templatePaths = Tx_Arcavias_Base::getArcavias()->getCustomPaths( 'client/html' );
+			$client = Client_Html_Catalog_Session_Factory::createClient( $this->_getContext(), $templatePaths );
+
+			return $this->_getClientOutput( $client );
+		}
+		catch( Exception $e )
+		{
+			t3lib_FlashMessageQueue::addMessage( new t3lib_FlashMessage(
+				'An error occured. Please go back to the previous page and try again',
+				'Error',
+				t3lib_Flashmessage::ERROR
+			) );
+		}
+	}
 }
