@@ -10,5 +10,8 @@
             <label index="mlang_labels_tablabel">Arcavias Plugin</label>
             <label index="mlang_labels_tabdescr">Administration for Arcavias</label>
         </languageKey>
+		<languageKey index="de" type="array">
+			<label index="mlang_labels_tabdescr">Administration für Arcavias</label>
+		</languageKey>
     </data>
 </T3locallang>
