@@ -86,9 +86,9 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Catalog_Detail_Factory::injectClient( $name, $client );
 		$output = $this->_object->detailAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Catalog_Detail_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}
@@ -124,9 +124,9 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Catalog_Filter_Factory::injectClient( $name, $client );
 		$output = $this->_object->filterAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Catalog_Filter_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}
@@ -162,9 +162,9 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Catalog_List_Factory::injectClient( $name, $client );
 		$output = $this->_object->listAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Catalog_List_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}
@@ -200,9 +200,9 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Catalog_List_Factory::injectClient( $name, $client );
 		$output = $this->_object->listsimpleAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Catalog_List_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}
@@ -230,6 +230,44 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 	/**
 	 * @test
 	 */
+	public function sessionAction()
+	{
+		$name = 'Client_Html_Catalog_Session_Default';
+		$client = $this->getMock( $name, array( 'getBody', 'getHeader', 'process' ), array(), '', false );
+
+		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
+		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
+
+		Client_Html_Catalog_Session_Factory::injectClient( $name, $client );
+		$output = $this->_object->sessionAction();
+		Client_Html_Catalog_Session_Factory::injectClient( $name, null );
+
+		$this->assertEquals( 'body', $output );
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function sessionActionException()
+	{
+		$name = 'Client_Html_Catalog_Stage_Default';
+		$client = $this->getMock( $name, array( 'process' ), array(), '', false );
+
+		$client->expects( $this->once() )->method( 'process' )->will( $this->throwException( new Exception() ) );
+
+		Client_Html_Catalog_Session_Factory::injectClient( $name, $client );
+		$output = $this->_object->stageAction();
+		Client_Html_Catalog_Session_Factory::injectClient( $name, null );
+
+		$this->assertEquals( 1, count( t3lib_FlashMessageQueue::getAllMessagesAndFlush() ) );
+		$this->assertNull( $output );
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function stageAction()
 	{
 		$name = 'Client_Html_Catalog_Stage_Default';
@@ -238,9 +276,9 @@ class Tx_Arcavias_Tests_Unit_Controller_CatalogControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Catalog_Stage_Factory::injectClient( $name, $client );
 		$output = $this->_object->stageAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Catalog_Stage_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}

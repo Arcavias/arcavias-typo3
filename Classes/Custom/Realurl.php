@@ -56,7 +56,7 @@ class tx_arcavias_custom_realurl
 					'list' => array(
 						array( 'GETvar' => 'arc[l-page]' ),
 						array(
-							'GETvar' => 'arc[l-sort]',
+							'GETvar' => 'arc[f-sort]',
 							'valueMap' => array(
 								'name' => 'name',
 								'price' => 'price',
@@ -66,7 +66,7 @@ class tx_arcavias_custom_realurl
 					),
 					'cat' => array(
 						array( 'GETvar' => 'arc[f-catalog-id]' ),
-						array( 'GETvar' => 'arc[l-product-id]' ),
+						array( 'GETvar' => 'arc[d-product-id]' ),
 						array( 'GETvar' => 'arc[a-name]' ),
 					),
 					'bt' => array(

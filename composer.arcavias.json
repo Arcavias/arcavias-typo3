@@ -10,12 +10,23 @@
 		"forum": "https://forum.arcavias.com",
 		"wiki": "https://docs.arcavias.com"
 	},
+	"repositories": [
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    ],
 	"require": {
 		"php": ">=5.2.0",
 		"arcavias/arcavias-core": "dev-master",
 		"arcavias/extension-installer": "dev-master",
 		"arcavias/ext-typo3": "dev-master",
 		"arcavias/ext-zend": "dev-master"
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "1.*",
+		"phpunit/phpunit": "3.7.*",
+		"phing/phing": "2.4.*"
 	},
 	"include-path": ["Resources/Private/Libraries/zendlib"],
 	"extra": {

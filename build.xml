@@ -5,6 +5,7 @@
 	<property name="coredir" value="${project.basedir}/vendor/arcavias/arcavias-core" />
 	<property name="extdir" value="${project.basedir}/Resources/Private/Libraries/ext" />
 	<property name="confdir" value="${project.basedir}/Resources/Private/Config" />
+	<property name="bindir" value="${project.basedir}/vendor/bin/" />
 	<property name="codestddir" value="${coredir}/misc/coding" />
 	
 
@@ -90,7 +91,7 @@
 
 	<target name="update" description="Updates the Arcavias core">
 		<exec command="git pull https://github.com/Arcavias/arcavias-typo3.git" checkreturn="true" logoutput="true" />
-		<exec command="composer update --working-dir ${project.basedir}" checkreturn="true" logoutput="true" />
+		<exec command="COMPOSER=composer.arcavias.json composer update --working-dir ${project.basedir}" checkreturn="true" logoutput="true" />
 		<copy todir="Resources/Public/html/">
 			<fileset dir="${coredir}/client/html/lib/" expandsymboliclinks="true" />
 		</copy>
@@ -108,6 +109,7 @@
 		  </filterchain>
 		</reflexive>
 		<symlink target="${project.basedir}" link="../arcavias" />
+		<exec command="COMPOSER=composer.arcavias.json composer install --no-dev --working-dir ${project.basedir}" checkreturn="true" logoutput="true" />
 		<exec command="tar -c -h --bzip2 --exclude-vcs -C ../ -f ../arcavias-typo3_${version}.tar.bz2 arcavias"
 			checkreturn="true" logoutput="true"/>
 		<delete file="../arcavias" />
