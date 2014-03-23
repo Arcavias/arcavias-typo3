@@ -57,9 +57,8 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 			}
 		}
 
-		$serviceUrl = 'mod.php?M=web_ArcaviasTxArcaviasAdmin&tx_arcavias_web_arcaviastxarcaviasadmin[controller]=Admin&tx_arcavias_web_arcaviastxarcaviasadmin[action]=do';
-		$urlTemplate = 'mod.php?M=web_ArcaviasTxArcaviasAdmin&tx_arcavias_web_arcaviastxarcaviasadmin[site]={site}&tx_arcavias_web_arcaviastxarcaviasadmin[tab]={tab}';
-
+		$serviceUrl = t3lib_BEfunc::getModuleUrl( $this->request->getPluginName(), array( 'tx_arcavias_web_arcaviastxarcaviasadmin' => array( 'controller' => 'Admin', 'action' => 'do' ) ) );
+		$urlTemplate = t3lib_BEfunc::getModuleUrl( $this->request->getPluginName(), array( 'tx_arcavias_web_arcaviastxarcaviasadmin' => array( 'site' => '{site}', 'tab' => '{tab}' ) ) );
 
 		$this->view->assign( 'htmlHeader', $html );
 		$this->view->assign( 'locale', $langid );
