@@ -31,7 +31,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'catalog-stage',
 	array( 'Catalog' => 'stage' ),
-	array()
+	array( 'Catalog' => 'stage' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
@@ -52,7 +52,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'catalog-list',
 	array( 'Catalog' => 'list' ),
-	array()
+	array( 'Catalog' => 'list' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
@@ -66,7 +66,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'catalog-detail',
 	array( 'Catalog' => 'detail' ),
-	array()
+	array( 'Catalog' => 'detail' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(

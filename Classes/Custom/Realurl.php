@@ -59,7 +59,9 @@ class tx_arcavias_custom_realurl
 							'GETvar' => 'arc[f-sort]',
 							'valueMap' => array(
 								'name' => 'name',
+								'-name' => '-name',
 								'price' => 'price',
+								'-price' => '-price',
 							),
 							'noMatch' => 'bypass',
 						),

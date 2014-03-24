@@ -19,25 +19,39 @@ plugin.tx_arcavias {
 					template.baseurl = typo3conf/ext/arcavias/Resources/Public/html/classic
 				}
 				catalog {
-					list.search.url.config {
-						nocache = 1
-						chash = 1
+					count.url.config {
+						type = 18311919
+						chash = 0
+					}
+					stock.url.config {
+						type = 18311919
+						chash = 0
 					}
 					listsimple.url.config {
 						type = 18311919
 						chash = 0
 					}
-					count.url.config.type = 18311919
-					stock.url.config.type = 18311919
+					list.url.config {
+						chash = 0
+					}
+					detail.url.config {
+						chash = 0
+					}
+				}
+				basket.standard.url.config {
+					chash = 0
 				}
 				checkout {
+					standard.url.config {
+						chash = 0
+					}
 					confirm.url.config {
 						absoluteUri = 1
 						chash = 0
 					}
 					update.url.config {
-						type = 18311920
 						absoluteUri = 1
+						type = 18311920
 						chash = 0
 					}
 				}
