@@ -109,6 +109,7 @@
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
             "time": "2014-03-29 21:44:33"
+            "time": "2014-03-29 18:48:45"
         },
         {
             "name": "arcavias/ext-zend",
