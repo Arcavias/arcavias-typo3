@@ -4,6 +4,8 @@
 $extensionPath = t3lib_extMgm::extPath( 'arcavias' );
 
 return array(
+	'tx_arcavias_base' => $extensionPath . 'Classes/Base.php',
+
 	'tx_arcavias_custom_realurl' => $extensionPath . 'Classes/Custom/Realurl.php',
 	'tx_arcavias_custom_wizicon' => $extensionPath . 'Classes/Custom/Wizicon.php',
 
