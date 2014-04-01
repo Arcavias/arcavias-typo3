@@ -57,8 +57,9 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 			}
 		}
 
+		// rawurldecode() is necessary for ExtJS templates to replace "{site}" properly
+		$urlTemplate = rawurldecode( t3lib_BEfunc::getModuleUrl( $this->request->getPluginName(), array( 'tx_arcavias_web_arcaviastxarcaviasadmin' => array( 'site' => '{site}', 'tab' => '{tab}' ) ) ) );
 		$serviceUrl = t3lib_BEfunc::getModuleUrl( $this->request->getPluginName(), array( 'tx_arcavias_web_arcaviastxarcaviasadmin' => array( 'controller' => 'Admin', 'action' => 'do' ) ) );
-		$urlTemplate = t3lib_BEfunc::getModuleUrl( $this->request->getPluginName(), array( 'tx_arcavias_web_arcaviastxarcaviasadmin' => array( 'site' => '{site}', 'tab' => '{tab}' ) ) );
 
 		$this->view->assign( 'htmlHeader', $html );
 		$this->view->assign( 'locale', $langid );
