@@ -69,8 +69,7 @@ class Tx_Arcavias_Base
 	{
 		if( self::$_arcavias === null )
 		{
-			$ds = DIRECTORY_SEPARATOR;
-			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor' . $ds . 'arcavias' . $ds . 'arcavias-core';
+			$libPath = t3lib_extMgm::extPath( 'arcavias' ) . 'vendor/arcavias/arcavias-core';
 
 			// Hook for processing extension directories
 			$extDirs = array();

@@ -35,7 +35,6 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 	public function indexAction()
 	{
 		$html = '';
-		$ds = DIRECTORY_SEPARATOR;
 		$abslen = strlen( PATH_site );
 		$langid = $this->_getContext()->getLocale()->getLanguageId();
 
@@ -45,13 +44,13 @@ class Tx_Arcavias_Controller_AdminController extends Tx_Arcavias_Controller_Abst
 
 			foreach( $paths as $path )
 			{
-				$jsbAbsPath = $base . $ds . $path;
+				$jsbAbsPath = $base . '/' . $path;
 
 				if( !is_file( $jsbAbsPath ) ) {
 					throw new Exception( sprintf( 'JSB2 file "%1$s" not found', $jsbAbsPath ) );
 				}
 
-				$jsb2 = new MW_Jsb2_Default( $jsbAbsPath, $relJsbPath . $ds . dirname( $path ) );
+				$jsb2 = new MW_Jsb2_Default( $jsbAbsPath, $relJsbPath . '/' . dirname( $path ) );
 				$html .= $jsb2->getHTML( 'css' );
 				$html .= $jsb2->getHTML( 'js' );
 			}
