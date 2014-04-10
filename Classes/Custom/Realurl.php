@@ -62,6 +62,7 @@ class tx_arcavias_custom_realurl
 								'-name' => '-name',
 								'price' => 'price',
 								'-price' => '-price',
+								'relevance' => 'relevance',
 							),
 							'noMatch' => 'bypass',
 						),

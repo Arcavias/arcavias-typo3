@@ -31,12 +31,6 @@ plugin.tx_arcavias {
 						type = 18311919
 						chash = 0
 					}
-					list.url.config {
-						chash = 0
-					}
-					detail.url.config {
-						chash = 0
-					}
 				}
 				basket.standard.url.config {
 					chash = 0
