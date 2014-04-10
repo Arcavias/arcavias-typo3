@@ -99,6 +99,7 @@
 
 
 	<target name="deploy" description="Executes all deployments" depends="clean">
+		<exec command="COMPOSER=composer.arcavias.json composer install --no-dev --working-dir ${project.basedir}" checkreturn="true" logoutput="true" />
 		<propertyprompt propertyName="version" promptText="Enter release version" promptCharacter=":" useExistingValue="true"/>
 		<reflexive>
 		  <fileset dir="." includes="ext_emconf.php" />
@@ -109,7 +110,6 @@
 		  </filterchain>
 		</reflexive>
 		<symlink target="${project.basedir}" link="../arcavias" />
-		<exec command="COMPOSER=composer.arcavias.json composer install --no-dev --working-dir ${project.basedir}" checkreturn="true" logoutput="true" />
 		<exec command="tar -c -h --bzip2 --exclude-vcs -C ../ -f ../arcavias-typo3_${version}.tar.bz2 arcavias"
 			checkreturn="true" logoutput="true"/>
 		<delete file="../arcavias" />

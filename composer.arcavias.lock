@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "6d25028a24f48377c84085e8bd36f907c93f46c0"
+                "reference": "ab1a7186aa2b153f7116d92bbc5c47fb0bf8849f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/6d25028a24f48377c84085e8bd36f907c93f46c0",
-                "reference": "6d25028a24f48377c84085e8bd36f907c93f46c0",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/ab1a7186aa2b153f7116d92bbc5c47fb0bf8849f",
+                "reference": "ab1a7186aa2b153f7116d92bbc5c47fb0bf8849f",
                 "shasum": ""
             },
             "require": {
@@ -76,7 +76,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-03-31 13:43:25"
+            "time": "2014-04-10 14:29:24"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -665,17 +665,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3"
+                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
-                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
+                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
                 "shasum": ""
             },
             "require": {
@@ -710,7 +710,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-03-12 18:29:58"
         }
     ],
     "aliases": [
