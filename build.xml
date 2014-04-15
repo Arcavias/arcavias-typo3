@@ -109,11 +109,8 @@
 		    </replaceregexp>
 		  </filterchain>
 		</reflexive>
-		<symlink target="${project.basedir}" link="../arcavias" />
-		<exec command="tar -c -h --bzip2 --exclude-vcs -C ../ -f ../arcavias-typo3_${version}.tar.bz2 arcavias"
-			checkreturn="true" logoutput="true"/>
-		<delete file="../arcavias" />
-		<filehash file="../arcavias-typo3_${version}.tar.bz2" hashtype="1" />
+		<exec command="zip -r ../arcavias_${version}.zip * -x \*.git\* \*.exclude \*.travis.yml" checkreturn="true" logoutput="true"/>
+		<filehash file="../arcavias_${version}.zip" hashtype="1" />
 		<echo msg="SHA1 hash value: ${filehashvalue}" />
 	</target>
 
