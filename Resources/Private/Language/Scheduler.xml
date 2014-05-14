@@ -15,6 +15,13 @@
 			<label index="default.error.sitecode.missing">Please choose at least one site</label>
 			<label index="default.error.controller.missing">Please choose at least one job</label>
 			<label index="default.error.tsconfig.invalid">The TypoScript configuration is invalid</label>
+			<label index="email.name">Arcavias e-mail scheduler</label>
+			<label index="email.description">Specialized task for sending the e-mails</label>
+			<label index="email.label.from-name">Sender name</label>
+			<label index="email.label.from-email">Sender e-mail</label>
+			<label index="email.label.reply-email">Reply e-mail</label>
+			<label index="email.error.from-email.invalid">The sender e-mail address is invalid or none was entered</label>
+			<label index="email.error.reply-email.invalid">The reply e-mail address is invalid</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="default.name">Arcavias Aufgaben</label>
@@ -26,6 +33,13 @@
 			<label index="default.error.sitecode.missing">Bitte wählen sie mindestens eine Site aus</label>
 			<label index="default.error.controller.missing">Bitte wählen sie mindestens eine Aufgabe aus</label>
 			<label index="default.error.tsconfig.invalid">Die TypoScript Konfiguration ist ungültig</label>
+			<label index="email.name">Arcavias E-Mails</label>
+			<label index="email.description">Spezialisierte Aufgabe zum Versenden der E-Mails</label>
+			<label index="email.label.from-name">Absendername</label>
+			<label index="email.label.from-email">Absender E-Mailadresse</label>
+			<label index="email.label.reply-email">E-Mailadresse für Antworten</label>
+			<label index="email.error.from-email.invalid">Die Absender E-Mailadresse ist ungültig oder es wurde keine eingetragen</label>
+			<label index="email.error.reply-email.invalid">Die E-Mailadresse für Rückantworten ist ungültig</label>
 		</languageKey>
 	</data>
 </T3locallang>
