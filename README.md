@@ -9,11 +9,6 @@ The repository contains a TYPO3 extension integrating the Arcavias e-commerce fr
 * [Issue tracker](https://bugs.arcavias.com/)
 * [Forum](https://forum.arcavias.com/)
 
-## Technical requirements
-
-* GNU "file" command supporting "-b" and "--mime-type" options
-* ImageMagick/GraphicsMagick "identify" and "convert" commands
-
 ## License
 
 The Arcavias TYPO3 plugin is licensed under the terms of the GPL Open Source license and is available for free.
