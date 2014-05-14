@@ -126,19 +126,34 @@ Tx_Extbase_Utility_Extension::configurePlugin(
  * Arcavias scheduler tasks
  */
 
-if( class_exists( '\TYPO3\CMS\Scheduler\Task\AbstractTask' ) ) {
+if( class_exists( '\TYPO3\CMS\Scheduler\Task\AbstractTask' ) )
+{
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Arcavias\Arcavias\Scheduler\Task\Typo6'] = array(
 		'extension'        => $_EXTKEY,
 		'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:default.name',
 		'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:default.description',
 		'additionalFields' => 'Arcavias\Arcavias\Scheduler\Provider\Typo6',
 	);
-} else {
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Arcavias\Arcavias\Scheduler\Task\Email6'] = array(
+		'extension'        => $_EXTKEY,
+		'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:email.name',
+		'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:email.description',
+		'additionalFields' => 'Arcavias\Arcavias\Scheduler\Provider\Email6',
+	);
+}
+else
+{
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Tx_Arcavias_Scheduler_Task_Typo4'] = array(
 		'extension'        => $_EXTKEY,
 		'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:default.name',
 		'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:default.description',
 		'additionalFields' => 'Tx_Arcavias_Scheduler_Provider_Typo4',
+	);
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Tx_Arcavias_Scheduler_Task_Email4'] = array(
+		'extension'        => $_EXTKEY,
+		'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:email.name',
+		'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/Scheduler.xml:email.description',
+		'additionalFields' => 'Tx_Arcavias_Scheduler_Provider_Email4',
 	);
 }
 
