@@ -166,10 +166,11 @@ abstract class Tx_Arcavias_Scheduler_Provider_Email
 			if( strncmp( $name, 'order/email/', 12 ) === 0 )
 			{
 				$active = ( in_array( $name, $selected ) ? 'selected="selected"' : '' );
+				$title = htmlspecialchars( $controller->getDescription(), ENT_QUOTES, 'UTF-8' );
 				$cntl = htmlspecialchars( $controller->getName(), ENT_QUOTES, 'UTF-8' );
 				$name = htmlspecialchars( $name, ENT_QUOTES, 'UTF-8' );
 
-				$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', $name, $active, $cntl );
+				$html .= sprintf( '<option value="%1$s" title="%2$s" %3$s>%4$s</option>', $name, $title, $active, $cntl );
 			}
 		}
 
