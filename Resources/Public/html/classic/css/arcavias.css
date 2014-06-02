@@ -241,7 +241,8 @@
 }
 
 .common-summary-address h2,
-.common-summary-service h2 {
+.common-summary-service h2,
+.common-summary-coupon h2 {
 	display: none;
 }
 
@@ -255,13 +256,14 @@
 	color: #000000;
 }
 
+.common-summary-detail h2 {
+	display: inline-block;
+	font-size: 1em;
+}
+
 .common-summary-detail .header {
 	border-bottom: none;
 	background-color: #FFFFFF;
-}
-
-.common-summary-detail h2 {
-	font-size: 1em;
 }
 
 .common-summary-detail .basket {
@@ -1402,28 +1404,29 @@
 }
 
 .basket-standard-coupon {
-	padding: 10px;
+	padding: 1em !important;
 	margin: 0;
 }
 
-.basket-standard-coupon .header {
-	padding: 5px 10px 0;
-	margin: 0px 5px 5px;
-}
-
+.basket-standard-coupon .header,
 .basket-standard-coupon .content {
-	padding: 0 10px;
-}
-
-.basket-standard-coupon .coupon-list {
 	display: inline-block;
-	font-wight: bold;
-	margin: 0.5em;
 	width: 46%;
 }
 
-.basket-standard-coupon .coupon-item .coupon-code,
-.basket-standard-coupon .coupon-item .change {
+.basket-standard-coupon .header h2 {
+	font-size: 1em;
+}
+
+.basket-standard-coupon .attr-list {
+	display: inline-block;
+	font-weight: bold;
+	list-style: none;
+	margin: 0.5em;
+}
+
+.basket-standard-coupon .attr-item .coupon-code,
+.basket-standard-coupon .attr-item .change {
 	font-weight: bold;
 	font-size: 133%;
 	padding: 0.5em;
@@ -1436,12 +1439,10 @@
 	background-color: #689DB9;
 	border: 1px solid #689DB9;
 	border-radius: 4px;
-	white-space: nowrap;
-	margin: 0.5em;
-	width: 46%;
-	font-size: 150%;
 	display: inline-block;
+	white-space: nowrap;
 	max-width: 12em;
+	margin: 0.5em;
 }
 
 .basket-standard-coupon .coupon-new:hover {
@@ -1453,7 +1454,7 @@
 	border-radius: 4px 0 0 4px;
 	border: none;
 	min-width: 5em;
-	height: 1.25em;
+	height: 1.55em;
 	width: 80%;
 }
 
@@ -1465,7 +1466,6 @@
 	min-width: 2em;
 	padding: 0;
 	margin: 0;
-	vertical-align: baseline;
 }
 
 .basket-standard-coupon .coupon-new .standardbutton:hover {
