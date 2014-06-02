@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "3ba312c0174bf04120330aa011c8c947",
     "packages": [
@@ -11,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "bc9598e1541f446f37824e968b7ec69ab50d1943"
+                "reference": "04b980b150bc7d40aa2f459d87292c0a4eba8198"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/bc9598e1541f446f37824e968b7ec69ab50d1943",
-                "reference": "bc9598e1541f446f37824e968b7ec69ab50d1943",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/04b980b150bc7d40aa2f459d87292c0a4eba8198",
+                "reference": "04b980b150bc7d40aa2f459d87292c0a4eba8198",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +79,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-05-28 20:52:00"
+            "time": "2014-06-02 16:01:49"
         },
         {
             "name": "arcavias/ext-typo3",
