@@ -223,7 +223,7 @@
 }
 
 .common-summary .item .item-icons img {
-	max-height: 40px;
+	max-width: 60px;
 }
 
 .common-summary .item .attr-list {
@@ -327,10 +327,6 @@
 
 .common-summary-detail .attr-list-config .attr-item {
 	font-weight: bold;
-}
-
-.common-summary-detail .attr-list .sign {
-	font-size: 150%;
 }
 
 .common-summary-detail .attr-item .name:after {
@@ -1123,23 +1119,19 @@
 	padding: 1%;
 }
 
-/* Hide attributes from sub-products*/
-.catalog-detail-additional .attributes .subproduct {
-	display: none;
-}
-.catalog-detail-additional .attributes .subproduct-actual {
-	display: table-row;
-}
-
 /* Product detail, additional attributes section */
 .catalog-detail-additional table.attributes {
 	margin: 1%;
 	width: 98%;
 }
 
+.catalog-detail-additional .attributes tr:nth-child(2n) {
+	background-color: #C3D9E5;
+}	
+
 .catalog-detail-additional .attributes td {
 	padding: 1%;
-	width: 48%;
+	width: 50%;
 }	
 
 .catalog-detail-additional .attributes .media-list {
@@ -1449,6 +1441,7 @@
 	width: 46%;
 	font-size: 150%;
 	display: inline-block;
+	max-width: 12em;
 }
 
 .basket-standard-coupon .coupon-new:hover {
@@ -1472,7 +1465,7 @@
 	min-width: 2em;
 	padding: 0;
 	margin: 0;
-	width: 20%;
+	vertical-align: baseline;
 }
 
 .basket-standard-coupon .coupon-new .standardbutton:hover {
@@ -1562,11 +1555,6 @@
 	padding: 10px 0;
 }
 
-.checkout-standard .item-service .description h2 {
-	font-weight: bold;
-	font-size: 133%;
-}
-
 .checkout-standard .item-service .description .short {
 	font-weight: bold;
 	padding: 0.5em 0;
@@ -1582,6 +1570,10 @@
 	margin: 0 10px;
 }
 
+.checkout-standard .item-service .description p {
+	margin-left: 40px;
+}
+
 .checkout-standard .item-service .description h2,
 .checkout-standard .item-service .icons {
 	display: inline-block;
@@ -1593,7 +1585,8 @@
 }
 
 .checkout-standard .item-service .option {
-	margin: 10px;
+	float: left;
+	margin-left: 10px;
 }
 
 .checkout-standard .item-service .price-value {
@@ -1722,10 +1715,6 @@
 	padding: 5px 10px 10px 10px;
 }
 
-.checkout-standard .item-service .icon {
-	display: inline-block;
-}
-
 /* Checkout delivery/payment */
 .checkout-standard-delivery ,
 .checkout-standard-payment {
@@ -1837,14 +1826,8 @@
 }
 
 /* Checkout confirm basic part */
-.checkout-confirm-basic {
-	margin-top: 1.5em;
-}
-
-.checkout-confirm-basic h2 {
-	font-size: 125%;
-	font-weight: bold;
-	margin: 5px 0;
+.checkout-confirm {
+	padding: 0px 0px 0px 17px;
 }
 
 .checkout-confirm-basic .attr-list .name,

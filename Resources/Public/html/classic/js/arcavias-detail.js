@@ -228,9 +228,6 @@ jQuery(document).ready( function($) {
 				}
 			}
 		}
-		
-		$(".catalog-detail-additional .attributes .subproduct-actual").removeClass("subproduct-actual");
-		$(".catalog-detail-additional .attributes .subproduct-" + prodId).addClass("subproduct-actual");
 	});
 	
 	
