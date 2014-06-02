@@ -66,7 +66,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'catalog-detail',
 	array( 'Catalog' => 'detail' ),
-	array( 'Catalog' => 'detail' )
+	array()
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
