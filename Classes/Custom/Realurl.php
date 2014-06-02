@@ -76,6 +76,7 @@ class tx_arcavias_custom_realurl
 						array( 'GETvar' => 'arc[b-action]' ),
 						array( 'GETvar' => 'arc[b-position]' ),
 						array( 'GETvar' => 'arc[b-quantity]' ),
+						array( 'GETvar' => 'arc[b-coupon]' ),
 					),
 					'co' => array(
 						array( 'GETvar' => 'arc[c-step]' ),
