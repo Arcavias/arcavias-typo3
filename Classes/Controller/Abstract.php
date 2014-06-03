@@ -207,8 +207,16 @@ abstract class Tx_Arcavias_Controller_Abstract
 
 					foreach( (array) $this->settings['i18n'][$langid] as $entry )
 					{
-						if( isset( $entry['domain'] ) && isset( $entry['string'] ) && isset( $entry['trans'] ) ) {
-							$translations[$entry['domain']][$entry['string']] = (array) $entry['trans'];
+						if( isset( $entry['domain'] ) && isset( $entry['string'] ) && isset( $entry['trans'] ) )
+						{
+							$string = str_replace( '\\n', "\n", $entry['string'] );
+							$trans = array();
+
+							foreach( (array) $entry['trans'] as $tx ) {
+								$trans[] = str_replace( '\\n', "\n", $tx );
+							}
+
+							$translations[$entry['domain']][$string] = $trans;
 						}
 					}
 

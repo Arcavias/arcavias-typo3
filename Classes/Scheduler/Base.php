@@ -139,11 +139,35 @@ class Tx_Arcavias_Scheduler_Base
 	protected static function _createI18n( MShop_Context_Item_Interface $context, array $i18nPaths )
 	{
 		$list = array();
+		$config = $context->getConfig();
 		$langManager = MShop_Locale_Manager_Factory::createManager( $context )->getSubManager( 'language' );
 
 		foreach( $langManager->searchItems( $langManager->createSearch( true ) ) as $id => $langItem )
 		{
 			$i18n = new MW_Translation_Zend( $i18nPaths, 'gettext', $id, array( 'disableNotices' => true ) );
+
+			if( ( $entries = $config->get( 'i18n/' . $id ) ) !== null )
+			{
+				$translations = array();
+
+				foreach( (array) $entries as $entry )
+				{
+					if( isset( $entry['domain'] ) && isset( $entry['string'] ) && isset( $entry['trans'] ) )
+					{
+						$string = str_replace( '\\n', "\n", $entry['string'] );
+						$trans = array();
+
+						foreach( (array) $entry['trans'] as $tx ) {
+							$trans[] = str_replace( '\\n', "\n", $tx );
+						}
+
+						$translations[$entry['domain']][$string] = $trans;
+					}
+				}
+
+				$i18n = new MW_Translation_Decorator_Memory( $i18n, $translations );
+			}
+
 			$list[$id] = $i18n;
 		}
 
