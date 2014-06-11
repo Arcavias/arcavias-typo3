@@ -21,6 +21,8 @@ class Tx_Arcavias_Scheduler_Task_Email4
 	private $_fieldSenderFrom = 'arcavias_sender_from';
 	private $_fieldSenderEmail = 'arcavias_sender_email';
 	private $_fieldReplyEmail = 'arcavias_reply_email';
+	private $_fieldPageDetail = 'arcavias_pageid_detail';
+	private $_fieldContentBaseurl = 'arcavias_content_baseurl';
 
 
 	/**
@@ -36,6 +38,7 @@ class Tx_Arcavias_Scheduler_Task_Email4
 			$langid = $GLOBALS['BE_USER']->user['lang'];
 		}
 
+
 		$conf = Tx_Arcavias_Base::parseTS( $this->{$this->_fieldTSconfig} );
 
 		if( $this->{$this->_fieldSenderFrom} != '' ) {
@@ -49,6 +52,15 @@ class Tx_Arcavias_Scheduler_Task_Email4
 		if( $this->{$this->_fieldReplyEmail} != '' ) {
 			$conf['client']['html']['email']['reply-email'] = $this->{$this->_fieldReplyEmail};
 		}
+
+		if( $this->{$this->_fieldContentBaseurl} != '' ) {
+			$conf['client']['html']['common']['content']['baseurl'] = $this->{$this->_fieldContentBaseurl};
+		}
+
+		if( $this->{$this->_fieldPageDetail} != '' ) {
+			$conf['client']['html']['catalog']['detail']['url']['target'] = $this->{$this->_fieldPageDetail};
+		}
+
 
 		$context = Tx_Arcavias_Scheduler_Base::getContext( $conf );
 		$arcavias = Tx_Arcavias_Base::getArcavias();

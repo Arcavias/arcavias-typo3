@@ -18,6 +18,8 @@ abstract class Tx_Arcavias_Scheduler_Provider_Email
 	private $_fieldSenderFrom = 'arcavias_sender_from';
 	private $_fieldSenderEmail = 'arcavias_sender_email';
 	private $_fieldReplyEmail = 'arcavias_reply_email';
+	private $_fieldPageDetail = 'arcavias_pageid_detail';
+	private $_fieldContentBaseurl = 'arcavias_content_baseurl';
 
 
 	/**
@@ -95,6 +97,42 @@ abstract class Tx_Arcavias_Scheduler_Provider_Email
 		);
 
 
+		// In case of editing a task, set to the internal value if data wasn't already submitted
+		if( empty( $taskInfo[$this->_fieldPageDetail] ) && $parentObject->CMD === 'edit' ) {
+			$taskInfo[$this->_fieldPageDetail] = $task->{$this->_fieldPageDetail};
+		}
+
+		$taskInfo[$this->_fieldPageDetail] = htmlspecialchars( $taskInfo[$this->_fieldPageDetail], ENT_QUOTES, 'UTF-8' );
+
+		$fieldStr = '<input name="tx_scheduler[%1$s]" id="%1$s" value="%2$s">';
+		$fieldCode = sprintf( $fieldStr, $this->_fieldPageDetail, $taskInfo[$this->_fieldPageDetail] );
+
+		$additionalFields[$this->_fieldPageDetail] = array(
+			'code'     => $fieldCode,
+			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:email.label.page-detail',
+			'cshKey'   => 'xMOD_tx_arcavias',
+			'cshLabel' => $this->_fieldPageDetail
+		);
+
+
+		// In case of editing a task, set to the internal value if data wasn't already submitted
+		if( empty( $taskInfo[$this->_fieldContentBaseurl] ) && $parentObject->CMD === 'edit' ) {
+			$taskInfo[$this->_fieldContentBaseurl] = $task->{$this->_fieldContentBaseurl};
+		}
+
+		$taskInfo[$this->_fieldContentBaseurl] = htmlspecialchars( $taskInfo[$this->_fieldContentBaseurl], ENT_QUOTES, 'UTF-8' );
+
+		$fieldStr = '<input name="tx_scheduler[%1$s]" id="%1$s" value="%2$s">';
+		$fieldCode = sprintf( $fieldStr, $this->_fieldContentBaseurl, $taskInfo[$this->_fieldContentBaseurl] );
+
+		$additionalFields[$this->_fieldContentBaseurl] = array(
+			'code'     => $fieldCode,
+			'label'    => 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:email.label.content-baseurl',
+			'cshKey'   => 'xMOD_tx_arcavias',
+			'cshLabel' => $this->_fieldContentBaseurl
+		);
+
+
 		$additionalFields += parent::_getAdditionalFields( $taskInfo, $task, $parentObject );
 
 		return $additionalFields;
@@ -116,6 +154,8 @@ abstract class Tx_Arcavias_Scheduler_Provider_Email
 		$task->{$this->_fieldSenderFrom} = $submittedData[$this->_fieldSenderFrom];
 		$task->{$this->_fieldSenderEmail} = $submittedData[$this->_fieldSenderEmail];
 		$task->{$this->_fieldReplyEmail} = $submittedData[$this->_fieldReplyEmail];
+		$task->{$this->_fieldPageDetail} = $submittedData[$this->_fieldPageDetail];
+		$task->{$this->_fieldContentBaseurl} = $submittedData[$this->_fieldContentBaseurl];
 	}
 
 
@@ -138,6 +178,16 @@ abstract class Tx_Arcavias_Scheduler_Provider_Email
 			&& preg_match( '/^.+@[a-zA-Z0-9\-]+(\.[a-zA-Z0-9\-]+)*$/', $submittedData[$this->_fieldReplyEmail] ) !== 1
 		) {
 			throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:email.error.reply-email.invalid' ) );
+		}
+
+		if( $submittedData[$this->_fieldPageDetail] != ''
+			&& preg_match( '/^[0-9]+$/', $submittedData[$this->_fieldPageDetail] ) !== 1 ) {
+			throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:email.error.page-detail.invalid' ) );
+		}
+
+		if( $submittedData[$this->_fieldContentBaseurl] != ''
+			&& preg_match( '#^[a-z]+://[a-zA-Z0-9\-]+(\.[a-zA-Z0-9\-]+)*(:[0-9]+)?/.*$#', $submittedData[$this->_fieldContentBaseurl] ) !== 1 ) {
+			throw new Exception( $GLOBALS['LANG']->sL( 'LLL:EXT:arcavias/Resources/Private/Language/Scheduler.xml:email.error.content-baseurl.invalid' ) );
 		}
 
 		parent::_validateAdditionalFields( $submittedData, $parentObject );
