@@ -186,12 +186,65 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email6Test
 	/**
 	 * @test
 	 */
+	public function validateAdditionalFieldsInvalidPageID()
+	{
+		$data = array(
+			'arcavias_controller' => 'testcntl',
+			'arcavias_sitecode' => 'testsite',
+			'arcavias_sender_email' => 'sender@test',
+			'arcavias_pageid_detail' => 'a',
+		);
+		$module = new tx_scheduler_Module();
+
+		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function validateAdditionalFieldsInvalidBaseurlNoProtocol()
+	{
+		$data = array(
+			'arcavias_controller' => 'testcntl',
+			'arcavias_sitecode' => 'testsite',
+			'arcavias_sender_email' => 'sender@test',
+			'arcavias_content_baseurl' => 'localhost',
+		);
+		$module = new tx_scheduler_Module();
+
+		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function validateAdditionalFieldsInvalidBaseurlNoDomain()
+	{
+		$data = array(
+			'arcavias_controller' => 'testcntl',
+			'arcavias_sitecode' => 'testsite',
+			'arcavias_sender_email' => 'sender@test',
+			'arcavias_content_baseurl' => 'https:///',
+		);
+		$module = new tx_scheduler_Module();
+
+		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function validateAdditionalFields()
 	{
 		$data = array(
 			'arcavias_sitecode' => 'default',
 			'arcavias_controller' => 'catalog/index/optimize',
 			'arcavias_sender_email' => 'sender@test',
+			'arcavias_pageid_detail' => '123',
+			'arcavias_content_baseurl' => 'https://www.arcavias.org:80/up/tx_/',
 		);
 		$module = new \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController();
 
