@@ -61,7 +61,8 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email4Test
 		$this->assertArrayHasKey( 'arcavias_config', $result );
 		$this->assertArrayHasKey( 'arcavias_sender_from', $result );
 		$this->assertArrayHasKey( 'arcavias_sender_email', $result );
-		$this->assertArrayHasKey( 'arcavias_reply_email', $result );
+		$this->assertArrayHasKey( 'arcavias_pageid_detail', $result );
+		$this->assertArrayHasKey( 'arcavias_content_baseurl', $result );
 	}
 
 
@@ -77,6 +78,8 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email4Test
 			'arcavias_sender_from' => 'test name',
 			'arcavias_sender_email' => 'sender@test',
 			'arcavias_reply_email' => 'reply@test',
+			'arcavias_pageid_detail' => '123',
+			'arcavias_content_baseurl' => 'https://localhost/',
 		);
 		$task = new tx_scheduler_EmailTask();
 
@@ -88,6 +91,8 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email4Test
 		$this->assertEquals( 'test name', $task->arcavias_sender_from );
 		$this->assertEquals( 'sender@test', $task->arcavias_sender_email );
 		$this->assertEquals( 'reply@test', $task->arcavias_reply_email );
+		$this->assertEquals( '123', $task->arcavias_pageid_detail );
+		$this->assertEquals( 'https://localhost/', $task->arcavias_content_baseurl );
 	}
 
 
@@ -188,12 +193,65 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email4Test
 	/**
 	 * @test
 	 */
+	public function validateAdditionalFieldsInvalidPageID()
+	{
+		$data = array(
+			'arcavias_controller' => 'testcntl',
+			'arcavias_sitecode' => 'testsite',
+			'arcavias_sender_email' => 'sender@test',
+			'arcavias_pageid_detail' => 'a',
+		);
+		$module = new tx_scheduler_Module();
+
+		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function validateAdditionalFieldsInvalidBaseurlNoProtocol()
+	{
+		$data = array(
+			'arcavias_controller' => 'testcntl',
+			'arcavias_sitecode' => 'testsite',
+			'arcavias_sender_email' => 'sender@test',
+			'arcavias_content_baseurl' => 'localhost',
+		);
+		$module = new tx_scheduler_Module();
+
+		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function validateAdditionalFieldsInvalidBaseurlNoDomain()
+	{
+		$data = array(
+			'arcavias_controller' => 'testcntl',
+			'arcavias_sitecode' => 'testsite',
+			'arcavias_sender_email' => 'sender@test',
+			'arcavias_content_baseurl' => 'https:///',
+		);
+		$module = new tx_scheduler_Module();
+
+		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function validateAdditionalFields()
 	{
 		$data = array(
 			'arcavias_sitecode' => 'default',
 			'arcavias_controller' => 'order/email/delivery',
 			'arcavias_sender_email' => 'sender@test',
+			'arcavias_pageid_detail' => '123',
+			'arcavias_content_baseurl' => 'https://www.arcavias.org:80/up/tx_/',
 		);
 		$module = new tx_scheduler_Module();
 
