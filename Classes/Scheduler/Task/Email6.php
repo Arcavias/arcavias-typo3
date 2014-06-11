@@ -23,6 +23,8 @@ class Email6 extends \TYPO3\CMS\Scheduler\Task\AbstractTask
 	private $_fieldSenderFrom = 'arcavias_sender_from';
 	private $_fieldSenderEmail = 'arcavias_sender_email';
 	private $_fieldReplyEmail = 'arcavias_reply_email';
+	private $_fieldPageDetail = 'arcavias_pageid_detail';
+	private $_fieldContentBaseurl = 'arcavias_content_baseurl';
 
 
 	/**
@@ -38,10 +40,28 @@ class Email6 extends \TYPO3\CMS\Scheduler\Task\AbstractTask
 			$langid = $GLOBALS['BE_USER']->user['lang'];
 		}
 
+
 		$conf = \Tx_Arcavias_Base::parseTS( $this->{$this->_fieldTSconfig} );
-		$conf['client']['html']['email']['from-name'] = $this->{$this->_fieldSenderFrom};
-		$conf['client']['html']['email']['from-email'] = $this->{$this->_fieldSenderEmail};
-		$conf['client']['html']['email']['reply-email'] = $this->{$this->_fieldReplyEmail};
+
+		if( $this->{$this->_fieldSenderFrom} != '' ) {
+			$conf['client']['html']['email']['from-name'] = $this->{$this->_fieldSenderFrom};
+		}
+
+		if( $this->{$this->_fieldSenderEmail} != '' ) {
+			$conf['client']['html']['email']['from-email'] = $this->{$this->_fieldSenderEmail};
+		}
+
+		if( $this->{$this->_fieldReplyEmail} != '' ) {
+			$conf['client']['html']['email']['reply-email'] = $this->{$this->_fieldReplyEmail};
+		}
+
+		if( $this->{$this->_fieldContentBaseurl} != '' ) {
+			$conf['client']['html']['common']['content']['baseurl'] = $this->{$this->_fieldContentBaseurl};
+		}
+
+		if( $this->{$this->_fieldPageDetail} != '' ) {
+			$conf['client']['html']['catalog']['detail']['url']['target'] = $this->{$this->_fieldPageDetail};
+		}
 
 		$context = \Tx_Arcavias_Scheduler_Base::getContext( $conf );
 		$arcavias = \Tx_Arcavias_Base::getArcavias();
