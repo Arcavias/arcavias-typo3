@@ -194,7 +194,7 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email6Test
 			'arcavias_sender_email' => 'sender@test',
 			'arcavias_pageid_detail' => 'a',
 		);
-		$module = new tx_scheduler_Module();
+		$module = new \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController();
 
 		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
 	}
@@ -211,7 +211,7 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email6Test
 			'arcavias_sender_email' => 'sender@test',
 			'arcavias_content_baseurl' => 'localhost',
 		);
-		$module = new tx_scheduler_Module();
+		$module = new \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController();
 
 		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
 	}
@@ -228,7 +228,7 @@ class Tx_Arcavias_Tests_Unit_Scheduler_Provider_Email6Test
 			'arcavias_sender_email' => 'sender@test',
 			'arcavias_content_baseurl' => 'https:///',
 		);
-		$module = new tx_scheduler_Module();
+		$module = new \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController();
 
 		$this->assertFalse( $this->_object->validateAdditionalFields( $data, $module ) );
 	}
