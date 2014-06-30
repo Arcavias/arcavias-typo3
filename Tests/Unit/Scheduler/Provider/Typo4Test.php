@@ -9,7 +9,7 @@ class tx_scheduler_TestTask extends tx_scheduler_Task
 }
 
 
-if( !class_exists( 'tx_scheduler_Module' ) )
+if( !class_exists( 'tx_scheduler_Module', false ) )
 {
 	class tx_scheduler_Module
 	{
