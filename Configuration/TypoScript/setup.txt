@@ -32,12 +32,14 @@ plugin.tx_arcavias {
 						chash = 0
 					}
 				}
-				basket.standard.url.config {
-					chash = 0
-				}
+				basket.standard.url.config.chash = 0
 				checkout {
-					standard.url.config {
-						chash = 0
+					standard {
+						summary.option.terms {
+							privacy.url.config.chash = 0
+							url.config.chash = 0
+						}
+						url.config.chash = 0
 					}
 					confirm.url.config {
 						absoluteUri = 1
