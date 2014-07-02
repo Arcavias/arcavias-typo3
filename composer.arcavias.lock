@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "04b980b150bc7d40aa2f459d87292c0a4eba8198"
+                "reference": "a866a67b8ebf6136091f1c511e2d0feb912bd18a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/04b980b150bc7d40aa2f459d87292c0a4eba8198",
-                "reference": "04b980b150bc7d40aa2f459d87292c0a4eba8198",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/a866a67b8ebf6136091f1c511e2d0feb912bd18a",
+                "reference": "a866a67b8ebf6136091f1c511e2d0feb912bd18a",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-06-02 16:01:49"
+            "time": "2014-06-30 08:26:07"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -213,7 +213,8 @@
             "authors": [
                 {
                     "name": "Michiel Rook",
-                    "email": "mrook@php.net"
+                    "email": "mrook@php.net",
+                    "role": "Lead"
                 },
                 {
                     "name": "Phing Community",
