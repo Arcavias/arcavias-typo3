@@ -62,12 +62,24 @@ abstract class Tx_Arcavias_Controller_Abstract
 
 		if( !isset( self::$_cache ) )
 		{
-			t3lib_cache::initializeCachingFramework();
-			$cache = $GLOBALS['typo3CacheManager']->getCache( 'arcavias' );
-
 			/** @todo Use modern API in TYPO3 6.3 and above */
 			// \TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
 			// $cache = GeneralUtility::makeInstance( 'TYPO3\\CMS\\Core\\Cache\\CacheManager' )->getCache( 'arcavias' );
+
+			t3lib_cache::initializeCachingFramework();
+
+			try
+			{
+				$cache = $GLOBALS['typo3CacheManager']->getCache( 'arcavias' );
+			}
+			catch( t3lib_cache_exception_NoSuchCache $e )
+			{
+				$cache = $GLOBALS['typo3CacheFactory']->create( 'arcavias',
+					$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['arcavias']['frontend'],
+					$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['arcavias']['backend'],
+					$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['arcavias']['options']
+				);
+			}
 
 			self::$_cache = new MW_Cache_Typo3( array( 'siteid' => self::$_locale->getSiteId() ), $cache );
 		}

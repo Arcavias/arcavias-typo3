@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "5f6aee991536e8249fd6674036f5656edf8c3e6f"
+                "reference": "a14deb15eb5ae36868c624bf5f639147f80a59b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/5f6aee991536e8249fd6674036f5656edf8c3e6f",
-                "reference": "5f6aee991536e8249fd6674036f5656edf8c3e6f",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/a14deb15eb5ae36868c624bf5f639147f80a59b2",
+                "reference": "a14deb15eb5ae36868c624bf5f639147f80a59b2",
                 "shasum": ""
             },
             "type": "arcavias-extension",
@@ -111,7 +111,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-07-04 13:08:08"
+            "time": "2014-07-04 20:11:46"
         },
         {
             "name": "arcavias/ext-zend",
