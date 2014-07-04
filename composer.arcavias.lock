@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ba312c0174bf04120330aa011c8c947",
+    "hash": "0a4faeae5f8b16c4a1479f2d06cbac8a",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "a866a67b8ebf6136091f1c511e2d0feb912bd18a"
+                "reference": "06b0f00c57289e2debb90d6dbf299d01c3c4d16b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/a866a67b8ebf6136091f1c511e2d0feb912bd18a",
-                "reference": "a866a67b8ebf6136091f1c511e2d0feb912bd18a",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/06b0f00c57289e2debb90d6dbf299d01c3c4d16b",
+                "reference": "06b0f00c57289e2debb90d6dbf299d01c3c4d16b",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-06-30 08:26:07"
+            "time": "2014-07-04 13:55:10"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "f1388506ffdf3068cc131ff40f1ab17cdae1743a"
+                "reference": "a14deb15eb5ae36868c624bf5f639147f80a59b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/f1388506ffdf3068cc131ff40f1ab17cdae1743a",
-                "reference": "f1388506ffdf3068cc131ff40f1ab17cdae1743a",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/a14deb15eb5ae36868c624bf5f639147f80a59b2",
+                "reference": "a14deb15eb5ae36868c624bf5f639147f80a59b2",
                 "shasum": ""
             },
             "type": "arcavias-extension",
@@ -111,7 +111,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-03-29 18:48:45"
+            "time": "2014-07-04 20:11:46"
         },
         {
             "name": "arcavias/ext-zend",
@@ -213,8 +213,7 @@
             "authors": [
                 {
                     "name": "Michiel Rook",
-                    "email": "mrook@php.net",
-                    "role": "Lead"
+                    "email": "mrook@php.net"
                 },
                 {
                     "name": "Phing Community",
@@ -732,7 +731,7 @@
         "arcavias/ext-zend": 20
     },
     "platform": {
-        "php": ">=5.2.0"
+        "php": ">=5.3.0"
     },
     "platform-dev": [
 
