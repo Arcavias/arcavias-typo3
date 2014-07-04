@@ -17,6 +17,7 @@ abstract class Tx_Arcavias_Controller_Abstract
 	extends Tx_Extbase_MVC_Controller_ActionController
 {
 	private $_arcavias;
+	static private $_cache;
 	static private $_locale;
 	static private $_context;
 	static private $_i18n = array();
@@ -41,6 +42,7 @@ abstract class Tx_Arcavias_Controller_Abstract
 		// Re-initialize the config object because the settings are different due to flexforms
 		$context->setConfig( $config );
 
+
 		if( !isset( self::$_locale ) )
 		{
 			$langid = 'en';
@@ -57,6 +59,21 @@ abstract class Tx_Arcavias_Controller_Abstract
 			self::$_locale = $locale;
 		}
 
+
+		if( !isset( self::$_cache ) )
+		{
+			t3lib_cache::initializeCachingFramework();
+			$cache = $GLOBALS['typo3CacheManager']->getCache( 'arcavias' );
+
+			/** @todo Use modern API in TYPO3 6.3 and above */
+			// \TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
+			// $cache = GeneralUtility::makeInstance( 'TYPO3\\CMS\\Core\\Cache\\CacheManager' )->getCache( 'arcavias' );
+
+			self::$_cache = new MW_Cache_Typo3( array( 'siteid' => self::$_locale->getSiteId() ), $cache );
+		}
+
+
+		$context->setCache( self::$_cache );
 		$context->setLocale( self::$_locale );
 		$context->setI18n( $this->_getI18n( array( self::$_locale->getLanguageId() ) ) );
 

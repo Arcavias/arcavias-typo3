@@ -66,7 +66,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'catalog-detail',
 	array( 'Catalog' => 'detail' ),
-	array()
+	array( 'Catalog' => 'detail' )
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
@@ -159,12 +159,25 @@ else
 
 
 /**
- * Add RealURL Configuration
+ * Add RealURL configuration
  */
 
 if( Tx_Arcavias_Base::getExtConfig( 'useRealUrlAutoConfig', 1 ) != 0 ) {
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['arcavias'] =
 		'EXT:arcavias/Classes/Custom/Realurl.php:tx_arcavias_custom_realurl->addAutoConfig';
+}
+
+
+/**
+ * Add cache configuration
+ */
+
+if( !is_array( $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias'] ) ) {
+    $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias'] = array();
+}
+
+if( !isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['frontend'] ) ) {
+    $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['frontend'] = 't3lib_cache_frontend_StringFrontend';
 }
 
 ?>
