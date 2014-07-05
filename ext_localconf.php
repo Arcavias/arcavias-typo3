@@ -191,11 +191,11 @@ if( t3lib_utility_VersionNumber::convertVersionNumberToInteger( TYPO3_version ) 
     }
 
     if( !isset( $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['options']['cacheTable'] ) ) {
-        $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['options']['cacheTable'] = 'cf_arcavias';
+        $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['options']['cacheTable'] = 'tx_arcavias_cache';
     }
 
     if( !isset( $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['options']['tagsTable'] ) ) {
-        $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['options']['tagsTable'] = 'cf_arcavias_tags';
+        $TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['arcavias']['options']['tagsTable'] = 'tx_arcavias_cache_tags';
     }
 }
 

@@ -15,7 +15,7 @@ CREATE TABLE fe_users (
 
 # Create cache tables for TYPO3 < 4.6
 
-CREATE TABLE cf_arcavias (
+CREATE TABLE tx_arcavias_cache (
     id int(11) unsigned NOT NULL auto_increment,
     identifier varchar(250) DEFAULT '' NOT NULL,
     crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE cf_arcavias (
     KEY cache_id (identifier)
 ) ENGINE=InnoDB;
 
-CREATE TABLE cf_arcavias_tags (
+CREATE TABLE tx_arcavias_cache_tags (
     id int(11) unsigned NOT NULL auto_increment,
     identifier varchar(250) DEFAULT '' NOT NULL,
     tag varchar(250) DEFAULT '' NOT NULL,
