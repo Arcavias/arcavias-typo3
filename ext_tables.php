@@ -31,6 +31,14 @@ if ( TYPO3_MODE === 'BE' )
 
 $pluginName = str_replace( '_', '', $_EXTKEY );
 
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-count'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-count', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogCount.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-count', 'Arcavias - Catalog count source' );
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-detail'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-detail', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogDetail.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-detail', 'Arcavias - Catalog detail' );
+
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-filter'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-filter', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogFilter.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-filter', 'Arcavias - Catalog filter' );
@@ -39,17 +47,20 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-list', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogList.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-list', 'Arcavias - Catalog list' );
 
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-listsimple'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-listsimple', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogListSimple.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-listsimple', 'Arcavias - Catalog simple search list' );
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-session'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-session', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogSession.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-session', 'Arcavias - Catalog user related session' );
+
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-stage'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-stage', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogStage.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-stage', 'Arcavias - Catalog stage area' );
 
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-detail'] = 'pi_flexform';
-t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-detail', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogDetail.xml' );
-Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-detail', 'Arcavias - Catalog detail' );
-
-Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-session', 'Arcavias - Catalog user related session' );
-Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-listsimple', 'Arcavias - Catalog simple search list' );
-Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-count', 'Arcavias - Catalog count source' );
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-stock'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-stock', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogStock.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-stock', 'Arcavias - Catalog stock source' );
 
 
@@ -62,14 +73,16 @@ t3lib_extMgm::addPiFlexFormValue( $pluginName . '_basket-standard', 'FILE:EXT:' 
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'basket-standard', 'Arcavias - Basket standard' );
 
 
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_checkout-confirm'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_checkout-confirm', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CheckoutConfirm.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-confirm', 'Arcavias - Checkout confirm' );
+
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_checkout-standard'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_checkout-standard', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CheckoutStandard.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-standard', 'Arcavias - Checkout standard' );
 
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_checkout-confirm'] = 'pi_flexform';
-Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-confirm', 'Arcavias - Checkout confirm' );
-
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_checkout-update'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_checkout-update', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CheckoutUpdate.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'checkout-update', 'Arcavias - Checkout payment update' );
 
 
