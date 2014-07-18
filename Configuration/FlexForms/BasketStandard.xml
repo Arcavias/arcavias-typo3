@@ -33,6 +33,16 @@
 					</config>
 				</TCEforms>
 			</settings.client.html.checkout.standard.url.target>
+			<settings.typo3.tsconfig>
+				<TCEforms>
+					<label>LLL:EXT:arcavias/Resources/Private/Language/Plugins.xml:default.typo3.tsconfig</label>
+					<config>
+						<type>text</type>
+						<size>40</size>
+						<rows>10</rows>
+					</config>
+				</TCEforms>
+			</settings.typo3.tsconfig>
 		</el>
 	</ROOT>
 </T3DataStructure>
