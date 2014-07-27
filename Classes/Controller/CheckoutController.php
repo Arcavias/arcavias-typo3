@@ -8,15 +8,6 @@
 
 
 /**
- * Used if the PHP gettext extension isn't available.
- * It's only required as translation helper but actually does nothing.
- */
-if( !function_exists( '_' ) ) {
-	function _() {};
-}
-
-
-/**
  * Arcavias checkout controller.
  *
  * @package TYPO3_Arcavias
