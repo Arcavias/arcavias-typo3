@@ -24,6 +24,6 @@
 	},
 	"include-path": ["Resources/Private/Libraries/zendlib"],
 	"extra": {
-		"ext-path": "Resources/Private/Libraries/ext/"
+		"ext-path": "Resources/Public/ext/"
 	}
 }
