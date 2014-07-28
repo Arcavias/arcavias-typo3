@@ -45,13 +45,25 @@ abstract class Tx_Arcavias_Controller_Abstract
 
 		if( !isset( self::$_locale ) )
 		{
+			$session = $context->getSession();
+
+			$sitecode = $config->get( 'mshop/locale/site', 'default' );
+
 			$langid = 'en';
 			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
 				$langid = $GLOBALS['TSFE']->config['config']['language'];
 			}
 
-			$sitecode = $config->get( 'mshop/locale/site', 'default' );
-			$currency = $config->get( 'mshop/locale/currency', 'EUR' );
+			$current = $session->get( 'arcavias/locale/currencyid', 'EUR' );
+			$currency = $config->get( 'mshop/locale/currency', $current );
+
+			if( $this->request->hasArgument( 'loc-currency' ) === true ) {
+				$currency = $this->request->getArgument( 'loc-currency' );
+			}
+
+			if( $currency !== $current ) {
+				$session->set( 'arcavias/locale/currencyid', $currency );
+			}
 
 			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
 			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
@@ -117,6 +129,10 @@ abstract class Tx_Arcavias_Controller_Abstract
 		$langid = $context->getLocale()->getLanguageId();
 		$i18n = $this->_getI18n( array( $langid ) );
 
+		// required for reloading to the current page
+		$params = $this->request->getArguments();
+		$params['target'] = $GLOBALS["TSFE"]->id;
+
 		$view = new MW_View_Default();
 
 		$helper = new MW_View_Helper_Url_Typo3( $view, $this->uriBuilder );
@@ -125,7 +141,7 @@ abstract class Tx_Arcavias_Controller_Abstract
 		$helper = new MW_View_Helper_Translate_Default( $view, $i18n[$langid] );
 		$view->addHelper( 'translate', $helper );
 
-		$helper = new MW_View_Helper_Parameter_Default( $view, $this->request->getArguments() );
+		$helper = new MW_View_Helper_Parameter_Default( $view, $params );
 		$view->addHelper( 'param', $helper );
 
 		$helper = new MW_View_Helper_Config_Default( $view, $config );
