@@ -48,9 +48,9 @@ class Tx_Arcavias_Tests_Unit_Controller_BasketControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Basket_Standard_Factory::injectClient( $name, $client );
 		$output = $this->_object->indexAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Basket_Standard_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}
@@ -86,9 +86,9 @@ class Tx_Arcavias_Tests_Unit_Controller_BasketControllerTest
 		$client->expects( $this->once() )->method( 'getBody' )->will( $this->returnValue( 'body' ) );
 		$client->expects( $this->once() )->method( 'getHeader' )->will( $this->returnValue( 'header' ) );
 
-		Client_Html_Account_History_Factory::injectClient( $name, $client );
+		Client_Html_Basket_Mini_Factory::injectClient( $name, $client );
 		$output = $this->_object->smallAction();
-		Client_Html_Account_History_Factory::injectClient( $name, null );
+		Client_Html_Basket_Mini_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 'body', $output );
 	}
@@ -104,9 +104,9 @@ class Tx_Arcavias_Tests_Unit_Controller_BasketControllerTest
 
 		$client->expects( $this->once() )->method( 'process' )->will( $this->throwException( new Exception() ) );
 
-		Client_Html_Basket_Standard_Factory::injectClient( $name, $client );
+		Client_Html_Basket_Mini_Factory::injectClient( $name, $client );
 		$output = $this->_object->smallAction();
-		Client_Html_Basket_Standard_Factory::injectClient( $name, null );
+		Client_Html_Basket_Mini_Factory::injectClient( $name, null );
 
 		$this->assertEquals( 1, count( t3lib_FlashMessageQueue::getAllMessagesAndFlush() ) );
 		$this->assertNull( $output );
