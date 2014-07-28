@@ -10,6 +10,7 @@ CREATE TABLE fe_users (
 	last_name varchar(50) DEFAULT '' NOT NULL,
 	zip varchar(20) DEFAULT '' NOT NULL,
 	date_of_birth int(11) DEFAULT '0' NOT NULL,
+	vatid varchar(32) DEFAULT '' NOT NULL,
 );
 
 
