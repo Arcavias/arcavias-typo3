@@ -22,6 +22,14 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['confDirs'][$_EXTKEY] = 'EXT:' 
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
+	'locale-select',
+	array( 'Locale' => 'select' ),
+	array( 'Locale' => 'select' )
+);
+
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
 	'catalog-filter',
 	array( 'Catalog' => 'filter' ),
 	array( 'Catalog' => 'filter' )
