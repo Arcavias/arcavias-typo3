@@ -47,12 +47,34 @@ abstract class Tx_Arcavias_Controller_Abstract
 		{
 			$session = $context->getSession();
 
-			$sitecode = $config->get( 'mshop/locale/site', 'default' );
 
-			$langid = 'en';
+			$current = $session->get( 'arcavias/locale/sitecode', 'default' );
+			$sitecode = $config->get( 'mshop/locale/site', $current );
+
+			if( $this->request->hasArgument( 'loc-site' ) === true ) {
+				$sitecode = $this->request->getArgument( 'loc-site' );
+			}
+
+			if( $sitecode !== $current ) {
+				$session->set( 'arcavias/locale/sitecode', $sitecode );
+			}
+
+
+			$current = $session->get( 'arcavias/locale/languageid', 'en' );
+			$langid = $config->get( 'mshop/locale/language', $current );
+
 			if( isset( $GLOBALS['TSFE']->config['config']['language'] ) ) {
 				$langid = $GLOBALS['TSFE']->config['config']['language'];
 			}
+
+			if( $this->request->hasArgument( 'loc-language' ) === true ) {
+				$langid = $this->request->getArgument( 'loc-language' );
+			}
+
+			if( $langid !== $current ) {
+				$session->set( 'arcavias/locale/languageid', $langid );
+			}
+
 
 			$current = $session->get( 'arcavias/locale/currencyid', 'EUR' );
 			$currency = $config->get( 'mshop/locale/currency', $current );
@@ -64,6 +86,7 @@ abstract class Tx_Arcavias_Controller_Abstract
 			if( $currency !== $current ) {
 				$session->set( 'arcavias/locale/currencyid', $currency );
 			}
+
 
 			$localeManager = MShop_Locale_Manager_Factory::createManager( $context );
 			$locale = $localeManager->bootstrap( $sitecode, $langid, $currency );
