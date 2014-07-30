@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "20def696d2ef84fc983cab49851d0b14",
+    "hash": "6f54434c78ca7640cb91cc01afaeb0b1",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
-            "version": "dev-master",
+            "version": "2014.07.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "26dbe03f33721f149313fbba09f179b2e4a568e7"
+                "reference": "e86182b7e8420230d4ad4fa3a3cdf405fee2d776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/26dbe03f33721f149313fbba09f179b2e4a568e7",
-                "reference": "26dbe03f33721f149313fbba09f179b2e4a568e7",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/e86182b7e8420230d4ad4fa3a3cdf405fee2d776",
+                "reference": "e86182b7e8420230d4ad4fa3a3cdf405fee2d776",
                 "shasum": ""
             },
             "require": {
@@ -79,24 +79,21 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-07-30 07:28:20"
+            "time": "2014-07-21 15:49:09"
         },
         {
             "name": "arcavias/ext-typo3",
-            "version": "dev-master",
+            "version": "2014.07.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "2a965c69ca1c5fd1abac70ce62282abf144ded6b"
+                "reference": "0b38f1c73453c3ba38d6dd6039be73d2e4fb2382"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/2a965c69ca1c5fd1abac70ce62282abf144ded6b",
-                "reference": "2a965c69ca1c5fd1abac70ce62282abf144ded6b",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/0b38f1c73453c3ba38d6dd6039be73d2e4fb2382",
+                "reference": "0b38f1c73453c3ba38d6dd6039be73d2e4fb2382",
                 "shasum": ""
-            },
-            "require": {
-                "arcavias/extension-installer": "dev-master"
             },
             "type": "arcavias-extension",
             "autoload": {
@@ -114,24 +111,21 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-07-25 12:09:24"
+            "time": "2014-07-30 10:14:32"
         },
         {
             "name": "arcavias/ext-zend",
-            "version": "dev-master",
+            "version": "2014.07.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-zend.git",
-                "reference": "053d18e99234162b885555d50985125caac66ee4"
+                "reference": "5bcccba83860500e2acdc991b556767397eb6a68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-zend/zipball/053d18e99234162b885555d50985125caac66ee4",
-                "reference": "053d18e99234162b885555d50985125caac66ee4",
+                "url": "https://api.github.com/repos/Arcavias/ext-zend/zipball/5bcccba83860500e2acdc991b556767397eb6a68",
+                "reference": "5bcccba83860500e2acdc991b556767397eb6a68",
                 "shasum": ""
-            },
-            "require": {
-                "arcavias/extension-installer": "dev-master"
             },
             "type": "arcavias-extension",
             "autoload": {
@@ -148,11 +142,11 @@
             ],
             "description": "Arcavias extension for utilizing Zend Framework components",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-07-20 11:39:44"
+            "time": "2014-03-29 18:36:25"
         },
         {
             "name": "arcavias/extension-installer",
-            "version": "dev-master",
+            "version": "2014.03.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/extension-installer.git",
