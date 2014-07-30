@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0a4faeae5f8b16c4a1479f2d06cbac8a",
+    "hash": "20def696d2ef84fc983cab49851d0b14",
     "packages": [
         {
             "name": "arcavias/arcavias-core",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "fc25dfb2fb5c749e6a777ff1ebcba298d7c77335"
+                "reference": "26dbe03f33721f149313fbba09f179b2e4a568e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/fc25dfb2fb5c749e6a777ff1ebcba298d7c77335",
-                "reference": "fc25dfb2fb5c749e6a777ff1ebcba298d7c77335",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/26dbe03f33721f149313fbba09f179b2e4a568e7",
+                "reference": "26dbe03f33721f149313fbba09f179b2e4a568e7",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-07-05 10:38:59"
+            "time": "2014-07-30 07:28:20"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -87,13 +87,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "84dfd535ee61a74afee006fd09972435b8e1170a"
+                "reference": "2a965c69ca1c5fd1abac70ce62282abf144ded6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/84dfd535ee61a74afee006fd09972435b8e1170a",
-                "reference": "84dfd535ee61a74afee006fd09972435b8e1170a",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/2a965c69ca1c5fd1abac70ce62282abf144ded6b",
+                "reference": "2a965c69ca1c5fd1abac70ce62282abf144ded6b",
                 "shasum": ""
+            },
+            "require": {
+                "arcavias/extension-installer": "dev-master"
             },
             "type": "arcavias-extension",
             "autoload": {
@@ -111,7 +114,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-07-05 11:18:58"
+            "time": "2014-07-25 12:09:24"
         },
         {
             "name": "arcavias/ext-zend",
@@ -119,13 +122,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-zend.git",
-                "reference": "5bcccba83860500e2acdc991b556767397eb6a68"
+                "reference": "053d18e99234162b885555d50985125caac66ee4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-zend/zipball/5bcccba83860500e2acdc991b556767397eb6a68",
-                "reference": "5bcccba83860500e2acdc991b556767397eb6a68",
+                "url": "https://api.github.com/repos/Arcavias/ext-zend/zipball/053d18e99234162b885555d50985125caac66ee4",
+                "reference": "053d18e99234162b885555d50985125caac66ee4",
                 "shasum": ""
+            },
+            "require": {
+                "arcavias/extension-installer": "dev-master"
             },
             "type": "arcavias-extension",
             "autoload": {
@@ -142,7 +148,7 @@
             ],
             "description": "Arcavias extension for utilizing Zend Framework components",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-03-29 18:36:25"
+            "time": "2014-07-20 11:39:44"
         },
         {
             "name": "arcavias/extension-installer",
@@ -672,17 +678,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.5.0",
+            "version": "v2.5.2",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "b4b09c68ec2f2727574544ef0173684281a5033c"
+                "reference": "f868ecdbcc0276b6158dfbf08b9e98ce07f014e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b4b09c68ec2f2727574544ef0173684281a5033c",
-                "reference": "b4b09c68ec2f2727574544ef0173684281a5033c",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/f868ecdbcc0276b6158dfbf08b9e98ce07f014e1",
+                "reference": "f868ecdbcc0276b6158dfbf08b9e98ce07f014e1",
                 "shasum": ""
             },
             "require": {
@@ -717,7 +723,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-16 14:25:18"
+            "time": "2014-07-09 09:05:48"
         }
     ],
     "aliases": [
