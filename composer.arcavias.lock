@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/arcavias-core.git",
-                "reference": "d890e0617b156a7b5e1be2af5382556a7c10b955"
+                "reference": "e97f1cd67a19abf05d966e7bda50772746e26152"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/d890e0617b156a7b5e1be2af5382556a7c10b955",
-                "reference": "d890e0617b156a7b5e1be2af5382556a7c10b955",
+                "url": "https://api.github.com/repos/Arcavias/arcavias-core/zipball/e97f1cd67a19abf05d966e7bda50772746e26152",
+                "reference": "e97f1cd67a19abf05d966e7bda50772746e26152",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "portal",
                 "shop"
             ],
-            "time": "2014-07-30 12:44:31"
+            "time": "2014-07-30 16:08:25"
         },
         {
             "name": "arcavias/ext-typo3",
@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arcavias/ext-typo3.git",
-                "reference": "9f04020ad050a5ac1cc4aac3b5186612c0457c23"
+                "reference": "f540bc739f5beedba87c3377b1e4a3b6a98d1a58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/9f04020ad050a5ac1cc4aac3b5186612c0457c23",
-                "reference": "9f04020ad050a5ac1cc4aac3b5186612c0457c23",
+                "url": "https://api.github.com/repos/Arcavias/ext-typo3/zipball/f540bc739f5beedba87c3377b1e4a3b6a98d1a58",
+                "reference": "f540bc739f5beedba87c3377b1e4a3b6a98d1a58",
                 "shasum": ""
             },
             "type": "arcavias-extension",
@@ -111,7 +111,7 @@
             ],
             "description": "Arcavias extension for integration into TYPO3",
             "homepage": "http://www.arcavias.com/en",
-            "time": "2014-07-30 13:12:16"
+            "time": "2014-07-30 13:22:18"
         },
         {
             "name": "arcavias/ext-zend",
