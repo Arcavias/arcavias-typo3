@@ -31,6 +31,12 @@ if ( TYPO3_MODE === 'BE' )
 
 $pluginName = str_replace( '_', '', $_EXTKEY );
 
+
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_locale-select'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue( $pluginName . '_locale-select', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LocaleSelect.xml' );
+Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'locale-select', 'Arcavias - Locale selector' );
+
+
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginName . '_catalog-count'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue( $pluginName . '_catalog-count', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/CatalogCount.xml' );
 Tx_Extbase_Utility_Extension::registerPlugin( $_EXTKEY, 'catalog-count', 'Arcavias - Catalog count source' );
