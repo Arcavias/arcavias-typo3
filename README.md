@@ -1,4 +1,6 @@
-# Arcavias TYPO3 extension [![Build Status](https://travis-ci.org/Arcavias/arcavias-typo3.png?branch=master)](https://travis-ci.org/Arcavias/arcavias-typo3)
+# Arcavias TYPO3 extension
+[![Build Status](https://travis-ci.org/Arcavias/arcavias-typo3.png?branch=master)](https://travis-ci.org/Arcavias/arcavias-typo3)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Arcavias/arcavias-typo3/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Arcavias/arcavias-typo3/?branch=master)
 
 The repository contains a TYPO3 extension integrating the Arcavias e-commerce framework into TYPO3. The extension provides plugins for e.g. filter, list and detail views, for searching products as well as baskets and the checkout process.
 
