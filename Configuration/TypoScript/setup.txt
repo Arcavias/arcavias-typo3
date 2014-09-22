@@ -72,11 +72,12 @@ arcaviasJson {
 		select.orderBy = sorting
 		select.languageField = sys_language_uid
 	}
-}
-tt_content {
-	stdWrap {
-		dataWrap = 
-		innerWrap > 
+	
+	tt_content {
+		stdWrap {
+			dataWrap = 
+			innerWrap > 
+		}
 	}
 }
 
@@ -95,10 +96,11 @@ arcaviasPlain {
 		select.orderBy = sorting
 		select.languageField = sys_language_uid
 	}
-}
-tt_content {
-	stdWrap {
-		dataWrap = 
-		innerWrap > 
+	
+	tt_content {
+		stdWrap {
+			dataWrap = 
+			innerWrap > 
+		}
 	}
 }
